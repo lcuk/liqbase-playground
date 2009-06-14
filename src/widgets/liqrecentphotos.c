@@ -219,7 +219,7 @@ liqcell *liqrecentphotos_create()
 
 	if(self)
 	{
-		liqcell_propsets(  self, "backcolor", "rgb(255,255,0)" );
+	//	liqcell_propsets(  self, "backcolor", "rgb(255,255,0)" );
 
 
 
@@ -250,7 +250,7 @@ if(liqapp_pathexists(buf))
 		liqcell_handleradd(body,    "mouse",   liqcell_easyhandler_kinetic_mouse );
 		//liqcell_handleradd(self,    "click",   float_click);
 
-
+#ifdef USE_INOTIFY
 		//############################# timer1:liqtimer
 		liqcell *timer1=liqcell_quickcreatevis("timer1",   "liqtimer",   0,0,   0,0 );
 		// store ourselves on the tag for use later
@@ -260,7 +260,7 @@ if(liqapp_pathexists(buf))
 		liqcell_handleradd_withcontext(timer1,"timertick",timer_tick,self);
 		liqcell_setenabled(timer1,1);
 		liqcell_child_insert( self,timer1);
-		
+#endif		
 		
 		//liqcell *b;
 

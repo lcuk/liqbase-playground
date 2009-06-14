@@ -22,9 +22,17 @@
  *
  */
 
-// #
-// # test of font rendering
-// #
+
+//######################################################################
+//###### WARNING:::
+//######################################################################
+// this is the core liqbase-playground app instance
+// it is NOT a good example of a standalone widget application
+// use something like liqbook as basis for a stand alone application
+// this is in major flux and is the ONLY one with globals
+
+
+
 
 #include <stdlib.h>
 #include <stdio.h>

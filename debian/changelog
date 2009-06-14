@@ -1,0 +1,59 @@
+liqbase-playground (0.3.5) unstable; urgency=low
+
+  * bit more tweaking.
+
+ -- Gary Birkett <liquid@gmail.com>  Sat, 13 June 2009 12:41:03 +0200
+
+liqbase-playground (0.3.4) unstable; urgency=low
+
+  * bit of tweaking to layout.
+
+ -- Gary Birkett <liquid@gmail.com>  Sat, 13 June 2009 12:41:03 +0200
+
+liqbase-playground (0.3.3) unstable; urgency=low
+
+  * damn horrid silly extra x11 include.
+
+ -- Gary <liquid@gmail.com>  Tue, 09 June 2009 20:41:03 +0200
+
+liqbase-playground (0.3.2) unstable; urgency=low
+
+  * build dependencies still being a problem.
+
+ -- Gary <liquid@gmail.com>  Tue, 09 June 2009 20:41:03 +0200
+
+liqbase-playground (0.3.1) unstable; urgency=low
+
+  * another tweak.
+
+ -- Gary <liquid@gmail.com>  Tue, 08 June 2009 23:41:03 +0200
+
+liqbase-playground (0.3.0-dev-1) unstable; urgency=low
+
+  * trying again.
+
+ -- Gary <liquid@gmail.com>  Tue, 08 June 2009 23:41:03 +0200
+
+liqbase-playground (0.2.3-dev-1) unstable; urgency=low
+
+  * removed silly x11 header ref.
+
+ -- Gary <liquid@gmail.com>  Mon, 07 June 2009 23:41:03 +0200
+
+liqbase-playground (0.2.2-dev-1) unstable; urgency=low
+
+  * added some builddeps.
+
+ -- Gary <liquid@gmail.com>  Mon, 07 June 2009 23:41:03 +0200
+
+liqbase-playground (0.2.1-dev-1) unstable; urgency=low
+
+  * fixed calendar location.
+
+ -- Gary <liquid@gmail.com>  Mon, 07 June 2009 23:40:03 +0200
+
+liqbase-playground (0.2-dev-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Gary <liquid@gmail.com>  Sat, 30 May 2009 14:53:57 +0200

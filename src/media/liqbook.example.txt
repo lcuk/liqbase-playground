@@ -1,0 +1,188 @@
+
+liqbook example text.
+
+taken from liqbase.net
+
+welcome to liqbase
+liqbase is faster than paper.
+
+	
+If you like what I am doing, please donate to this project.
+it is a graphical playground for the Nokia Internet Tablets running Maemo.
+
+written by Gary Birkett (lcuk on #maemo)
+with extensive help from:
+KotCzarny, crashanddie
+
+special thanks to the raw beta testers:
+stskeeps, truejournals, melmoth, GeneralAntilles, lardman, qole, qwerty12, Thesandlord, justnick and a load of others.
+
+Additional guidance and support given by the rest of the maemo.org community members.
+
+Order from chaos.
+
+I have been steadily building up the capabilities of the new framework.
+
+The heavy coding process is starting to pay off now as I am seeing excellent results
+
+Have a look for yourself here:
+
+Please donate to this project if you like what you see, and of course vote for this video :)
+
+Brave new world.
+
+I have spent the last couple of months working towards curing some of the original limitations with liqbase.
+
+Progress hasn't been as fast as I hoped mainly because I am still doing a fulltime day-job and partly because my fingers physically cannot type as fast as my mind works.
+
+The progress so far has been described as breathtaking and I have left people speechless at what I have started to achieve.
+
+Have a look for yourself here:
+
+Please donate to this project if you like what you see, and of course vote for this video :)
+
+Maemo Summit 2008.
+In September 2008, I presented liqbase at the very first maemo summit held at the c-base in Berlin.
+
+
+liqbase, by Gary Birkett from Jamie Bennett on Vimeo.
+
+latest test .deb (0.1.5)
+
+
+maemo app listing, also available in maemo extras!
+
+liqbase is licensed under the GPL v2.
+
+
+
+
+
+things for the future
+
+principle features.
+sketching - faster than paper.
+liqbase includes one of the fastest graphical editors on this platform.
+It is designed to let you take be creative without getting in your way.
+You can write a note like a postit and instantly store it for later use.
+the editor includes a few basic tools for playing around and doodling (try the stamp tool for fun)
+
+use it to remember the milk, take someones name, get directions, doodle, squiggle and anything you generally do on paper
+think about interfaces for programs or just draw silly pictures, its entirely up to you.
+
+graffiti wall.
+live view showing all sketches drawn so far, instant memory recall.
+features full display high resolution tearfree kinetic scrolling.
+resizable display allows you to look closely or for a grand overview.
+you can highlight and edit any sketch.
+the system will never overwrite an existing sketch, everything you save will have a new name and appear at the top of the graffiti wall.
+you can delete sketches you no longer wish to have, however at this time, the delete command ONLY renames the files.
+they are recoverable by going behind the scenes. I will be adding options for full deletion with or without confirmation in due time.
+
+
+Book reader.
+Ascii based .txt book reader is included which is a proof of concept fullscreen book reader.
+Includes fullscreen kinetic scrolling and an autoscroll function(press menu key).
+It will remember hwere you are in the document and allow you to continue.
+It does not know many formats yet (all my books are .txt ...), but if you feel like adding more, have a go.
+
+Physics view.
+This screen will dispay a few of your sketches and allow you to manipulate them by drawing around.
+This screen is not really physics, but the name has stuck.
+Once you have some sketches try it - its relaxing.
+
+Stars.
+Good old starfields :)
+If you look close enough sometimes you might find lunch.
+
+Options/Display Resolution.
+You can change the display resolution (watch the notice further down) to any value, and most of the software will work with it.
+If you notice an area which does not work at an alternative resolution could you please let me know.
+Options/CPU Throttling.
+The rendering and UI does not always feel as responsive as it should, you can alter the CPU settings here.
+Changing a setting will keep that setting until you next reboot when it will return to On Demand.
+Options/Camera Blit Test.
+This is just a view from the camera, however if you press the Zoom buttons you might see a few more.
+This includes kinetic scrolling around a large number of copies.
+Options/Blit Test and Map.
+These are just fixed images which test the kinetic scrolling on whole images.
+The map was invaluable in Berlin.
+
+Test Area.
+This screen will attempt to load a few images and do the same as the physics view, on some machines it may be empty.
+
+png image saving
+I have (finally) added png image saving
+It doesn't do anything spectacular, but allows a screenshot or photo to be taken by pressing the hardware [FullScreen] key.
+I will be making use of this properly in the coming weeks
+(sneak peek)
+
+(note to nokia: PLEASE give us a decent high resolution camera on the front of this next model (but keep this one as well))
+multitouch simulation
+I have added a multitouch simulation to the package for testing purposes
+It has been pondered and considered for a while, but only recently could I describe what I wanted.
+Its just a start, but I want to see if its possible to expand upon it
+// use the primary thumb as ground zero
+// then keeping the thumb pressed and stationary touch with a secondary finger
+// the cursor will jump to roughly the halfway point (depending upon pressure differential)
+// this is my chance, I know the original fixed start location
+// and I know roughly where the finger is, i know its direction, and something of its position
+// if the finger moves closer, its rough position will get closer
+// it it moves further away, then so will the rough position
+// if it rotates, i will know roughly where it is
+// i can use this rough guide to stretch or rotate objects
+This can be found in options/multitouch test
+
+Session logging to file.
+I have added a session log of actions performed during the session.
+I already performed extensive logging, however it was difficult to get at.
+I really didnt want to have to do this but it seems theres enough issues to warrant it.
+After I have examined a few logs I will remove it again.
+
+The file is created in ~/.liqbase/liqbase.run.log and simply appends itself during the session.
+If you get any kind of errors could you please include it along with a report of what you were doing.
+The log is reset upon startup, so if you get an issue you must send the log before restarting.
+Hildonization.
+I have attempted to make liqbase compliant to the hildon desktop in a number of ways.
+I have ensured liqbase is included in the home key menu and has an entry on the desktop.
+it no longer closes when it blanks or is locked.
+if there are any problems with this approach, please contact me.
+
+International character support.
+I am investigating ways to bring in international character support to the book reader.
+However, I know nothing about this area and would appreciate some assistance.
+
+Graphical glitches
+I have had reports that on first run after bootup liqbase can encounter graphical glitches.
+The people encountering this have reported that simply closing and restarting the application fixes the problem.
+
+Due to a configuration change, this should not be apparant for first time installers.
+however if you change the resolution to 800*480, then on the first run after a reboot the glitches may re-appear.
+If you simply close the program and start again they will be removed until you next reboot.
+I do not get these with my primary nokia, though have reproduced them with my second device
+I am investigating this issue and hope to resolve it shortly.
+freezing
+the x server can occasionally crash and cause the tablet to freeze requiring a reboot.
+If the software crashes and locks up your touchscreen may become unresponsive until a full reboot is performed
+From personal experience this has occured once or twice in the last few months with no way for me to reproduce.
+
+additional links
+faster than paper
+
+Maemo Garage Project
+
+Maemo garage bugs
+
+Internet Tablet Talk - call for assistance thread
+
+Internet Tablet Talk - open source virgin thread
+
+Internet Tablet Talk - playtest thread
+
+Live internet sketch stream (very raw alpha test)
+
+funding and sponsorship
+liqbase is an extensive project encapsulating many areas which I simply do not have enough time and energy to continue to do as a hobby.
+I am therefore seeking sponsorship and management/business assistance to allow it to continue to grow.
+If you can help in any way, please contact me at liquid@gmail.com
+

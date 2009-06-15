@@ -118,12 +118,6 @@ liqcell *liqfileselect_create()
 			
 		liqcell_child_append(  foldertree, folderbackplane);
 	liqcell_child_append(  self, foldertree);
-	//############################# buttonaccept:commandbutton
-	liqcell *buttonaccept = liqcell_quickcreatevis("buttonaccept", "commandbutton", 720, 432, 74, 42);
-	liqcell_setfont(	buttonaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
-	liqcell_setcaption(buttonaccept, "OK" );
-	liqcell_propsets(  buttonaccept, "backcolor", "rgb(0,255,0)" );
-	liqcell_child_append(  self, buttonaccept);
 	//############################# filelist:frame
 	liqcell *filelist = liqcell_quickcreatevis("filelist", "frame", 406, 52, 392, 422);
 	//liqcell_setfont(	filelist, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
@@ -242,6 +236,17 @@ liqcell *liqfileselect_create()
 	liqcell_propsets(  title, "backcolor", "rgb(0,0,0)" );
 	liqcell_propseti(  title, "textalign", 0 );
 	liqcell_child_append(  self, title);
+
+	//############################# buttonaccept:commandbutton
+	liqcell *buttonaccept = liqcell_quickcreatevis("buttonaccept", "commandbutton", 720, 432, 74, 42);
+	liqcell_setfont(	buttonaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
+	liqcell_setcaption(buttonaccept, "OK" );
+	liqcell_propsets(  buttonaccept, "backcolor", "rgb(0,255,0)" );
+	liqcell_propsets(  buttonaccept, "textcolor", "rgb(0,0,0)" );
+	liqcell_propseti(  buttonaccept, "textalign", 2 );
+	liqcell_propseti(  buttonaccept, "textaligny", 2 );
+	liqcell_child_append(  self, buttonaccept);
+
 	liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	liqcell_handleradd(self, "resize", liqfileselect_resize );
 	return self;

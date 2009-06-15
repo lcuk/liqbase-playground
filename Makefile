@@ -5,7 +5,7 @@ LD          = gcc
 
 
 OPT_FLAGS   =  -O3
-DESTDIR	?= tmp
+#DESTDIR	?= tmp
 
 
 ETCDIR	    = $(DESTDIR)//etc

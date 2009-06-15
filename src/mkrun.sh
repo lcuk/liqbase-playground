@@ -4,6 +4,12 @@
 
 export DISPLAY=:0.0
 
+cd /home/user/svn/libliqbase-0.3/
+
+if make; 
+	then make install; 
+fi
+
 cd /home/user/svn/liqbase-playground/src
 
 if make; 

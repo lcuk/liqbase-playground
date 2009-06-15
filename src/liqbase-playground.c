@@ -366,7 +366,7 @@ liqcell *widgetrecent=NULL;
 		int isok=0;
 		char *showwidget_arg = liqapp_getopt_str("showwidget",NULL);
         
-        if(!showwidget_arg) showwidget_arg="tagcloud,liqcontrolpanel,liqrecentpics,liqcalendar,liqrecentphotos,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqaccelview,liqbook";
+        if(!showwidget_arg) showwidget_arg="kotcomix,tagcloud,liqcontrolpanel,liqrecentpics,liqcalendar,liqrecentphotos,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqaccelview,liqbook";
         
 		
 		if(showwidget_arg && *showwidget_arg)

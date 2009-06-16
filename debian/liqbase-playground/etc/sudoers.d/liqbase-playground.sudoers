@@ -1,3 +1,0 @@
-user ALL = NOPASSWD: /usr/bin/liqbase-cpu-powersave
-user ALL = NOPASSWD: /usr/bin/liqbase-cpu-ondemand
-user ALL = NOPASSWD: /usr/bin/liqbase-cpu-performance

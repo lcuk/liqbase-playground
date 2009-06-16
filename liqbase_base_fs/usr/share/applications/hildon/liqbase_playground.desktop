@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqbase_playground
+Exec=/usr/bin/liqbase-playground-run.sh
+Type=Application
+StartupWMClass=liqbase_playground
+X-Osso-Service=org.maemo.liqbase_playground
+X-Osso-Type=application/x-executable

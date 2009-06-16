@@ -46,6 +46,7 @@ b0560dd88b7559e64c519de7885dffd6  usr/share/liqbase/media/fish_800_480.jpg
 53183f70bb9ee1f3109c86c2160232e9  usr/share/liqbase/media/_forsale.jpg
 d4f0e605566b2d97b9f011b0ab2fcf76  usr/share/liqbase/media/nokiaconnectingpeople.jpg
 d7fa3157895f1face5edc5cf7c3418cd  usr/share/liqbase/media/lcuk_avatar.jpg
+d41d8cd98f00b204e9800998ecf8427e  usr/share/liqbase/media/manchester
 9f115451c638da1893d7f3e319a4b5f0  usr/share/liqbase/media/blob.png
 1a566650e53dd43b91c9f08a0c9d2c98  usr/share/liqbase/media/liqbase_back2.jpg
 72ebc13f55af9c6fdb0878e365c68ba6  usr/share/liqbase/media/blob.blue.png
@@ -77,6 +78,7 @@ bed012ad4d185fe8e5222fb94de6d61d  usr/share/liqbase/media/quickicons/folder.png
 3d3c087030baf8fabc13be2b62192c68  usr/share/liqbase/media/quickicons/gnome-terminal.png
 221aa8829cfe7ffaf7a1e239787a9900  usr/share/liqbase/media/blob.yellow.png
 21a77df187a28dd7e502d770f7cff8a8  usr/share/liqbase/media/liqcpu.jpg
+d41d8cd98f00b204e9800998ecf8427e  usr/share/liqbase/media/maemo
 67bf125355ee4314325e8d1815d6d529  usr/share/liqbase/media/blob.green.png
 619ccc2a30f5219633269a812f727645  usr/share/liqbase/media/liqbook.example.txt
 ec45f6891880f82372d4d17903b02fd7  usr/share/liqbase/media/maemo apps/text editors/vim.png
@@ -204,10 +206,10 @@ fb858f04357d0c888333a966dffe6ace  usr/share/liqbase/widgets/liqpicview.so
 08fa915644e4696cc25c3a565f03e030  usr/share/liqbase/widgets/liqrecentpics.so
 4974be9ea1dfbe5c40e6f0cc32e356e2  usr/share/liqbase/widgets/liqdesign.so
 54cfc712dde71314bab1d82878e76d91  usr/share/liqbase/widgets/liqirc.so
-130186b0b575eff73cc0e62747c3636c  usr/share/dbus-1/services/org.maemo.liqbase-playground.service
-d4029b8f0e0e6f02c5da8c0cbf8119fd  usr/share/applications/hildon/liqbase-playground.desktop
+8259eff505094cc31ed4db4ed0585f1a  usr/share/dbus-1/services/org.maemo.liqbase_playground.service
+71037e3e9cf5bf386146fe9c45699e76  usr/share/applications/hildon/liqbase_playground.desktop
 13a69fee8463b0f01ec8d890e3510e45  usr/share/doc/liqbase-playground/copyright
-be11395b950de8b63e8c717558cddb71  usr/share/doc/liqbase-playground/changelog.gz
+81a9da956b94c28119a5a6d999863318  usr/share/doc/liqbase-playground/changelog.gz
 21958a496ab7518cf26c1d63480149fe  usr/bin/liqbase-cpu-performance
 e483c5f5ab805bbba739d6acdca20b54  usr/bin/liqbase-cpu-ondemand
 1e66f08b2e285a7c3d2121020f8bcb0b  usr/bin/liqbase-playground-run.sh

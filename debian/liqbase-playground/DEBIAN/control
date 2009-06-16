@@ -1,10 +1,10 @@
 Package: liqbase-playground
-Version: 0.3.5
-Architecture: armel
-Maintainer: Gary <liquid@gmail.com>
-Installed-Size: 6396
-Depends: libliqbase1
+Version: 0.3.6
 Section: user/multimedia
 Priority: extra
+Architecture: armel
+Depends: libliqbase1
+Installed-Size: 6424
+Maintainer: Gary <liquid@gmail.com>
 Description: liqbase-playground test package
  usability and testing package release for liqbase-playground

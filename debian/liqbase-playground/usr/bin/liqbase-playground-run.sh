@@ -4,10 +4,12 @@
 
 export DISPLAY=:0.0
 
+liqbase-cpu-performance
+
 cd /usr/share/liqbase
 
-./liqbase-playground
+./liqbase-playground -showwidget kotcomix,tagcloud,liqcontrolpanel,liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqbook
 
-
+liqbase-cpu-ondemand
 
 

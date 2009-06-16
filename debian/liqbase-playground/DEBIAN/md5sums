@@ -1,214 +1,214 @@
-afa5778a7ebad92606e6d68b7aeb1bf2  usr/bin/liqbase-cpu-performance
-967d7844b6b54b05070475ea8db20e12  usr/bin/liqbase-cpu-ondemand
-fea6138c556de600e5a771f9aef0943a  usr/bin/liqbase-cpu-powersave
-ff434107e07f234254c5f5578622b9ce  usr/bin/liqbase-playground-run.sh
-d4029b8f0e0e6f02c5da8c0cbf8119fd  usr/share/applications/hildon/liqbase-playground.desktop
-130186b0b575eff73cc0e62747c3636c  usr/share/dbus-1/services/org.maemo.liqbase-playground.service
-496c085b7ecce99bcea8ed8f6476b8ed  usr/share/liqbase/widgets/floatmap.so
-3968437c5df490e3b68d1513d460e865  usr/share/liqbase/widgets/frmbase800x480.so
-81cad9f0a800dd06880c426dd8a2dde6  usr/share/liqbase/widgets/liqrecentsketches.so
-a8ac6bc2e3b87cb8cf2c10ace8a7fc47  usr/share/liqbase/widgets/liqbase.so
-47571494053b89c51d46c21c7fe711a0  usr/share/liqbase/widgets/tagcloud.so
-b8c89b4702415797cce9ff76b8efdc14  usr/share/liqbase/widgets/liqallpics.so
-9a46b2bb4be3166c34c7257629105764  usr/share/liqbase/widgets/liqbrightness.so
-7a56c0fe63e6e5bc4c620b7627875589  usr/share/liqbase/widgets/liqapplist.so
-4dc76f80abd346c3b2e6d3d7a30b9283  usr/share/liqbase/widgets/liqcalendardays.so
-8181dde9551d5a05d6e9996e67594445  usr/share/liqbase/widgets/jumptoconclusions.so
-7b04a8cb62403651a7367df97b9bfdd2  usr/share/liqbase/widgets/liqrecentapps.so
-fbdfc52e7d106d2faf70840ee2ef0356  usr/share/liqbase/widgets/liqrecentphotos.so
-596f739287445f4b11914f1a4a47624c  usr/share/liqbase/widgets/liqcontrolpanel.so
-8bca41371645d65fa693e32519f87e4b  usr/share/liqbase/widgets/liqirc.so
-3f0c82b1a6cead3e3b53c88c5b2e03a6  usr/share/liqbase/widgets/liqvcells.so
-ed1b0b3ddcfa6863889361e9e232a48f  usr/share/liqbase/widgets/liqcalendarsearch.so
-c836a0cbe4e804e497e8b1cfb689f4dc  usr/share/liqbase/widgets/liqrecentpics.so
-4ef296d006ec3ce6823dc2452b8df8cd  usr/share/liqbase/widgets/liqmap2.so
-85402371d2301af337a26222d4a21ed6  usr/share/liqbase/widgets/liqfileselect.so
-111d1ad87f8554b9854a19d51a64881e  usr/share/liqbase/widgets/ciroclock.so
-0dfc17b45e0a4dac813ec7116ba2a9c9  usr/share/liqbase/widgets/liqaccelview.so
-ec6dcdbdac50c8e35c889c5ec7465d33  usr/share/liqbase/widgets/liqappman.so
-00c03cd5a7a53ca894d866f2615b36cc  usr/share/liqbase/widgets/liqcpu.so
-70c8b562e5c2111bd71326e8a477c286  usr/share/liqbase/widgets/liqdesktop.so
-f2dd0c9c053cfe942d5ecce089db2d70  usr/share/liqbase/widgets/liqmemory.so
-daf620042194309a55097ee84d263a99  usr/share/liqbase/widgets/liqimage.so
-18ee8cdcae47952cbc87b7452638a036  usr/share/liqbase/widgets/liqcalendar/liqcalendar.so
-a2e5c588fffb0121d36a5f65986976bc  usr/share/liqbase/widgets/desktopmanage/desktopmanage.so
-ff23735cdf4a57af2ffd25f20f0cbb01  usr/share/liqbase/widgets/ciroclock_minutes.so
-d3821f0bffc057215ac300ecbb1d4f6a  usr/share/liqbase/widgets/liqtreebrowse.so
-aa052638b136595f909c8fb23dbfd1a2  usr/share/liqbase/widgets/liqbook/liqbook.so
-1c39f9f2ce559863b5e55a40a025811d  usr/share/liqbase/widgets/liqrecentusers.so
-ba8c05c1b695b87e32ece295a7afb20e  usr/share/liqbase/widgets/opensource.so
-5a49484e3cdd59206967984622a5383f  usr/share/liqbase/widgets/liqfilemonitor.so
-87c47a12e903f46ab216e9d0eff5ed07  usr/share/liqbase/widgets/playground/playground.so
-7ed9f27a1504d138180c59250e1ad485  usr/share/liqbase/widgets/liqtop.so
-4312e8ed9141d0d8b09fe6f7f1229fe6  usr/share/liqbase/widgets/liqpicview.so
-3e33c635550700dd0c8823800b10ee5c  usr/share/liqbase/widgets/liqtimer.so
-cccfd0e5dc7e2668d9673b186d9a3455  usr/share/liqbase/widgets/textbox.so
-4f6cd02188b7cfec115bf67c942190ad  usr/share/liqbase/widgets/liqdesign.so
-38ce338eefc09c4e0634ce231131b587  usr/share/liqbase/widgets/liqbattery.so
-8d26e24baf02bd1b2b3873dd4d6778e2  usr/share/liqbase/widgets/liqwelcome.so
-a42a5c6ea6b75bda31629add3fa7eed2  usr/share/liqbase/liqbase-playground
-d4f0e605566b2d97b9f011b0ab2fcf76  usr/share/liqbase/media/nokiaconnectingpeople.jpg
-619ccc2a30f5219633269a812f727645  usr/share/liqbase/media/liqbook.example.txt
-c0d2643098e5ab99be4a609d9d00ad56  usr/share/liqbase/media/avatars/timeless.png
-55f4f0596aa628f5f40fe98fde3852c5  usr/share/liqbase/media/avatars/zeenix.png
-76b08ed8224ae27fbf420d104d76f7fd  usr/share/liqbase/media/avatars/timsamoff.jpg
-bf2dee33623b73189daa4c19a704b78e  usr/share/liqbase/media/avatars/truejournals.jpg
-504d15f57bfcf8bae8e888386cfe86af  usr/share/liqbase/media/avatars/keesj.png
-12eb53023d1b3c3febcd7534ac635559  usr/share/liqbase/media/avatars/jsmanrique.jpg
-e38ac1854f4565dd0fbbb0c999b6347a  usr/share/liqbase/media/avatars/marcell.jpg
-fd4c643fdc81c955ac7e631e526701d7  usr/share/liqbase/media/avatars/qgil.jpg
-356a227f2848355517232cfb619540ea  usr/share/liqbase/media/avatars/mike_morrison.jpg
-1a3e01f4feb399ced2644e47d86f9030  usr/share/liqbase/media/avatars/yerga.png
-eb1cda18d60470b21df3ed53e584ff18  usr/share/liqbase/media/avatars/florian.png
-b070027de6af047ecb99ed8add23cd6c  usr/share/liqbase/media/avatars/antimirov.jpg
-fe5a0b4474a6ecc84675fe3033660b35  usr/share/liqbase/media/avatars/xfade.png
-c53140a4e856dac6166159fe246b474a  usr/share/liqbase/media/avatars/bergie.jpg
-e3b4779effb617581e11bd7c4dd90000  usr/share/liqbase/media/avatars/zerionseven.png
-a0b3fb8d3852f26ec15e20ace305e912  usr/share/liqbase/media/avatars/barbieri.jpg
-dc3135608306b3a88c9556499a9f20af  usr/share/liqbase/media/avatars/jaffa.png
-ccefb3f63c1ba9e2b92a9a7c5981bc4c  usr/share/liqbase/media/avatars/jukey.jpg
-d6d3c701e50d54cb418aba5c9b84b394  usr/share/liqbase/media/avatars/lcuk.jpg
-2385f01c71a92aaa015cb4bb0bd4cc67  usr/share/liqbase/media/avatars/sjgadsby.jpg
-14fa1763ace7b5f1a78108befaa42db0  usr/share/liqbase/media/avatars/murrayc.png
-4ab17e4bca84cc677758a5a2e82a9e80  usr/share/liqbase/media/avatars/generalantilles.jpg
-65230470d5b2edb3256f68ec29639605  usr/share/liqbase/media/avatars/agarcia.png
-ce069d2d6df8a9d0a713220bc9d0ba20  usr/share/liqbase/media/avatars/andy80.jpg
-43285d93703117c1d09bf980f03e9019  usr/share/liqbase/media/avatars/andre.jpg
-db8e0efabbbcf3570289849110f29db1  usr/share/liqbase/media/avatars/mgedmin.png
-badd92ab7d749249e6ece4507a5101c6  usr/share/liqbase/media/avatars/wwp.png
-2a0bbc7cb9fcf83b7002541ec223f63d  usr/share/liqbase/media/avatars/penguinbait.png
-8ee59249b0d73f88e5e1f23972a288ce  usr/share/liqbase/media/avatars/zerojay.jpg
-a9663c59cbba4c9266339e9dfd98f026  usr/share/liqbase/media/avatars/khertan.png
-11502cb27d62803af9e08dbc4442161f  usr/share/liqbase/media/avatars/morphbr.jpg
-dba1bb696fc0c7788bba086e651b0823  usr/share/liqbase/media/avatars/kate.jpg
-27fbaf0aa1e59367086b60e0e20d883c  usr/share/liqbase/media/avatars/baloo.jpg
-aa4e31398ce839a7b61161389e8d62d0  usr/share/liqbase/media/avatars/qole.png
-0c7bcf2dee34ca4420783fb6f9a908b6  usr/share/liqbase/media/avatars/gcobb.jpg
-7994bc0df1112f47e158b0a200f3385a  usr/share/liqbase/media/avatars/framstag.png
-1a7ce1e8d13a5d1620de8498d4cb31bc  usr/share/liqbase/media/avatars/trevarthan.jpg
+503846900334b45e0b822a0b7027d4df  usr/share/liqbase/liqbase-playground
 f601779053c1804483c8346b0fbb5605  usr/share/liqbase/media/avatars/aisu.jpg
+ce069d2d6df8a9d0a713220bc9d0ba20  usr/share/liqbase/media/avatars/andy80.jpg
+12eb53023d1b3c3febcd7534ac635559  usr/share/liqbase/media/avatars/jsmanrique.jpg
+55f4f0596aa628f5f40fe98fde3852c5  usr/share/liqbase/media/avatars/zeenix.png
 a0ddc7cef2e3d7ea111203e3cee17d0b  usr/share/liqbase/media/avatars/vdvsx.jpg
+43285d93703117c1d09bf980f03e9019  usr/share/liqbase/media/avatars/andre.jpg
+ccefb3f63c1ba9e2b92a9a7c5981bc4c  usr/share/liqbase/media/avatars/jukey.jpg
+dba1bb696fc0c7788bba086e651b0823  usr/share/liqbase/media/avatars/kate.jpg
+e3b4779effb617581e11bd7c4dd90000  usr/share/liqbase/media/avatars/zerionseven.png
+504d15f57bfcf8bae8e888386cfe86af  usr/share/liqbase/media/avatars/keesj.png
 dbc890b3abc910ea5d5e8d1d1b0574e6  usr/share/liqbase/media/avatars/etrunko.png
-21a77df187a28dd7e502d770f7cff8a8  usr/share/liqbase/media/liqcpu.jpg
+b070027de6af047ecb99ed8add23cd6c  usr/share/liqbase/media/avatars/antimirov.jpg
+e38ac1854f4565dd0fbbb0c999b6347a  usr/share/liqbase/media/avatars/marcell.jpg
+2385f01c71a92aaa015cb4bb0bd4cc67  usr/share/liqbase/media/avatars/sjgadsby.jpg
+aa4e31398ce839a7b61161389e8d62d0  usr/share/liqbase/media/avatars/qole.png
+14fa1763ace7b5f1a78108befaa42db0  usr/share/liqbase/media/avatars/murrayc.png
+dc3135608306b3a88c9556499a9f20af  usr/share/liqbase/media/avatars/jaffa.png
+8ee59249b0d73f88e5e1f23972a288ce  usr/share/liqbase/media/avatars/zerojay.jpg
+76b08ed8224ae27fbf420d104d76f7fd  usr/share/liqbase/media/avatars/timsamoff.jpg
+c53140a4e856dac6166159fe246b474a  usr/share/liqbase/media/avatars/bergie.jpg
+4ab17e4bca84cc677758a5a2e82a9e80  usr/share/liqbase/media/avatars/generalantilles.jpg
+bf2dee33623b73189daa4c19a704b78e  usr/share/liqbase/media/avatars/truejournals.jpg
+a9663c59cbba4c9266339e9dfd98f026  usr/share/liqbase/media/avatars/khertan.png
+1a3e01f4feb399ced2644e47d86f9030  usr/share/liqbase/media/avatars/yerga.png
+65230470d5b2edb3256f68ec29639605  usr/share/liqbase/media/avatars/agarcia.png
+0c7bcf2dee34ca4420783fb6f9a908b6  usr/share/liqbase/media/avatars/gcobb.jpg
+eb1cda18d60470b21df3ed53e584ff18  usr/share/liqbase/media/avatars/florian.png
+2a0bbc7cb9fcf83b7002541ec223f63d  usr/share/liqbase/media/avatars/penguinbait.png
+fe5a0b4474a6ecc84675fe3033660b35  usr/share/liqbase/media/avatars/xfade.png
+27fbaf0aa1e59367086b60e0e20d883c  usr/share/liqbase/media/avatars/baloo.jpg
+db8e0efabbbcf3570289849110f29db1  usr/share/liqbase/media/avatars/mgedmin.png
+11502cb27d62803af9e08dbc4442161f  usr/share/liqbase/media/avatars/morphbr.jpg
+7994bc0df1112f47e158b0a200f3385a  usr/share/liqbase/media/avatars/framstag.png
+d6d3c701e50d54cb418aba5c9b84b394  usr/share/liqbase/media/avatars/lcuk.jpg
+356a227f2848355517232cfb619540ea  usr/share/liqbase/media/avatars/mike_morrison.jpg
+c0d2643098e5ab99be4a609d9d00ad56  usr/share/liqbase/media/avatars/timeless.png
+a0b3fb8d3852f26ec15e20ace305e912  usr/share/liqbase/media/avatars/barbieri.jpg
+badd92ab7d749249e6ece4507a5101c6  usr/share/liqbase/media/avatars/wwp.png
+1a7ce1e8d13a5d1620de8498d4cb31bc  usr/share/liqbase/media/avatars/trevarthan.jpg
+fd4c643fdc81c955ac7e631e526701d7  usr/share/liqbase/media/avatars/qgil.jpg
 2797c43c1d15a33059b9a98c6cf23dc5  usr/share/liqbase/media/liqbrightness.png
-53183f70bb9ee1f3109c86c2160232e9  usr/share/liqbase/media/_forsale.jpg
-751727ed2770eb4d70eb27bedf3c6ed9  usr/share/liqbase/media/blob.red.png
 547ecf0144b3baa04390af08173b1c69  usr/share/liqbase/media/niven.ringworld.jpg
+0ffceba5e5f43889f2e0313964d53d90  usr/share/liqbase/media/liqmemory.jpg
+b0560dd88b7559e64c519de7885dffd6  usr/share/liqbase/media/fish_800_480.jpg
+53183f70bb9ee1f3109c86c2160232e9  usr/share/liqbase/media/_forsale.jpg
+d4f0e605566b2d97b9f011b0ab2fcf76  usr/share/liqbase/media/nokiaconnectingpeople.jpg
+d7fa3157895f1face5edc5cf7c3418cd  usr/share/liqbase/media/lcuk_avatar.jpg
+9f115451c638da1893d7f3e319a4b5f0  usr/share/liqbase/media/blob.png
 1a566650e53dd43b91c9f08a0c9d2c98  usr/share/liqbase/media/liqbase_back2.jpg
+72ebc13f55af9c6fdb0878e365c68ba6  usr/share/liqbase/media/blob.blue.png
+919e85e6f46ff09097bc441cc86f2fcc  usr/share/liqbase/media/more.png
 919e85e6f46ff09097bc441cc86f2fcc  usr/share/liqbase/media/sun.png
+bd0ea13de377f8a6ce86a045f29c54a2  usr/share/liqbase/media/pleasewait.png
+6f51fadf530755f4f6590e9b63f4e447  usr/share/liqbase/media/toolcol_background.png
+9ce84ae945f0538e793a1e2c550ffeab  usr/share/liqbase/media/manchester map.png
+751727ed2770eb4d70eb27bedf3c6ed9  usr/share/liqbase/media/blob.red.png
 b09a2c7649aa54058e1b38ef1b8b5963  usr/share/liqbase/media/blob.purple.png
 e644c71e0879f0390caa42ff084d19a3  usr/share/liqbase/media/lcuk_sig_headshot.png
-d7fa3157895f1face5edc5cf7c3418cd  usr/share/liqbase/media/lcuk_avatar.jpg
 662b9ea7f195cec4958ab89a9187aebd  usr/share/liqbase/media/liqbattery.png
-bd0ea13de377f8a6ce86a045f29c54a2  usr/share/liqbase/media/pleasewait.png
-0ffceba5e5f43889f2e0313964d53d90  usr/share/liqbase/media/liqmemory.jpg
+b811aa05a9232ccb3f65019230a17637  usr/share/liqbase/media/toolbar_background.png
 a156bbb41a463f36465862b71a42aaca  usr/share/liqbase/media/barcode.png
-6f51fadf530755f4f6590e9b63f4e447  usr/share/liqbase/media/toolcol_background.png
+919e85e6f46ff09097bc441cc86f2fcc  usr/share/liqbase/media/tagging.png
 c49f6378e1335c5294f236e4aab6e9d0  usr/share/liqbase/media/texturestrip_dark.jpg
-b0560dd88b7559e64c519de7885dffd6  usr/share/liqbase/media/fish_800_480.jpg
-919e85e6f46ff09097bc441cc86f2fcc  usr/share/liqbase/media/more.png
-72ebc13f55af9c6fdb0878e365c68ba6  usr/share/liqbase/media/blob.blue.png
-8c9d9dda6d8150f031a393931658f95f  usr/share/liqbase/media/maemo apps/system/load applet.png
-97627a013b19b7ffa37bba2693b07d01  usr/share/liqbase/media/maemo apps/system/packageview.png
-3306e5c2bdaac75f8a7e4cf4e492361f  usr/share/liqbase/media/maemo apps/system/rootsh - get root easily..png
-5fb7c8e76a0f1a849f600850308fdc8c  usr/share/liqbase/media/maemo apps/system/usb control.jpg
-818a0e4743575a0d8b011c967a225b6c  usr/share/liqbase/media/maemo apps/system/vpnc-gui.png
-964d462410ef9986a2cf11c7d2afaa98  usr/share/liqbase/media/maemo apps/religion/rapier.jpg
-f46038e7095aa790a2beb6c7b370fce1  usr/share/liqbase/media/maemo apps/internet/maemo wordpy.png
-5168ea8973c67a1d92a04942d443cde3  usr/share/liqbase/media/maemo apps/internet/feed circuit.png
-9c9df897b0709d5cbf29a61a13a18907  usr/share/liqbase/media/maemo apps/internet/claws mail.png
-4a308280a6db667ada9f0aec1d5acc72  usr/share/liqbase/media/maemo apps/internet/wifiinfo.png
-6149aca370f32f44ccb44f05b963040a  usr/share/liqbase/media/maemo apps/internet/pyrdesktop.png
-2c36c60bdb05b11b22bea6cb00f67876  usr/share/liqbase/media/maemo apps/internet/nicotine.png
-59cc829e0e0e07034ff5e03b6802c1c6  usr/share/liqbase/media/maemo apps/internet/gftp.png
-16ba8627f06f0c2335f0e6348cd5daa7  usr/share/liqbase/media/maemo apps/internet/transmission.png
-50cb7af874bed07f49bbf28de820acaf  usr/share/liqbase/media/maemo apps/desktop environment/fbreader -- e-book reader.png
-b62815f6ff07d3f282827654952e3961  usr/share/liqbase/media/maemo apps/desktop environment/other maemo weather.png
-efea35cf5d0992547d1090cf1f23b3b2  usr/share/liqbase/media/maemo apps/desktop environment/personal menu.png
-fa68516b138313e5eb486f9f8b11f551  usr/share/liqbase/media/maemo apps/desktop environment/diskusage.png
-afd4686a6feb47fe0b5380d9f03d0bd0  usr/share/liqbase/media/maemo apps/desktop environment/large statusbar clock.png
-09221bbb4a3d0efdd736f2ca31279b74  usr/share/liqbase/media/maemo apps/desktop environment/personal launcher.png
-e6352036115d3bd607a76263caf1b749  usr/share/liqbase/media/maemo apps/desktop environment/advanced backlight.jpg
-a02edd9e0cd3b1b2ba3c701c65342d1b  usr/share/liqbase/media/maemo apps/desktop environment/titan theme for os2008.png
-11fa56b2bd56a6f0c69620ced593095b  usr/share/liqbase/media/maemo apps/desktop environment/wizard mounter.png
-e536ac66b85e95daeff66df42e2c0082  usr/share/liqbase/media/maemo apps/multimedia/kmplayer.png
-7f22e0cfcb08d84913488ca3947d6baf  usr/share/liqbase/media/maemo apps/multimedia/mytube - youtube browser.jpg
-fdbd9dbcf46f9ff25d92ddf59cc08fb2  usr/share/liqbase/media/maemo apps/multimedia/canola2 media player.jpg
-e41f2d6e8a90edfbdc298ea3b9bc3519  usr/share/liqbase/media/maemo apps/multimedia/maemo recorder.jpg
-06f2cea199fdc08d677fe8dcd33029a0  usr/share/liqbase/media/maemo apps/multimedia/mediabox media center.png
-b8a9709f238034181100a71151595408  usr/share/liqbase/media/maemo apps/multimedia/streamtuner.png
-32dd155e7cf168a1de5c14a6f96361e0  usr/share/liqbase/media/maemo apps/travel/map downloader.png
-a47e0d53d5328a791a2a3b00bd107d42  usr/share/liqbase/media/maemo apps/travel/vim.png
-5eb7fd184cad0ffde296c1edc2b4d65b  usr/share/liqbase/media/maemo apps/travel/roadmap for maemo.jpg
-96e449308f17a5608dfb10e83b4a9509  usr/share/liqbase/media/maemo apps/travel/gworld clock.png
-af999808792c36dad6f9df272da0e42a  usr/share/liqbase/media/maemo apps/travel/carman.jpg
-f871086cb2ab00c96e08be57661d1ee3  usr/share/liqbase/media/maemo apps/travel/osm2go.jpg
-6f238426ab62748180361acef1c16cb6  usr/share/liqbase/media/maemo apps/travel/gps city guide for maemo.png
-25d5ef73f8829e1239c1c442c38629e4  usr/share/liqbase/media/maemo apps/travel/gpxview - geocaching with maemo.jpg
-49e09fc46f53f4f23540cb03a728b23e  usr/share/liqbase/media/maemo apps/travel/maemo mapper.png
-1d06756748e95b02c93b0b36c9f1386b  usr/share/liqbase/media/maemo apps/travel/vim.jpg
-cec030262b0439f7c95b2c341f0ed9b3  usr/share/liqbase/media/maemo apps/software development/pygtkeditor.png
-61577051e1a203be93375c432692f072  usr/share/liqbase/media/maemo apps/software development/python2.5 for maemo - [pymaemo].png
-8674f084d1a9d138e0ebf19882923509  usr/share/liqbase/media/maemo apps/software development/datejinni.png
-8d9cf04fcd0f390d872a76d273a9e652  usr/share/liqbase/media/maemo apps/scientific/mathjinni.png
-8eb3843a6b20c6fdd985e031fe95aaef  usr/share/liqbase/media/maemo apps/scientific/visual saliency algorithm.png
-76e06afc2bfb014f4324297d4a457776  usr/share/liqbase/media/maemo apps/scientific/free42 hp calculator.png
-cb289f5f813b61f36ecfb13066a3d391  usr/share/liqbase/media/maemo apps/scientific/easychem chemical structures editor.png
-8bc2eab48009731986d3e1acc5271a05  usr/share/liqbase/media/maemo apps/scientific/maemo periodic.png
-585aac24182a8a11c2172fabd92118ca  usr/share/liqbase/media/maemo apps/scientific/lybniz.png
-c6b860670e8f6e463ea4d3c7bc8e6895  usr/share/liqbase/media/maemo apps/scientific/slide rule - advanced graphing calculator.png
-7dd25740e146cd66f6b0f5d0bbad02c3  usr/share/liqbase/media/maemo apps/scientific/pyculator home applet.png
-b318d538e319268de61e24eac6c95e4f  usr/share/liqbase/media/maemo apps/scientific/tiemu2 port.jpg
-86aad2f4c4a2409cc88aa03a90710424  usr/share/liqbase/media/maemo apps/scientific/mclock.jpg
+d3db2008e2a091d5392c1d639fe26dc6  usr/share/liqbase/media/quickicons/txt.png
+a4be3701684e7b7542e051d55695974a  usr/share/liqbase/media/quickicons/gtk-remove.png
+478fceac669800b03bf5abc0519e32ee  usr/share/liqbase/media/quickicons/add.png
+6055116d4f683dd51dcf0b0a7980d055  usr/share/liqbase/media/quickicons/README
+b22bbcb8105783cf3389154aa886876c  usr/share/liqbase/media/quickicons/gtk-close.png
+546931c9da492be3ef2e345c22640581  usr/share/liqbase/media/quickicons/up.png
+8963f5ea09abc4f0e2e9c21f04b494e5  usr/share/liqbase/media/quickicons/package_system.png
+e7a04f2584867d6697f8aa334d4a8404  usr/share/liqbase/media/quickicons/back.png
+1d0c34879c9d30c287060f084708aa31  usr/share/liqbase/media/quickicons/find.png
+9e9943acb62c8a83bfc338d835ca9ecc  usr/share/liqbase/media/quickicons/stock_refresh.png
+bed012ad4d185fe8e5222fb94de6d61d  usr/share/liqbase/media/quickicons/folder.png
+303d86f0cf5eb5eb09ab208d32122afb  usr/share/liqbase/media/quickicons/package_graphics.png
+3d3c087030baf8fabc13be2b62192c68  usr/share/liqbase/media/quickicons/gnome-terminal.png
+221aa8829cfe7ffaf7a1e239787a9900  usr/share/liqbase/media/blob.yellow.png
+21a77df187a28dd7e502d770f7cff8a8  usr/share/liqbase/media/liqcpu.jpg
+67bf125355ee4314325e8d1815d6d529  usr/share/liqbase/media/blob.green.png
+619ccc2a30f5219633269a812f727645  usr/share/liqbase/media/liqbook.example.txt
 ec45f6891880f82372d4d17903b02fd7  usr/share/liqbase/media/maemo apps/text editors/vim.png
 afe71a0053e6dd8d54b5a9a787262ef2  usr/share/liqbase/media/maemo apps/text editors/xournal.png
 c6df5374a77fd2963ae6c19eb3ab83f5  usr/share/liqbase/media/maemo apps/text editors/leafpad.png
-3c7090fc8d9c188d3f16e76f16b3bc1d  usr/share/liqbase/media/maemo apps/security/passwordsafe.png
-e866b2790bb8197753bd259f217e378d  usr/share/liqbase/media/maemo apps/security/claws-mail-pgp.png
-8141aaa40b57ad293dd3c41276439b34  usr/share/liqbase/media/maemo apps/security/personal password manager.png
+09221bbb4a3d0efdd736f2ca31279b74  usr/share/liqbase/media/maemo apps/desktop environment/personal launcher.png
+50cb7af874bed07f49bbf28de820acaf  usr/share/liqbase/media/maemo apps/desktop environment/fbreader -- e-book reader.png
+11fa56b2bd56a6f0c69620ced593095b  usr/share/liqbase/media/maemo apps/desktop environment/wizard mounter.png
+e6352036115d3bd607a76263caf1b749  usr/share/liqbase/media/maemo apps/desktop environment/advanced backlight.jpg
+b62815f6ff07d3f282827654952e3961  usr/share/liqbase/media/maemo apps/desktop environment/other maemo weather.png
+fa68516b138313e5eb486f9f8b11f551  usr/share/liqbase/media/maemo apps/desktop environment/diskusage.png
+a02edd9e0cd3b1b2ba3c701c65342d1b  usr/share/liqbase/media/maemo apps/desktop environment/titan theme for os2008.png
+afd4686a6feb47fe0b5380d9f03d0bd0  usr/share/liqbase/media/maemo apps/desktop environment/large statusbar clock.png
+efea35cf5d0992547d1090cf1f23b3b2  usr/share/liqbase/media/maemo apps/desktop environment/personal menu.png
 6fcc30ae5a1f845f0cdc36b398100552  usr/share/liqbase/media/maemo apps/other/evince document viewer.png
-3c855d65ce946c75d7c40dea2bbd257b  usr/share/liqbase/media/maemo apps/communications/vnc viewer.jpg
-275d547b40b9685ee6b75ff00d1f9a5a  usr/share/liqbase/media/maemo apps/communications/pidgin on maemo.png
-c8d641973b17ca27fc5d54c4d6abd946  usr/share/liqbase/media/maemo apps/communications/gnokii gconf control panel applet.png
-cb583d3c2040795758058f8b0c625268  usr/share/liqbase/media/maemo apps/communications/phonelink.png
-38b2de8d97fa5052c35e608a36d79dee  usr/share/liqbase/media/maemo apps/communications/dialcentral.png
-05fda8fd1292ce2026b52d8b7a29efde  usr/share/liqbase/media/maemo apps/communications/openssh client.png
-277e1d6bfade8ab999dd726a4d35e9b4  usr/share/liqbase/media/maemo apps/education/flashcards(granule).png
-40f4dd344f6b2ed634e4352fc8f1ca6e  usr/share/liqbase/media/maemo apps/education/wordbyword.png
-41df95fcb03faf62cdd56eef5ad02274  usr/share/liqbase/media/maemo apps/office-business/maemopad+.png
-9ac13b131295fceb1c6bc702c6ba539e  usr/share/liqbase/media/maemo apps/office-business/labyrinth.png
-dd9433c7dd4b0b4821b0c29e505ea278  usr/share/liqbase/media/maemo apps/office-business/erminig.png
-7bd1a4060577f567d9d0831fd3d6aeb6  usr/share/liqbase/media/maemo apps/office-business/stardict.png
-fb8a8aa022c8cb9a121ba1e13b767820  usr/share/liqbase/media/maemo apps/office-business/mcalendar.png
-d885aa1e71416a5764036e4e78ce7314  usr/share/liqbase/media/maemo apps/office-business/gpe summary.png
-3979e31a24a360bd0416038415dfb16d  usr/share/liqbase/media/maemo apps/games/lxdoom.png
-75637d8d598ffbcada10c8bf4f715445  usr/share/liqbase/media/maemo apps/games/crazyparking.png
-431347d0c65511ae61966a5f929ec24b  usr/share/liqbase/media/maemo apps/games/eightyone.png
-83094e412a0cda39e87685562d62414e  usr/share/liqbase/media/maemo apps/games/numptyphysics.jpg
-0610fe82ef939f0e02bd418ccac04c5f  usr/share/liqbase/media/maemo apps/games/vgba - gameboy advance emulator.png
 df08ce95edbf51d89e98d0cd475f5350  usr/share/liqbase/media/maemo apps/games/battlegweled.png
+50ee850b72cc2a5f4c50c9896423b9b1  usr/share/liqbase/media/maemo apps/games/icebreaker.png
+3979e31a24a360bd0416038415dfb16d  usr/share/liqbase/media/maemo apps/games/lxdoom.png
+0610fe82ef939f0e02bd418ccac04c5f  usr/share/liqbase/media/maemo apps/games/vgba - gameboy advance emulator.png
 66db8a7df6c61889a4381d1c6fda919c  usr/share/liqbase/media/maemo apps/games/aisleriot solitaire.png
 f48b01f39767f21e0c86a65f572af4d5  usr/share/liqbase/media/maemo apps/games/bomberman it2008.png
-50ee850b72cc2a5f4c50c9896423b9b1  usr/share/liqbase/media/maemo apps/games/icebreaker.png
+75637d8d598ffbcada10c8bf4f715445  usr/share/liqbase/media/maemo apps/games/crazyparking.png
 ac112259df5edecd15501aebb8ce3855  usr/share/liqbase/media/maemo apps/games/scummvm.png
-9f115451c638da1893d7f3e319a4b5f0  usr/share/liqbase/media/blob.png
-919e85e6f46ff09097bc441cc86f2fcc  usr/share/liqbase/media/tagging.png
-221aa8829cfe7ffaf7a1e239787a9900  usr/share/liqbase/media/blob.yellow.png
-9ce84ae945f0538e793a1e2c550ffeab  usr/share/liqbase/media/manchester map.png
-b811aa05a9232ccb3f65019230a17637  usr/share/liqbase/media/toolbar_background.png
-67bf125355ee4314325e8d1815d6d529  usr/share/liqbase/media/blob.green.png
-1d0c34879c9d30c287060f084708aa31  usr/share/liqbase/media/quickicons/find.png
-9e9943acb62c8a83bfc338d835ca9ecc  usr/share/liqbase/media/quickicons/stock_refresh.png
-546931c9da492be3ef2e345c22640581  usr/share/liqbase/media/quickicons/up.png
-478fceac669800b03bf5abc0519e32ee  usr/share/liqbase/media/quickicons/add.png
-b22bbcb8105783cf3389154aa886876c  usr/share/liqbase/media/quickicons/gtk-close.png
-8963f5ea09abc4f0e2e9c21f04b494e5  usr/share/liqbase/media/quickicons/package_system.png
-e7a04f2584867d6697f8aa334d4a8404  usr/share/liqbase/media/quickicons/back.png
-303d86f0cf5eb5eb09ab208d32122afb  usr/share/liqbase/media/quickicons/package_graphics.png
-6055116d4f683dd51dcf0b0a7980d055  usr/share/liqbase/media/quickicons/README
-bed012ad4d185fe8e5222fb94de6d61d  usr/share/liqbase/media/quickicons/folder.png
-a4be3701684e7b7542e051d55695974a  usr/share/liqbase/media/quickicons/gtk-remove.png
-d3db2008e2a091d5392c1d639fe26dc6  usr/share/liqbase/media/quickicons/txt.png
-3d3c087030baf8fabc13be2b62192c68  usr/share/liqbase/media/quickicons/gnome-terminal.png
+431347d0c65511ae61966a5f929ec24b  usr/share/liqbase/media/maemo apps/games/eightyone.png
+83094e412a0cda39e87685562d62414e  usr/share/liqbase/media/maemo apps/games/numptyphysics.jpg
+277e1d6bfade8ab999dd726a4d35e9b4  usr/share/liqbase/media/maemo apps/education/flashcards(granule).png
+40f4dd344f6b2ed634e4352fc8f1ca6e  usr/share/liqbase/media/maemo apps/education/wordbyword.png
+8bc2eab48009731986d3e1acc5271a05  usr/share/liqbase/media/maemo apps/scientific/maemo periodic.png
+7dd25740e146cd66f6b0f5d0bbad02c3  usr/share/liqbase/media/maemo apps/scientific/pyculator home applet.png
+8d9cf04fcd0f390d872a76d273a9e652  usr/share/liqbase/media/maemo apps/scientific/mathjinni.png
+76e06afc2bfb014f4324297d4a457776  usr/share/liqbase/media/maemo apps/scientific/free42 hp calculator.png
+585aac24182a8a11c2172fabd92118ca  usr/share/liqbase/media/maemo apps/scientific/lybniz.png
+8eb3843a6b20c6fdd985e031fe95aaef  usr/share/liqbase/media/maemo apps/scientific/visual saliency algorithm.png
+cb289f5f813b61f36ecfb13066a3d391  usr/share/liqbase/media/maemo apps/scientific/easychem chemical structures editor.png
+c6b860670e8f6e463ea4d3c7bc8e6895  usr/share/liqbase/media/maemo apps/scientific/slide rule - advanced graphing calculator.png
+b318d538e319268de61e24eac6c95e4f  usr/share/liqbase/media/maemo apps/scientific/tiemu2 port.jpg
+86aad2f4c4a2409cc88aa03a90710424  usr/share/liqbase/media/maemo apps/scientific/mclock.jpg
+964d462410ef9986a2cf11c7d2afaa98  usr/share/liqbase/media/maemo apps/religion/rapier.jpg
+7bd1a4060577f567d9d0831fd3d6aeb6  usr/share/liqbase/media/maemo apps/office-business/stardict.png
+dd9433c7dd4b0b4821b0c29e505ea278  usr/share/liqbase/media/maemo apps/office-business/erminig.png
+d885aa1e71416a5764036e4e78ce7314  usr/share/liqbase/media/maemo apps/office-business/gpe summary.png
+41df95fcb03faf62cdd56eef5ad02274  usr/share/liqbase/media/maemo apps/office-business/maemopad+.png
+9ac13b131295fceb1c6bc702c6ba539e  usr/share/liqbase/media/maemo apps/office-business/labyrinth.png
+fb8a8aa022c8cb9a121ba1e13b767820  usr/share/liqbase/media/maemo apps/office-business/mcalendar.png
+c8d641973b17ca27fc5d54c4d6abd946  usr/share/liqbase/media/maemo apps/communications/gnokii gconf control panel applet.png
+38b2de8d97fa5052c35e608a36d79dee  usr/share/liqbase/media/maemo apps/communications/dialcentral.png
+05fda8fd1292ce2026b52d8b7a29efde  usr/share/liqbase/media/maemo apps/communications/openssh client.png
+cb583d3c2040795758058f8b0c625268  usr/share/liqbase/media/maemo apps/communications/phonelink.png
+3c855d65ce946c75d7c40dea2bbd257b  usr/share/liqbase/media/maemo apps/communications/vnc viewer.jpg
+275d547b40b9685ee6b75ff00d1f9a5a  usr/share/liqbase/media/maemo apps/communications/pidgin on maemo.png
+5fb7c8e76a0f1a849f600850308fdc8c  usr/share/liqbase/media/maemo apps/system/usb control.jpg
+97627a013b19b7ffa37bba2693b07d01  usr/share/liqbase/media/maemo apps/system/packageview.png
+818a0e4743575a0d8b011c967a225b6c  usr/share/liqbase/media/maemo apps/system/vpnc-gui.png
+8c9d9dda6d8150f031a393931658f95f  usr/share/liqbase/media/maemo apps/system/load applet.png
+3306e5c2bdaac75f8a7e4cf4e492361f  usr/share/liqbase/media/maemo apps/system/rootsh - get root easily..png
+7f22e0cfcb08d84913488ca3947d6baf  usr/share/liqbase/media/maemo apps/multimedia/mytube - youtube browser.jpg
+b8a9709f238034181100a71151595408  usr/share/liqbase/media/maemo apps/multimedia/streamtuner.png
+fdbd9dbcf46f9ff25d92ddf59cc08fb2  usr/share/liqbase/media/maemo apps/multimedia/canola2 media player.jpg
+e536ac66b85e95daeff66df42e2c0082  usr/share/liqbase/media/maemo apps/multimedia/kmplayer.png
+e41f2d6e8a90edfbdc298ea3b9bc3519  usr/share/liqbase/media/maemo apps/multimedia/maemo recorder.jpg
+06f2cea199fdc08d677fe8dcd33029a0  usr/share/liqbase/media/maemo apps/multimedia/mediabox media center.png
+5eb7fd184cad0ffde296c1edc2b4d65b  usr/share/liqbase/media/maemo apps/travel/roadmap for maemo.jpg
+49e09fc46f53f4f23540cb03a728b23e  usr/share/liqbase/media/maemo apps/travel/maemo mapper.png
+1d06756748e95b02c93b0b36c9f1386b  usr/share/liqbase/media/maemo apps/travel/vim.jpg
+6f238426ab62748180361acef1c16cb6  usr/share/liqbase/media/maemo apps/travel/gps city guide for maemo.png
+a47e0d53d5328a791a2a3b00bd107d42  usr/share/liqbase/media/maemo apps/travel/vim.png
+25d5ef73f8829e1239c1c442c38629e4  usr/share/liqbase/media/maemo apps/travel/gpxview - geocaching with maemo.jpg
+af999808792c36dad6f9df272da0e42a  usr/share/liqbase/media/maemo apps/travel/carman.jpg
+96e449308f17a5608dfb10e83b4a9509  usr/share/liqbase/media/maemo apps/travel/gworld clock.png
+32dd155e7cf168a1de5c14a6f96361e0  usr/share/liqbase/media/maemo apps/travel/map downloader.png
+f871086cb2ab00c96e08be57661d1ee3  usr/share/liqbase/media/maemo apps/travel/osm2go.jpg
+8141aaa40b57ad293dd3c41276439b34  usr/share/liqbase/media/maemo apps/security/personal password manager.png
+e866b2790bb8197753bd259f217e378d  usr/share/liqbase/media/maemo apps/security/claws-mail-pgp.png
+3c7090fc8d9c188d3f16e76f16b3bc1d  usr/share/liqbase/media/maemo apps/security/passwordsafe.png
+cec030262b0439f7c95b2c341f0ed9b3  usr/share/liqbase/media/maemo apps/software development/pygtkeditor.png
+61577051e1a203be93375c432692f072  usr/share/liqbase/media/maemo apps/software development/python2.5 for maemo - [pymaemo].png
+8674f084d1a9d138e0ebf19882923509  usr/share/liqbase/media/maemo apps/software development/datejinni.png
+59cc829e0e0e07034ff5e03b6802c1c6  usr/share/liqbase/media/maemo apps/internet/gftp.png
+6149aca370f32f44ccb44f05b963040a  usr/share/liqbase/media/maemo apps/internet/pyrdesktop.png
+2c36c60bdb05b11b22bea6cb00f67876  usr/share/liqbase/media/maemo apps/internet/nicotine.png
+9c9df897b0709d5cbf29a61a13a18907  usr/share/liqbase/media/maemo apps/internet/claws mail.png
+4a308280a6db667ada9f0aec1d5acc72  usr/share/liqbase/media/maemo apps/internet/wifiinfo.png
+5168ea8973c67a1d92a04942d443cde3  usr/share/liqbase/media/maemo apps/internet/feed circuit.png
+16ba8627f06f0c2335f0e6348cd5daa7  usr/share/liqbase/media/maemo apps/internet/transmission.png
+f46038e7095aa790a2beb6c7b370fce1  usr/share/liqbase/media/maemo apps/internet/maemo wordpy.png
+49a06ed6cfecf74842ddfa93e0bb8147  usr/share/liqbase/widgets/liqappman.so
+bcfd81ec2491d1659a5cb2bcdd94e1a3  usr/share/liqbase/widgets/liqbrightness.so
+e8540e72d4453c8d2024a46ce0691fe6  usr/share/liqbase/widgets/liqvcells.so
+34c688f8abd9a17a5cd9e1308be824be  usr/share/liqbase/widgets/liqcontrolpanel.so
+91e94bd0915c38de816fb83e17c81d84  usr/share/liqbase/widgets/liqtimer.so
+8de570ceca667338de926fb4510b0862  usr/share/liqbase/widgets/liqaccelview.so
+3825a9f581fe6f0b8b0f6b282951e612  usr/share/liqbase/widgets/opensource.so
+8ff492b9b23fe64e2b5c860fcf0d7f64  usr/share/liqbase/widgets/liqtreebrowse.so
+f84182faf8c4cf43520382b8099bd038  usr/share/liqbase/widgets/liqtop.so
+40f61f0deb140a9b80b03769ff9ebc2c  usr/share/liqbase/widgets/ciroclock.so
+8252114adcef71c88936ec8766e8b209  usr/share/liqbase/widgets/floatmap.so
+632bd62bf2869572a06cadc81500c1f4  usr/share/liqbase/widgets/liqapplist.so
+0a0476fc9ccf37f84df20f49c8eeec3f  usr/share/liqbase/widgets/liqcpu.so
+fd37c8f1621e164a1f7ca254c20b43ed  usr/share/liqbase/widgets/liqmap2.so
+8159bdb25ff5dd1812353133b3ff8cda  usr/share/liqbase/widgets/liqrecentusers.so
+d3332530fe711cde9be1cfcdfebd0693  usr/share/liqbase/widgets/liqdesktop.so
+0aa8450a1bb2045349c789fc59ba6c4f  usr/share/liqbase/widgets/liqrecentphotos.so
+bca6b02e86c1d10e9e3c9de34a01db13  usr/share/liqbase/widgets/jumptoconclusions.so
+c2177d8fd5f06a06cca865cc3348920d  usr/share/liqbase/widgets/liqmemory.so
+7f8ae07afb8c88700ebb4b10f5c427fc  usr/share/liqbase/widgets/frmbase800x480.so
+44089b45b42e63ad1bd8ed8dcc5538e6  usr/share/liqbase/widgets/liqwelcome.so
+6268f8ac07b20abe52f1d5566658cefe  usr/share/liqbase/widgets/liqbase.so
+a81339a34b756450228505da64193b28  usr/share/liqbase/widgets/liqcalendar/liqcalendar.so
+17b8b9b9a5d9b4828c5ba2acf1cde1dd  usr/share/liqbase/widgets/liqallpics.so
+ea403a9094e5f577defbbcbbe0e8a905  usr/share/liqbase/widgets/liqcalendarsearch.so
+6db5e055fd0542782983ca7bf2dd7916  usr/share/liqbase/widgets/playground/playground.so
+eaa5e602bd9e8f82b1cde133c9b8daa2  usr/share/liqbase/widgets/textbox.so
+c695c52bcf4aa2d4f56189c07be391c1  usr/share/liqbase/widgets/liqrecentapps.so
+2532f82ce520a87dac83da474752710b  usr/share/liqbase/widgets/liqfilemonitor.so
+75afb5825169f432d3ab453207f97b8c  usr/share/liqbase/widgets/desktopmanage/desktopmanage.so
+12e287147ecdc017a4143e8f121d4f4e  usr/share/liqbase/widgets/ciroclock_minutes.so
+8493504e00d236b757edc2b0ea5523ea  usr/share/liqbase/widgets/liqbook/liqbook.so
+bae0df3b93eb403fd23b53f7d67e690f  usr/share/liqbase/widgets/liqrecentsketches.so
+c2c452860ab7051bf44e5b744ca1d315  usr/share/liqbase/widgets/tagcloud.so
+d1982ff79be3bce5e446a8f028c29ac5  usr/share/liqbase/widgets/liqfileselect.so
+166efe4ab771603b79a6d3984187a7df  usr/share/liqbase/widgets/liqimage.so
+25b053be20e261e75e05bf8619064412  usr/share/liqbase/widgets/liqbattery.so
+69a237380acd65e796a4a1db2dbbcdfa  usr/share/liqbase/widgets/liqcalendardays.so
+fb858f04357d0c888333a966dffe6ace  usr/share/liqbase/widgets/liqpicview.so
+08fa915644e4696cc25c3a565f03e030  usr/share/liqbase/widgets/liqrecentpics.so
+4974be9ea1dfbe5c40e6f0cc32e356e2  usr/share/liqbase/widgets/liqdesign.so
+54cfc712dde71314bab1d82878e76d91  usr/share/liqbase/widgets/liqirc.so
+130186b0b575eff73cc0e62747c3636c  usr/share/dbus-1/services/org.maemo.liqbase-playground.service
+d4029b8f0e0e6f02c5da8c0cbf8119fd  usr/share/applications/hildon/liqbase-playground.desktop
 13a69fee8463b0f01ec8d890e3510e45  usr/share/doc/liqbase-playground/copyright
-e34b49fdb3d708acba004a191935c5c0  usr/share/doc/liqbase-playground/changelog.gz
+be11395b950de8b63e8c717558cddb71  usr/share/doc/liqbase-playground/changelog.gz
+21958a496ab7518cf26c1d63480149fe  usr/bin/liqbase-cpu-performance
+e483c5f5ab805bbba739d6acdca20b54  usr/bin/liqbase-cpu-ondemand
+1e66f08b2e285a7c3d2121020f8bcb0b  usr/bin/liqbase-playground-run.sh
+a21347b99ee9968278b68dc971b7a2ee  usr/bin/liqbase-cpu-powersave

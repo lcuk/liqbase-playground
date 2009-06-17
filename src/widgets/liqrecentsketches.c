@@ -216,7 +216,7 @@ liqcell *liqrecentsketches_create()
 
 
 
-		char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/.sketches",app.userdatapath);
+		char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/sketches",app.userdatapath);
 
 
 if(liqapp_pathexists(buf))

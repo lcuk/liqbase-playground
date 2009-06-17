@@ -58,9 +58,9 @@ install:
 	cp -r src/widgets/liqbook/*.so              									$(PGDIR)/widgets/liqbook
 
 	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-run.sh                               $(BINDIR)
-	install -m 0755 liqbase_base_fs/usr/bin/liqbase-cpu-ondemand                                    $(BINDIR)
-	install -m 0755 liqbase_base_fs/usr/bin/liqbase-cpu-powersave                                   $(BINDIR)
-	install -m 0755 liqbase_base_fs/usr/bin/liqbase-cpu-performance                                 $(BINDIR)
+	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-cpu-ondemand                         $(BINDIR)
+	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-cpu-powersave                        $(BINDIR)
+	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-cpu-performance                      $(BINDIR)
 	install -m 0755 liqbase_base_fs/etc/sudoers.d/liqbase-playground.sudoers                        $(SUDODIR)
 	install -m 0755 liqbase_base_fs/usr/share/applications/hildon/liqbase_playground.desktop        $(DESKTOPDIR)
 	install -m 0755 liqbase_base_fs/usr/share/dbus-1/services/org.maemo.liqbase_playground.service  $(SERVICEDIR)

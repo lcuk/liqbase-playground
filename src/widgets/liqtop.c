@@ -64,7 +64,7 @@
 
 		char filenamebuffer[FILENAME_MAX];
 
-		snprintf(filenamebuffer,sizeof(filenamebuffer), "%s/.sketches/liq.%s.%s.page",    app.userdatapath,    filedate,    "gary");
+		snprintf(filenamebuffer,sizeof(filenamebuffer), "%s/sketches/liq.%s.%s.page",    app.userdatapath,    filedate,    app.username );
 
 		liqsketch_filesave(liqcell_getsketch(self), filenamebuffer );
 		

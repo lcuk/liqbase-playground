@@ -36,7 +36,7 @@ install:
 
 	mkdir -p                                    									$(PGDIR)
 	mkdir -p                                    									$(PGDIR)/media
-	mkdir -p                                    									$(PGDIR)
+	mkdir -p                                    									$(PGDIR)/kotcomix
 	mkdir -p                                    									$(PGDIR)/widgets
 	mkdir -p                                    									$(PGDIR)/widgets/liqcalendar
 	mkdir -p                                    									$(PGDIR)/widgets/playground
@@ -51,11 +51,14 @@ install:
 	#cp -r src/widgets/desktopmanage/media/*    									 $(PGDIR)/media
 
 	install -m 0755 src/liqbase-playground      									$(PGDIR)
+	install -m 0755 src/kotcomix/kotcomix      									$(PGDIR)/kotcomix
 	cp -r src/widgets/*.so                      									$(PGDIR)/widgets
 	cp -r src/widgets/liqcalendar/*.so          									$(PGDIR)/widgets/liqcalendar
 	cp -r src/widgets/playground/*.so           									$(PGDIR)/widgets/playground
 	cp -r src/widgets/desktopmanage/*.so        									$(PGDIR)/widgets/desktopmanage
 	cp -r src/widgets/liqbook/*.so              									$(PGDIR)/widgets/liqbook
+	cp -r src/kotcomix/kotcomix.so              									$(PGDIR)/kotcomix
+
 
 	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-run.sh                               $(BINDIR)
 	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-cpu-ondemand                         $(BINDIR)

@@ -24,6 +24,7 @@ OBJS        = $(OBJSCORE) $(PROG).o
 .PHONY:     clean distclean
 all:        $(PROG)
 	      $(MAKE) -C widgets
+	      $(MAKE) -C kotcomix
 
 $(PROG):    $(OBJS)
 	      $(LD) $(LDFLAGS) -o $(PROG) $(OBJS) \
@@ -33,5 +34,7 @@ $(PROG):    $(OBJS)
 clean:
 	      $(RM) *~ $(OBJS) $(PROG)
 		$(MAKE) clean -C widgets
+		$(MAKE) clean -C kotcomix
+
 .PHONY:     clean
 

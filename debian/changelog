@@ -1,3 +1,9 @@
+liqbase-playground (0.3.9) unstable; urgency=low
+
+  * tweaks to paths and packaging bits
+
+ -- Gary Birkett <liquid@gmail.com>  17 June 2009 21:41:03 +0200
+
 liqbase-playground (0.3.8) unstable; urgency=low
 
   * fix for osso fix.

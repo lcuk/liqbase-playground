@@ -221,7 +221,7 @@
 			// set this as editable
 			
 			
-			char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/.cal",app.userdatapath);
+			char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/cal",app.userdatapath);
 			
 			
 			char fnbuf[FILENAME_MAX];

@@ -7,3 +7,4 @@ Type=Application
 StartupWMClass=liqbase_playground
 X-Osso-Service=org.maemo.liqbase_playground
 X-Osso-Type=application/x-executable
+StartupNotify=false

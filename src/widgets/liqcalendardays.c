@@ -156,7 +156,7 @@ liqcell *liqcalendardays_create()
 	{
 		liqcell *body = liqcell_quickcreatevis("body","frame",0 ,0,   self->w,self->h);
 		
-		char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/.cal",app.userdatapath);
+		char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/cal",app.userdatapath);
 		
 		liqcell_scan_folder_for_images(body,buf);
 		

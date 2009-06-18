@@ -15,11 +15,81 @@
 #include <errno.h>
 #include <dirent.h>
 
+static int lowest(int a,int b)
+{
+	if(abs(a)<abs(b)) return a;
+	return b;
+}
+
+
+static int dimension_ensurevisible( int rs,int re,    int ps,int pe, int ss,int se)
+{
+	// calculate the minimal adjustment within a dimension required to ensure S is visible through the portal that R provides
+	// the adjustment will be applied to P upon returning from this function
+	// to slide the rule along so s is visible :)
+	//ss += ps;	// start by adjusting 
+	//se += pe;
+	
+	liqapp_log("dim ol: r(%i,%i)   p(%i,%i)    s(%i,%i)",   rs,re,     ps,pe,     ss,se);
+	if(re<=ss)
+	{
+		// S is way below, lets adjust
+		return lowest(ss-rs,se-re);
+	}
+	if(rs<=ss)
+	{
+		// S is actually somewhat visible
+		// but we might be chopping off the bottom of it
+		if(re<=se) lowest(ss-rs,se-re);
+		// otherwise we let it be, floating somewhere within
+		return 0;
+	}
+
+	// S is partially or entirely above us
+	return lowest(ss-rs,se-re);
+}
 
 extern int liqcell_showdebugboxes;
 
 static int liqcell_ensurevisible(liqcell *self)
 {
+	liqapp_log("ensure: %s",self->name);
+	int xs=self->x;
+	int xe=self->x+self->w;
+	int ys=self->y;
+	int ye=self->y+self->w;
+	
+	liqcell *p=liqcell_getlinkparent(self);
+	//while(p)
+	if(p)
+	{
+		liqcell *r=liqcell_getlinkparent(p);
+		if(r)
+		{
+			liqapp_log("trying in : %s",p->name);
+			xs+=p->x;
+			xe+=p->x;
+			ys+=p->y;
+			ye+=p->y;
+
+			//
+			int ax = -dimension_ensurevisible(0,r->w,   p->x,p->x+p->w,   xs,xe);
+			int ay = -dimension_ensurevisible(0,r->h,   p->y,p->y+p->h,   ys,ye);
+
+
+			liqapp_log("gave me : a(%i,%i)",  ax,ay);
+
+			liqcell_adjustpos(p,ax,ay);
+			xs-=ax;
+			xe-=ax;
+			ys-=ay;
+			ye-=ay;
+
+		}
+		//p=r;
+	}
+	
+	
 	
 /*	
 	liqcell *c = liqcell_getlinkchild(self);
@@ -323,15 +393,29 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path,char *classto
 					
 	}
 		
-
+	static int kotcomix_changedir(liqcell *self, char *newpath);
 
 
 	static int kotcomix_folderitem_click(liqcell *self, liqcellclickeventargs *args, liqcell *kotcomix)
 	{
-		//liqapp_log("clickity : %s:%s",self->name,self->classname);
+		liqapp_log("clickity : %s:%s",self->name,self->classname);
 		
-		kotcomix_selectfile(kotcomix,self->name);
 	
+		if(liqapp_folderexists(self->name))
+		{
+			// folder
+			liqcell_hold(self);
+			
+			kotcomix_changedir(kotcomix, self->name);
+			
+			liqcell_release(self);
+		}
+		else
+		{
+			// file
+			kotcomix_selectfile(kotcomix,self->name);
+		}
+		
 	
 	/*
 		
@@ -418,6 +502,10 @@ static int kotcomix_changedir(liqcell *self, char *newpath)
 	liqcell_child_removeallvisual( folderbackplane );
 	liqcell_child_removeallvisual( filebackplane );
 	
+	liqcell_setcaption(title, newpath );
+	
+	liqcell_propsets(self, "startpath", newpath );
+	
 	
 	liqcell_setrect(folderbackplane, 0,0,folderlist->w,folderlist->h);
 
@@ -439,15 +527,63 @@ static int kotcomix_changedir(liqcell *self, char *newpath)
 	liqcell_child_arrange_autoflow(filebackplane);
 }
 
+/**	
+ * kotcomix.title clicked
+ */	
+static int title_click(liqcell *title,liqcelleventargs *args, liqcell *self)
+{
+	liqcell *buttonaccept = liqcell_child_lookup(self, "buttonaccept");
+	liqcell *folderlist = liqcell_child_lookup(self, "folderlist");
+		liqcell *folderbackplane = liqcell_child_lookup(folderlist, "folderbackplane");
+			//liqcell *folderitem1 = liqcell_child_lookup(folderbackplane, "folderitem1");
+	liqcell *filelist = liqcell_child_lookup(self, "filelist");
+		liqcell *filebackplane = liqcell_child_lookup(filelist, "filebackplane");
+			//liqcell *fileitem1 = liqcell_child_lookup(filebackplane, "fileitem1");
+	//liqcell *title = liqcell_child_lookup(self, "title");
+	liqcell *icon = liqcell_child_lookup(self, "icon");
+	liqcell *label5 = liqcell_child_lookup(self, "label5");
+	liqcell *label6 = liqcell_child_lookup(self, "label6");
+	liqcell *label7 = liqcell_child_lookup(self, "label7");
+	liqcell *label1 = liqcell_child_lookup(self, "label1");	
+	
+	
+	char * startpath = liqcell_propgets(self, "startpath", "/usr/share/liqbase/media");
+	if(!startpath)return 0;
+	// take a copy
+	char buf[FILENAME_MAX];
+	snprintf(buf,sizeof(buf),startpath);
+	char *allpath=buf;	
+	char *lastpart = liqapp_filename_walkoverpath(allpath);
+	
+	if(lastpart && lastpart>allpath)
+	{
+		lastpart[-1]=0;
+		
+		if(*allpath)
+		{
+		
+			kotcomix_changedir(self, allpath);
+		}
+		else
+		{
+			kotcomix_changedir(self, "/");
+		}
+		
+	}
 
+}
 
 /**	
  * kotcomix widget shown
  */	
 static int kotcomix_shown(liqcell *self,liqcelleventargs *args, void *context)
 {
-	// test..
-	kotcomix_changedir(self, "/home/user/svn/liqbase-playground/src/media");
+	// 20090618_020248 lcuk : expect to be passed a parameter to specify "startpath"
+	char * startpath = liqcell_propgets(self, "startpath", "/usr/share/liqbase/media");
+	
+	liqapp_log("kotcomix.startpath=%s",startpath);
+	
+	kotcomix_changedir(self, startpath);
 }
 /**	
  * kotcomix widget refresh, all params set, present yourself to the user.
@@ -461,9 +597,23 @@ static int kotcomix_refresh(liqcell *self,liqcelleventargs *args, void *context)
 /**	
  * kotcomix.buttonaccept clicked
  */	
-//static int buttonaccept_click(liqcell *self,liqcelleventargs *args, liqcell *kotcomix)
-//{
-//}
+static int buttonaccept_click(liqcell *self,liqcelleventargs *args, liqcell *kotcomix)
+{
+}
+
+
+/**	
+ * kotcomix.quicklocation clicked
+ */	
+static int quicklocation_click(liqcell *self,liqcelleventargs *args, liqcell *kotcomix)
+{
+	// read the location from a property :)
+	
+	char * startpath = liqcell_propgets(self, "startpath", "/usr/share/liqbase/media");
+	
+	kotcomix_changedir(kotcomix, startpath);
+}
+
 /**	
  * kotcomix_child_test_seek this function shows how to access members
  */	
@@ -495,12 +645,6 @@ liqcell *kotcomix_create()
 	liqcell *self = liqcell_quickcreatewidget("kotcomix", "form", 800, 480);
 	if(!self) {liqapp_log("liqcell error not create 'kotcomix'"); return NULL;  } 
 	
-	//############################# buttonaccept:commandbutton
-	//liqcell *buttonaccept = liqcell_quickcreatevis("buttonaccept", "commandbutton", 716, 426, 74, 42);
-	//liqcell_setcaption(buttonaccept, "OK" );
-	//liqcell_propsets(  buttonaccept, "backcolor", "rgb(0,255,0)" );
-	//liqcell_handleradd_withcontext(buttonaccept, "click", buttonaccept_click, self );
-	//liqcell_child_append(  self, buttonaccept);
 	//############################# folderlist:frame
 	liqcell *folderlist = liqcell_quickcreatevis("folderlist", "frame", 54, 46, 344, 422);
 	//liqcell_setfont(	folderlist, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
@@ -543,14 +687,15 @@ liqcell *kotcomix_create()
 	liqcell *title = liqcell_quickcreatevis("title", "label", 62, 0, 546, 42);
 	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
 	liqcell_setcaption(title, "kot comix" );
-	liqcell_propsets(  title, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  title, "textcolor", "rgb(255,100,100)" );
 	liqcell_propsets(  title, "backcolor", "rgb(0,0,0)" );
 	liqcell_propseti(  title, "textalign", 0 );
+	liqcell_handleradd_withcontext(title, "click", title_click, self );
 	liqcell_child_append(  self, title);
 	//############################# icon:label
 	liqcell *icon = liqcell_quickcreatevis("icon", "label", 2, 2, 52, 40);
 	liqcell_setfont(	icon, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
-	liqcell_setcaption(icon, "icon" );
+	liqcell_setcaption(icon, ".." );
 	liqcell_propsets(  icon, "textcolor", "rgb(255,255,255)" );
 	liqcell_propsets(  icon, "backcolor", "rgb(0,0,128)" );
 	liqcell_propsets(  icon, "bordercolor", "rgb(200,100,100)" );
@@ -564,6 +709,10 @@ liqcell *kotcomix_create()
 	liqcell_propsets(  label5, "backcolor", "rgb(0,128,128)" );
 	liqcell_propsets(  label5, "bordercolor", "rgb(200,100,100)" );
 	liqcell_propseti(  label5, "textalign", 2 );
+
+	liqcell_propsets(  label5, "startpath", "/home/user/MyDocs" );
+	liqcell_handleradd_withcontext(label5, "click", quicklocation_click, self );
+
 	liqcell_child_append(  self, label5);
 	//############################# label6:label
 	liqcell *label6 = liqcell_quickcreatevis("label6", "label", 2, 172, 52, 68);
@@ -573,6 +722,10 @@ liqcell *kotcomix_create()
 	liqcell_propsets(  label6, "backcolor", "rgb(0,128,128)" );
 	liqcell_propsets(  label6, "bordercolor", "rgb(200,100,100)" );
 	liqcell_propseti(  label6, "textalign", 2 );
+	
+	liqcell_propsets(  label6, "startpath", "/media/mmc1" );
+	liqcell_handleradd_withcontext(label6, "click", quicklocation_click, self );
+
 	liqcell_child_append(  self, label6);
 	//############################# label7:label
 	liqcell *label7 = liqcell_quickcreatevis("label7", "label", 0, 246, 54, 64);
@@ -583,16 +736,39 @@ liqcell *kotcomix_create()
 	liqcell_propsets(  label7, "bordercolor", "rgb(200,100,100)" );
 	liqcell_propseti(  label7, "textalign", 2 );
 	liqcell_child_append(  self, label7);
+
+	liqcell_propsets(  label7, "startpath", "/media/mmc2" );
+	liqcell_handleradd_withcontext(label7, "click", quicklocation_click, self );
+
 	//############################# label1:label
 	liqcell *label1 = liqcell_quickcreatevis("label1", "label", 0, 318, 54, 64);
 	liqcell_setfont(	label1, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
-	liqcell_setcaption(label1, "root" );
+	liqcell_setcaption(label1, "liq" );
 	liqcell_propsets(  label1, "textcolor", "rgb(255,255,255)" );
 	liqcell_propsets(  label1, "backcolor", "rgb(0,128,128)" );
 	liqcell_propsets(  label1, "bordercolor", "rgb(200,100,100)" );
 	liqcell_propseti(  label1, "textalign", 2 );
+
+	liqcell_propsets(  label1, "startpath", "/usr/share/liqbase/media" );
+	liqcell_handleradd_withcontext(label1, "click", quicklocation_click, self );
+
 	liqcell_child_append(  self, label1);
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
+
+	//############################# buttonaccept:commandbutton
+	liqcell *buttonaccept = liqcell_quickcreatevis("buttonaccept", "commandbutton", 600, 440, 200, 40);
+	liqcell_setfont(	buttonaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (35), 0) );
+	liqcell_setcaption(buttonaccept, "save" );
+	liqcell_propsets(  buttonaccept, "textcolor",   "rgb(0,255,0)" );
+	liqcell_propsets(  buttonaccept, "backcolor",   "rgb(0,40,0)" );
+	liqcell_propsets(  buttonaccept, "bordercolor", "rgb(0,150,0)" );
+	liqcell_propseti(  buttonaccept, "textalign",   2 );
+	liqcell_propseti(  buttonaccept, "textaligny",  2 );
+	liqcell_child_append(  self, buttonaccept);
+
+
+
+
 	liqcell_handleradd(self, "refresh", kotcomix_refresh );
 	liqcell_handleradd(self, "shown", kotcomix_shown );
 	

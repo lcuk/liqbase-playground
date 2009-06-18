@@ -206,7 +206,7 @@ liqcell *fileitem_create()
 	liqcell_propseti(  filedate, "textalign", 0 );
 	liqcell_child_append(  self, filedate);
 	//############################# fileico:label
-	liqcell *fileico = liqcell_quickcreatevis("fileico", "label", 0,0, 128,106);
+	liqcell *fileico = liqcell_quickcreatevis("fileico", "label", 4,4, 120,98);
 	//liqcell_setfont(	fileico, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
 	//liqcell_setcaption(fileico, "ico" );
 	//liqcell_propsets(  fileico, "textcolor", "rgb(0,0,0)" );

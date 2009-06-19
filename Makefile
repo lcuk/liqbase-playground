@@ -8,8 +8,8 @@ OPT_FLAGS   =  -O3
 #DESTDIR	?= tmp
 
 
-ETCDIR	    = $(DESTDIR)//etc
-PREFIX	    = $(DESTDIR)//usr
+ETCDIR	    = $(DESTDIR)/etc
+PREFIX	    = $(DESTDIR)/usr
 SUDODIR	    = $(ETCDIR)/sudoers.d
 BINDIR	    = $(PREFIX)/bin
 DESKTOPDIR      = $(PREFIX)/share/applications/hildon

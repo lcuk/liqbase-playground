@@ -138,7 +138,7 @@
 			// newbit
 			// selstart+sellen..end
 			
-			int reqd = selstart  +  keylen  +  aftersellen;
+			int reqd = selstart  +  keylen  +  aftersellen + 1;		// thanks for helping to find this z4chh
 			char *buff=malloc(reqd);
 			char *block=buff;
 			if(buff)

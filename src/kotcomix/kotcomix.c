@@ -17,7 +17,12 @@
 
 static int lowest(int a,int b)
 {
-	if(abs(a)<abs(b)) return a;
+	if(abs(a)<abs(b))
+	{
+		liqapp_log("lowest %i :: %i = a %i",a,b,a);
+		return a;
+	}
+	liqapp_log("lowest %i :: %i = b %i",a,b,b);
 	return b;
 }
 
@@ -40,7 +45,10 @@ static int dimension_ensurevisible( int rs,int re,    int ps,int pe, int ss,int 
 	{
 		// S is actually somewhat visible
 		// but we might be chopping off the bottom of it
-		if(re<=se) lowest(ss-rs,se-re);
+		if(re<=se)
+		{
+			return lowest(ss-rs,se-re);
+		}
 		// otherwise we let it be, floating somewhere within
 		return 0;
 	}
@@ -57,7 +65,7 @@ static int liqcell_ensurevisible(liqcell *self)
 	int xs=self->x;
 	int xe=self->x+self->w;
 	int ys=self->y;
-	int ye=self->y+self->w;
+	int ye=self->y+self->h;
 	
 	liqcell *p=liqcell_getlinkparent(self);
 	//while(p)

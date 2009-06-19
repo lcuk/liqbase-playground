@@ -245,7 +245,12 @@ if(liqapp_pathexists(buf))
 		//liqcell_handleradd(self,    "click",   float_click);
 
 
-//#ifdef USE_INOTIFY
+// 20090619_221734 lcuk : VERY strange, if I compile with this block in place, when run from the console its ok
+// 20090619_221809 lcuk : but when run from the icon the app closes and does not run
+// 20090619_221830 lcuk : very curious
+
+
+#ifdef USE_INOTIFY
 		//############################# timer1:liqtimer
 		liqcell *timer1=liqcell_quickcreatevis("timer1",   "liqtimer",   0,0,   0,0 );
 		// store ourselves on the tag for use later
@@ -255,7 +260,7 @@ if(liqapp_pathexists(buf))
 		liqcell_handleradd_withcontext(timer1,"timertick",timer_tick,self);
 		liqcell_setenabled(timer1,1);
 		liqcell_child_insert( self,timer1);
-//#endif
+#endif
 
 
 }

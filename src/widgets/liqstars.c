@@ -27,7 +27,7 @@ typedef struct
 	int scrx;
 	int scry;
 } STAR;
-#define starcount 200
+#define starcount 2000
 //#define starcount 10000
 #define starmaxz 20
 #define starmaxspeed 0.1
@@ -79,7 +79,7 @@ STARPOINT dude;
 }
 static void star_init_all(STAR *stars)
 {
-	liqapp_log("stars init all");
+	//liqapp_log("stars init all");
 	int a;
 	STAR *sa;
 	for(a=0;a<starcount;a++)
@@ -160,7 +160,7 @@ moo:
 
 	static int widget_paint(liqcell *self, liqcellpainteventargs *args,liqcell *context)
 	{
-		liqapp_log("drawing args==NULL==%i args->graph==NULL==%i",args==NULL,  args->graph==NULL);
+		//liqapp_log("drawing args==NULL==%i args->graph==NULL==%i",args==NULL,  args->graph==NULL);
 		// vgraph *graph;
 		// args->graph;
 		
@@ -194,7 +194,7 @@ liqcell *liqstars_create()
 			self->tag = (unsigned int)stars;
 		}
 		
-		liqcell_propsets(  self, "bordercolor", "rgb(0,150,0)" );
+	//	liqcell_propsets(  self, "bordercolor", "rgb(0,150,0)" );
 	
 
 		liqcell_handleradd_withcontext(self,    "paint", widget_paint,self);

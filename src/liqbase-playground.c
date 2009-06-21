@@ -209,7 +209,7 @@ int main (int argc, char* argv[])
 
 	//########################################################## prepare the app
 
-	if(liqapp_init(   argc,argv ,"liqbase-playground" ,"0.2") != 0)
+	if(liqapp_init(   argc,argv ,"liqbase-playground" ,"0.3") != 0)
 	{
 		{ return liqapp_errorandfail(-1,"liqapp_init failed"); }
 	}

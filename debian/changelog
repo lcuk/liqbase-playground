@@ -1,3 +1,9 @@
+liqbase-playground (0.3.10) unstable; urgency=low
+
+  * cleanups to numerous places, liqstars added, kotcomix put in place
+
+ -- Gary Birkett <liquid@gmail.com>  17 June 2009 21:41:03 +0200
+
 liqbase-playground (0.3.9) unstable; urgency=low
 
   * tweaks to paths and packaging bits

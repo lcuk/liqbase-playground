@@ -3,10 +3,10 @@ VERS		  = 0.1.0
 cc = gcc
 LD = gcc
 OPT_FLAGS = -O3
-CFLAGS		= -I../../../include
+CFLAGS		= -I../../include
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic  -lpthread  
 RM			 = /bin/rm -f
-OBJSCORE	 = liqbookreader.o liqbooklist.o
+OBJSCORE	 = liqbookreader.o liqbooklist.o liqdoc.o liqbookprogress.o
 OBJS		  = $(OBJSCORE) $(PROG).o
 .PHONY:	  clean distclean
 all:		  $(PROG) $(PROG).so

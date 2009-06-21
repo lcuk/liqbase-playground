@@ -15,102 +15,10 @@
 #include <errno.h>
 #include <dirent.h>
 
-static int lowest(int a,int b)
-{
-	if(abs(a)<abs(b))
-	{
-		liqapp_log("lowest %i :: %i = a %i",a,b,a);
-		return a;
-	}
-	liqapp_log("lowest %i :: %i = b %i",a,b,b);
-	return b;
-}
 
-
-static int dimension_ensurevisible( int rs,int re,    int ps,int pe, int ss,int se)
-{
-	// calculate the minimal adjustment within a dimension required to ensure S is visible through the portal that R provides
-	// the adjustment will be applied to P upon returning from this function
-	// to slide the rule along so s is visible :)
-	//ss += ps;	// start by adjusting 
-	//se += pe;
-	
-	liqapp_log("dim ol: r(%i,%i)   p(%i,%i)    s(%i,%i)",   rs,re,     ps,pe,     ss,se);
-	if(re<=ss)
-	{
-		// S is way below, lets adjust
-		return lowest(ss-rs,se-re);
-	}
-	if(rs<=ss)
-	{
-		// S is actually somewhat visible
-		// but we might be chopping off the bottom of it
-		if(re<=se)
-		{
-			return lowest(ss-rs,se-re);
-		}
-		// otherwise we let it be, floating somewhere within
-		return 0;
-	}
-
-	// S is partially or entirely above us
-	return lowest(ss-rs,se-re);
-}
 
 extern int liqcell_showdebugboxes;
 
-static int liqcell_ensurevisible(liqcell *self)
-{
-	liqapp_log("ensure: %s",self->name);
-	int xs=self->x;
-	int xe=self->x+self->w;
-	int ys=self->y;
-	int ye=self->y+self->h;
-	
-	liqcell *p=liqcell_getlinkparent(self);
-	//while(p)
-	if(p)
-	{
-		liqcell *r=liqcell_getlinkparent(p);
-		if(r)
-		{
-			liqapp_log("trying in : %s",p->name);
-			xs+=p->x;
-			xe+=p->x;
-			ys+=p->y;
-			ye+=p->y;
-
-			//
-			int ax = -dimension_ensurevisible(0,r->w,   p->x,p->x+p->w,   xs,xe);
-			int ay = -dimension_ensurevisible(0,r->h,   p->y,p->y+p->h,   ys,ye);
-
-
-			liqapp_log("gave me : a(%i,%i)",  ax,ay);
-
-			liqcell_adjustpos(p,ax,ay);
-			xs-=ax;
-			xe-=ax;
-			ys-=ay;
-			ye-=ay;
-
-		}
-		//p=r;
-	}
-	
-	
-	
-/*	
-	liqcell *c = liqcell_getlinkchild(self);
-	while(c)
-	{
-		if(liqcell_getflagvisual(c))
-		{
-			if(!liqcell_getselected(c)) liqcell_setselected(c,1);
-		}
-		c=liqcell_getlinknext(c);
-	}
- */	return 0;
-}
 
 
 
@@ -201,6 +109,7 @@ static int liqcell_child_propremoves(liqcell *self,char *propname)
 
 
 
+
 static int liqcell_scan_folder_for_folders(liqcell *self,char *path,char *classtocreate,void *clickhandler,liqcell*clickcontext)
 {
 		char *widgetpath = path;
@@ -224,7 +133,7 @@ static int liqcell_scan_folder_for_folders(liqcell *self,char *path,char *classt
 			
 			ft=dir_entry_p->d_name;
 			
-			snprintf(fn , FILENAME_MAX , "%s/%s", widgetpath , ft);
+			snprintf(fn , FILENAME_MAX , "%s//%s", widgetpath , ft);
 			
 			struct stat     statbuf;
 			if(stat(fn, &statbuf) == -1)
@@ -398,6 +307,8 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path,char *classto
 		liqcell *fileitem1 = liqcell_child_lookup_simple(filebackplane,filename);
 		kotcomix_list_backplane_item_select(filebackplane, fileitem1 );
 		if(fileitem1) liqcell_ensurevisible(fileitem1);
+		
+		liqcell_propsets(self, "selectedfilename",   filename );
 					
 	}
 		
@@ -708,6 +619,7 @@ liqcell *kotcomix_create()
 	liqcell_propsets(  icon, "backcolor", "rgb(0,0,128)" );
 	liqcell_propsets(  icon, "bordercolor", "rgb(200,100,100)" );
 	liqcell_propseti(  icon, "textalign", 2 );
+	liqcell_handleradd_withcontext(icon, "click", title_click, self );
 	liqcell_child_append(  self, icon);
 	//############################# label5:label
 	liqcell *label5 = liqcell_quickcreatevis("label5", "label", 2, 90, 52, 76);
@@ -780,7 +692,7 @@ liqcell *kotcomix_create()
 	//############################# buttonaccept:commandbutton
 	liqcell *buttonaccept = liqcell_quickcreatevis("buttonaccept", "commandbutton", 600, 440, 200, 40);
 	liqcell_setfont(	buttonaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (35), 0) );
-	liqcell_setcaption(buttonaccept, "save" );
+	liqcell_setcaption(buttonaccept, "select" );
 	liqcell_propsets(  buttonaccept, "textcolor",   "rgb(0,255,0)" );
 	liqcell_propsets(  buttonaccept, "backcolor",   "rgb(0,40,0)" );
 	liqcell_propsets(  buttonaccept, "bordercolor", "rgb(0,150,0)" );

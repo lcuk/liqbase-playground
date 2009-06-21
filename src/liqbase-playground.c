@@ -253,7 +253,7 @@ int main (int argc, char* argv[])
 	// goodbye, see you again
 	
 	
-	system("browser --url=http://liqbase.net/playground.html");
+	//system("browser --url=http://liqbase.net/playground.html");
 	
     
 

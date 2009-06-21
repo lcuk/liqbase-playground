@@ -250,7 +250,7 @@ if(liqapp_pathexists(buf))
 // 20090619_221830 lcuk : very curious
 
 
-#ifdef USE_INOTIFY
+//#ifdef USE_INOTIFY
 		//############################# timer1:liqtimer
 		liqcell *timer1=liqcell_quickcreatevis("timer1",   "liqtimer",   0,0,   0,0 );
 		// store ourselves on the tag for use later
@@ -260,7 +260,7 @@ if(liqapp_pathexists(buf))
 		liqcell_handleradd_withcontext(timer1,"timertick",timer_tick,self);
 		liqcell_setenabled(timer1,1);
 		liqcell_child_insert( self,timer1);
-#endif
+//#endif
 
 
 }
@@ -314,23 +314,26 @@ if(liqapp_pathexists(buf))
 
 
 
+// 20090620_215315 lcuk : this was defined as 1024 units, WAY over the top
 
-
-#define BUFF_SIZE ((sizeof(struct inotify_event)+FILENAME_MAX)*1024)
+#define BUFF_SIZE ((sizeof(struct inotify_event)+FILENAME_MAX)*32)
 
 
 
 
 static void monitor_get_event(int fd, const char * target,liqcell *context)
 {
-   ssize_t len, i = 0;
+   ssize_t len=0, i = 0;
    char action[81+FILENAME_MAX] = {0};
    char buff[BUFF_SIZE] = {0};
+
+	//liqapp_log("inotify_getevent reading from '%s'",target);
 
    len = read (fd, buff, BUFF_SIZE);
    
    while (i < len)
    {
+		liqapp_log("inotify_getevent '%s', %i %i",target,i,len);
       struct inotify_event *pevent = (struct inotify_event *)&buff[i];
       char action[81+FILENAME_MAX] = {0};
 	  
@@ -382,6 +385,7 @@ static void monitor_get_event(int fd, const char * target,liqcell *context)
 	  
 	  
 
+
 	  
       i += sizeof(struct inotify_event) + pevent->len;
 
@@ -393,10 +397,9 @@ static void monitor_get_event(int fd, const char * target,liqcell *context)
 
 
 
-
 static int monitor_run(liqcell *context)
 {
-   char target[FILENAME_MAX];
+   char *target;//[FILENAME_MAX];
    int result;
    int fd;
    int wd;   /* watch descriptor */
@@ -405,31 +408,48 @@ static int monitor_run(liqcell *context)
 
 	if( (!folder) || (!*folder) || (!liqapp_pathexists(folder)) )
 	{
-      liqapp_log( "monitor path does not exist\n");
+      liqapp_log( "inotify monitor path does not exist\n");
       return -1;		
 	}
 
-   strcpy (target, folder);
-
+   //strcpy (target, folder);
+   target=strdup(folder);
+   if(!target)
+   {
+      liqapp_log( "inotify could not alloc target\n");
+      return -1;	
+   }
+   
+   liqapp_log("inotify about to init() for '%s'",target);
    fd = inotify_init();
+   liqapp_log("inotify init() returned %i",fd);
    if (fd < 0)
    {
       liqapp_log( "monitor error init: %s\n", strerror(errno));
+	  free(target);
       return 1;
    }
-   
+   liqapp_log("inotify about to add_watch for '%s'",target);
    wd = inotify_add_watch(fd, target, IN_CLOSE_WRITE);//IN_ALL_EVENTS);
+   liqapp_log("inotify add_watch returned %i",wd);
    if (wd < 0)
    {
       liqapp_log( "monitor error add: %s\n", strerror(errno));
+	  free(target);
       return -1;
    }
    
+   liqapp_log("inotify looping for '%s'",target);
+
+         //monitor_get_event(fd, target,context);
+  
    while (1)
    {
 		liqapp_sleep(25);
-      monitor_get_event(fd, target,context);
+        monitor_get_event(fd, target,context);
    }
+   
+   free(target);
 
    return 0;
 }

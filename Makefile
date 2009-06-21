@@ -41,13 +41,13 @@ install:
 	mkdir -p                                    									$(PGDIR)/widgets/liqcalendar
 	mkdir -p                                    									$(PGDIR)/widgets/playground
 	mkdir -p                                    									$(PGDIR)/widgets/desktopmanage
-	mkdir -p                                    									$(PGDIR)/widgets/liqbook
+	mkdir -p                                    									$(PGDIR)/liqbook
 
 	cp -r src/media/*                           									$(PGDIR)/media
 	#cp -r src/widgets/media/*                  									 $(PGDIR)/media
 	#cp -r src/widgets/liqcalendar/media/*      									 $(PGDIR)/media
 	#cp -r src/widgets/playground/media/*       									 $(PGDIR)/media
-	#cp -r src/widgets/liqbook/media/*          									 $(PGDIR)/media
+	#cp -r src/liqbook/media/*      		    									 $(PGDIR)/media
 	#cp -r src/widgets/desktopmanage/media/*    									 $(PGDIR)/media
 
 	install -m 0755 src/liqbase-playground      									$(PGDIR)
@@ -56,7 +56,7 @@ install:
 	cp -r src/widgets/liqcalendar/*.so          									$(PGDIR)/widgets/liqcalendar
 	cp -r src/widgets/playground/*.so           									$(PGDIR)/widgets/playground
 	cp -r src/widgets/desktopmanage/*.so        									$(PGDIR)/widgets/desktopmanage
-	cp -r src/widgets/liqbook/*.so              									$(PGDIR)/widgets/liqbook
+	cp -r src/liqbook/*.so     		         									$(PGDIR)/liqbook
 	cp -r src/kotcomix/kotcomix.so              									$(PGDIR)/kotcomix
 
 

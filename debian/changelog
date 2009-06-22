@@ -1,3 +1,9 @@
+liqbase-playground (0.3.12) unstable; urgency=low
+
+  * more packaging tweaks, thank you kotczarny and qwerty12
+
+ -- Gary Birkett <liquid@gmail.com>  22  June 2009 21:41:03 +0200
+
 liqbase-playground (0.3.11) unstable; urgency=low
 
   * added dialogfileselect, evolution from kotcomix, more required

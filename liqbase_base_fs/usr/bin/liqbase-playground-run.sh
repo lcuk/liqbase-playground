@@ -4,24 +4,28 @@
 
 export DISPLAY=:0.0
 
-sudo liqbase-playground-cpu-performance
+sudo /usr/bin/liqbase-playground-cpu-performance
 
 cd /usr/share/liqbase
 
-# YES, this is a hack, i dunno the right way though :)
+# thank you qwerty12 and kotczarny
 # just make sure this is only run on n8x0
+if [ -e /proc/component_version ];
+then
+ HW_VER=`awk '/^product/ { print $2;}' /proc/component_version | cut -d- -f2`
+else
+ HW_VER="0"
+fi
 
- MAEMO_SELECT_MENU=/usr/bin/maemo-select-menu-location
- if [ -f $MAEMO_SELECT_MENU ]
+ if [ "$HW_VER" -ge "34" -a "$HW_VER" -le "48" ];
  then
 
    ./liqbase-playground -showwidget tagcloud,liqcontrolpanel,liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqbook
  else
    ./liqbase-playground -showwidget tagcloud,liqcontrolpanel,liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqbook,liqaccelview
-
  fi
 
-sudo liqbase-playground-cpu-ondemand
+sudo /usr/bin/liqbase-playground-cpu-ondemand
 
 
 

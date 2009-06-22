@@ -32,7 +32,7 @@
 
 int liqbookprogress_startreading_lookupposition(char *bookfilename,int *storedfilelength,int *storedreadupto);
 void liqbookprogress_finishedreading_storeposition(char *bookfilename,int filelength,int readupto);
-
+char * liqbookprogress_getmostrecent();
 
 
 

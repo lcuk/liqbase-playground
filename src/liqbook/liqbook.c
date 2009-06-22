@@ -21,16 +21,20 @@ static int liqbook_refresh(liqcell *self,liqcelleventargs *args, void *context)
  */	
 static int book_continuereading_click(liqcell *self,liqcelleventargs *args, liqcell *liqbook)
 {
-	liqcell *bookreader = liqbookreader_create();//liqcell_quickcreatevis("bookreader", "liqbookreader", 0,0, 0,0);
-	liqcell_easyrun(bookreader);
-	liqcell_release(bookreader);
+	//liqcell *bookreader = liqbookreader_create();//liqcell_quickcreatevis("bookreader", "liqbookreader", 0,0, 0,0);
+	//liqcell_easyrun(bookreader);
+	//liqcell_release(bookreader);
+	
+	int liqbookreader_run(char *bookfilename);
+	liqbookreader_run("/usr/share/liqbase/media/liqbook.example.txt");
 }
 /**	
  * liqbook.book_chooseanother clicked
  */	
 static int book_chooseanother_click(liqcell *self,liqcelleventargs *args, liqcell *liqbook)
 {
-	liqcell *booklist = liqbooklist_create();//liqcell_quickcreatevis("booklist", "liqbooklist", 0,0, 0,0);
+	//liqcell *booklist = liqbooklist_create();//liqcell_quickcreatevis("booklist", "liqbooklist", 0,0, 0,0);
+	liqcell *booklist = liqcell_quickcreatevis("booklist", "dialogfileselect", 0,0, 0,0);
 	liqcell_easyrun(booklist);
 	liqcell_release(booklist);
 }

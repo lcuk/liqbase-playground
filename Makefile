@@ -37,6 +37,7 @@ install:
 	mkdir -p                                    									$(PGDIR)
 	mkdir -p                                    									$(PGDIR)/media
 	mkdir -p                                    									$(PGDIR)/kotcomix
+	mkdir -p                                    									$(PGDIR)/dialogfileselect
 	mkdir -p                                    									$(PGDIR)/widgets
 	mkdir -p                                    									$(PGDIR)/widgets/liqcalendar
 	mkdir -p                                    									$(PGDIR)/widgets/playground
@@ -58,6 +59,8 @@ install:
 	cp -r src/widgets/desktopmanage/*.so        									$(PGDIR)/widgets/desktopmanage
 	cp -r src/liqbook/*.so     		         									$(PGDIR)/liqbook
 	cp -r src/kotcomix/kotcomix.so              									$(PGDIR)/kotcomix
+	cp -r src/dialogfileselect/dialogfileselect.so        							$(PGDIR)/dialogfileselect
+
 
 
 	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-run.sh                               $(BINDIR)

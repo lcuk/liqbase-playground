@@ -26,6 +26,7 @@ all:        $(PROG)
 	      $(MAKE) -C widgets
 	      $(MAKE) -C kotcomix
 	      $(MAKE) -C liqbook
+	      $(MAKE) -C dialogfileselect
 
 $(PROG):    $(OBJS)
 	      $(LD) $(LDFLAGS) -o $(PROG) $(OBJS) \
@@ -37,6 +38,7 @@ clean:
 		$(MAKE) clean -C widgets
 		$(MAKE) clean -C kotcomix
 		$(MAKE) clean -C liqbook
+		$(MAKE) clean -C dialogfileselect
 
 .PHONY:     clean
 

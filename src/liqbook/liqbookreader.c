@@ -1,7 +1,12 @@
+#include <liqbase/liqbase.h>
 #include <liqbase/liqcell.h>
 #include <liqbase/liqcell_easyrun.h>
 #include <liqbase/liqcell_easyhandler.h>
-#include <liqbase/liqbase.h>
+#include <liqbase/liqapp_prefs.h>
+
+#include "liqdoc.h"
+
+#include "liqbookprogress.h"
 
 //#####################################################################
 //#####################################################################
@@ -9,92 +14,115 @@
 //#####################################################################
 //#####################################################################
 
-
-// 20090607_190234 lcuk : yes, i know its fixed to one location and has not yet had the goodness i added to original, time constraints etc
-
-liqcell *liqbookreader_create()
+int liqbookreader_run(char *bookfilename)
 {
 	liqcell *self = liqcell_quickcreatewidget("liqbookreader","form", 800,480);
 
 	if(self)
 	{
+		int err=0;
+		
+		//char *bookfilename = liqcell_propgets(self,"bookfilename",NULL);
+		
+		//================================================== get and process the fontsize
+		int edfontsize;
+		char * t=NULL;
+		if((t=liqapp_pref_getvalue("book_fontsize")))
+		{
+			edfontsize=atoi(t);
+		}
+		else
+		{
+			edfontsize=24;
+		}
+		
+		if(edfontsize<8)edfontsize=8;
+		if(edfontsize>72)edfontsize=72;
+		
+		
+		//=================================================== now, open the font
+		
+		liqfont *font = liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (edfontsize), 0);
 
-		liqfont *font = liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0);
-		char *caption = "test lorum ipsum lardy dardy";
-		int fw = liqfont_textwidth(font,caption) * 1.2;
-		int fh = liqfont_textheight(font);
 
+		if(!font)
+		{
+			{ return liqapp_warnandcontinue(-1,"liqbookreader_run couldnt open font"); }						
+		}			
+
+
+
+
+		//=================================================== initialize the bookprogress
+
+		liqbookprogress_shutdown();
+		liqbookprogress_startup();
+
+
+
+
+
+
+		//=================================================== open the book now 
+
+		// grab the file and process it :)
+		struct doc doc;
+		doc.renderfont=NULL;
+		
+		
+		doc.renderfont=font;
+		doc.rendermarginright=800;
+		//doc.rendermarginbottom=99999999;
+	
+
+
+		err=doc_initfromfilename(&doc,bookfilename);
+		
+		
+		if(err)
+		{
+			{ return liqapp_warnandcontinue(-1,"liqbookreader_run couldnt open doc"); }						
+		}
+			
+		
+		
+		
+		
+		liqcell *body = liqcell_quickcreatevis("body",NULL,0 ,0,   800,doc.rendertoth  );
+		liqcell_handleradd(body,    "mouse",   liqcell_easyhandler_kinetic_mouse );
+		liqcell_child_insert( self, body );
+		
+		
+		//liqcell_handleradd_withcontext(body,    "paint", widget_paint,self);
+		
+		
+		int sfl=0;
+		int sfu=0;
+		if(liqbookprogress_startreading_lookupposition(bookfilename,&sfl,&sfu))
+		{
+			//
+		}
+		
+		
+		struct docline *dline = doc.linefirst;
+		
 		int y=0;
-		int linenum=0;
+		while(dline)
+		{
+			liqcell *scrline = liqcell_quickcreatevis(dline->linedata,NULL,0 ,y,   800,dline->formath);
+			liqcell_setfont(scrline,liqfont_hold(font));
+			liqcell_child_insert( body, scrline );
+			
+			y+=dline->formath;
+			dline=dline->linknext;
+			
+		}
 
-
-		liqcell *body = liqcell_quickcreatewidget("body","frame", 800,480);
-
-			FILE *fn;
-			fn=fopen("media/liqbook.example.txt","r");
-			if(fn)
-			{
-				char lineraw[1024];
-				int linemax=1024;
-				char *line=NULL;
-
-				while(!feof(fn))
-				{
-					char * rc;
-					rc=fgets(lineraw,linemax, (FILE*) fn);
-					if(!rc)break;
-
-
-					char *stripper=lineraw;
-
-					while(*stripper)
-					{
-						if(*stripper==10 || *stripper==13)
-						{
-							*stripper=0;
-						}
-						stripper++;
-					}
-
-					line=lineraw;
-					//if(*line)
-					{
-						while(*line==' ' || *line=='\t')line++;
-
-
-
-						char nam[32];
-						snprintf(nam,sizeof(nam),"line%i",linenum);
-
-						liqcell *tl = liqcell_quickcreatevis(nam,   "label",   0 ,y,   800, fh );
-						liqcell_setcaption(   tl , lineraw );
-						liqcell_setfont(   tl , liqfont_hold(font) );
-						liqcell_child_insert( body, tl );
-
-						if(line[0]=='/' && line[1]=='/')
-						{
-							// is comment :)
-							liqcell_propsets(  tl,  "textcolor", "rgb(0,255,255)" );
-						}
-
-						linenum++;
-						y+=fh;
-
-						// only read the first few lines...
-						//if(y>=liqcell_geth(self)) break;
-					}
-				}
-				if(y>0) body->h=y+fh;
-			}
-
-
-			//liqcell_handleradd(self,    "mouse",   widget_mouse);
-			liqcell_handleradd(body,    "mouse",   liqcell_easyhandler_kinetic_mouse );
-
-
-
-		liqcell_child_append( self, body );
-
+		liqcell_easyrun(self);
 	}
-	return self;
+	
+	
+	liqcell_release(self);
+	return 0;
+	//return self;
 }

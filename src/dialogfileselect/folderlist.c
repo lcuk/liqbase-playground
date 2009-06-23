@@ -186,20 +186,37 @@ static int folderlist_scan_folder(liqcell *self,char *path)
 	
 //}
 
-
+static int backplane_move(liqcell *backplane, liqcelleventargs *args, liqcell *self)
+{
+	//liqcell *backplane = liqcell_child_lookup(self, "backplane");
+	
+	char buf[FILENAME_MAX];
+	snprintf(buf,sizeof(buf), "[%s].offset", liqcell_propgets(self, "startpath","") );
+	
+	liqapp_log(buf);
+	
+	liqcell_propseti(self,buf,backplane->y);
+	
+}
 
 /**	
  * folderlist widget refresh, all params set, present yourself to the user.
  */	
 static int folderlist_refresh(liqcell *self,liqcelleventargs *args, void *context)
 {
+	liqcell *backplane = liqcell_child_lookup(self, "backplane");
+
 	char * startpath = liqcell_propgets(self, "startpath", "/usr/share/liqbase/media");
 	if(!startpath)return 0;
 	liqapp_log("folderlist_refresh...%s to %s",self->name,startpath);
 
+
+	char buf[FILENAME_MAX];
+	snprintf(buf,sizeof(buf), "[%s].offset", liqcell_propgets(self, "startpath","") );
+	int historyy = liqcell_propgeti(self,buf,0) ;
+
 	//liqapp_log("Changing folderlist on %s to : %s",self->name,startpath);
 	
-	liqcell *backplane = liqcell_child_lookup(self, "backplane");
 	
 	liqcell_child_removeallvisual( backplane );
 	//liqcell_setcaption(title, newpath );
@@ -207,6 +224,11 @@ static int folderlist_refresh(liqcell *self,liqcelleventargs *args, void *contex
 	//liqcell_propsets(self, "startpath", newpath );
 	
 	liqcell_handlerrun(self,"resize",NULL);	// hmmm this should work for handlers not requiring params..
+
+
+
+	liqcell_setpos(backplane,backplane->x,historyy);
+
 	
 	return 1;
 }
@@ -281,6 +303,7 @@ liqcell *folderlist_create()
 		liqcell_handleradd(backplane,    "mouse",   liqcell_easyhandler_kinetic_mouse );
 		liqcell_child_append(  self, backplane);
 		
+		liqcell_handleradd_withcontext(backplane, "move", backplane_move,self );
 
 		liqcell_handleradd(self, "refresh", folderlist_refresh );
 		liqcell_handleradd(self, "shown", folderlist_shown );

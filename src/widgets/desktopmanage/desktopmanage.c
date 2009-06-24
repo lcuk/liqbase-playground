@@ -216,18 +216,26 @@ liqcell *desktopmanage_create()
 				//liqcell_propsets(  listitem, "backcolor", "rgb(0,0,0)" );
 				//liqcell_propsets(  listitem, "bordercolor", "rgb(200,100,100)" );
 					//############################# listitemtick:checkbox
-					liqcell *listitemtick = liqcell_quickcreatevis("listitemtick", "checkbox", 120, 5, 40, 40);
-					liqcell_setfont(	listitemtick, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (19), 0) );
+					liqcell *listitemtick = liqcell_quickcreatevis("listitemtick", "checkbox", 0, 20, 40, 60);
+					liqcell_setfont(	listitemtick, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (34), 0) );
 					liqcell_setcaption(listitemtick, "Y" );
 					liqcell_propsets(  listitemtick, "textcolor", "rgb(0,255,0)" );
 					//liqcell_propsets(  listitemtick, "backcolor", "rgb(235,233,237)" );
-					liqcell_propseti(  listitemtick, "textalign", 2 );
+					liqcell_propseti(  listitemtick, "textalign",  2 );
+					liqcell_propseti(  listitemtick, "textaligny", 2 );
 					liqcell_handleradd(listitemtick, "click", listitemtick_click );
 					liqcell_child_append(  listitem, listitemtick);
 					
 					
 					//############################# listitemicon:picturebox
-					liqcell *listitemicon = liqcell_quickcreatevis("listitemicon", "icon", 10, 5, 150, 100);
+					liqcell *listitemicon = liqcell_quickcreatevis("listitemicon", "icon", 40, 10, 130, 80);
+					
+					char buf[FILENAME_MAX];
+					snprintf(buf,sizeof(buf),"media/liqbase_cell_thumbnails/%s.png",dllcacheitem->key);
+					
+					liqcell_propsets(  listitemicon, "imagefilename", buf );
+					liqcell_propseti(  listitemicon, "aspectlock", 1 );
+					
 					//liqcell_setfont(	listitemicon, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
 					//liqcell_propsets(  listitemicon, "textcolor", "rgb(0,0,0)" );
 					//liqcell_propsets(  listitemicon, "backcolor", "rgb(192,255,192)" );
@@ -235,7 +243,7 @@ liqcell *desktopmanage_create()
 					liqcell_child_append(  listitem, listitemicon);
 					
 					//############################# listitemname:label
-					liqcell *listitemname = liqcell_quickcreatevis("listitemname", "label", 170, 5, 630, 40);
+					liqcell *listitemname = liqcell_quickcreatevis("listitemname", "label", 200, 0, 600, 40);
 					liqcell_setfont(	listitemname, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (30), 0) );
 					liqcell_setcaption(listitemname, dllcacheitem->key );
 					liqcell_propsets(  listitemname, "textcolor", "rgb(255,255,100)" );
@@ -247,7 +255,7 @@ liqcell *desktopmanage_create()
 				//liqcell_handleradd(listitem, "click", listitemname_click );	
 				// 20090503_233423 lcuk : moved it back again
 					//############################# listitemfilename:label
-					liqcell *listitemfilename = liqcell_quickcreatevis("listitemfilename", "label", 180, 40, 620, 30);
+					liqcell *listitemfilename = liqcell_quickcreatevis("listitemfilename", "label", 210, 40, 590, 30);
 					liqcell_setfont(	listitemfilename, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
 					liqcell_setcaption(listitemfilename, dllcacheitem->filename );
 					//liqcell_propsets(  listitemfilename, "textcolor", "rgb(255,255,255)" );
@@ -256,7 +264,7 @@ liqcell *desktopmanage_create()
 					liqcell_child_append(  listitem, listitemfilename);
 										
 					//############################# listitemversion:label
-					liqcell *listitemversion = liqcell_quickcreatevis("listitemversion", "label", 190, 80,610,30);
+					liqcell *listitemversion = liqcell_quickcreatevis("listitemversion", "label", 220, 80,580,30);
 					liqcell_setfont(	listitemversion, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (18), 0) );
 					liqcell_setcaption(listitemversion, "1.0" );
 					//liqcell_propsets(  listitemversion, "textcolor", "rgb(255,255,255)" );

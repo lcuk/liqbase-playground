@@ -1,5 +1,5 @@
 /**
- * @file	vworld.c
+ * @file	liqbase-playground.c
  * @author  Gary Birkett
  * @brief 	This is the main program file
  * 
@@ -366,8 +366,12 @@ liqcell *widgetrecent=NULL;
 		int isok=0;
 		char *showwidget_arg = liqapp_getopt_str("showwidget",NULL);
         
-        if(!showwidget_arg) showwidget_arg="tagcloud,liqcontrolpanel,liqrecentpics,liqcalendar,liqrecentphotos,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqaccelview,liqbook";
-        
+        if(!showwidget_arg)
+        {
+            showwidget_arg="tagcloud,liqcontrolpanel,liqrecentpics,liqcalendar,liqrecentphotos,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqaccelview,liqbook";
+        }
+        // if wildcard param, use it :)
+        if( showwidget_arg && (strcasecmp(showwidget_arg,"all")==0) ) showwidget_arg=NULL;
 		
 		if(showwidget_arg && *showwidget_arg)
 		{
@@ -420,7 +424,7 @@ liqcell *widgetrecent=NULL;
 				liqcell_handleradd(d,    "dirty",   widget_dirty);
 				liqapp_log("waaaa2 '%s'",d->name);
 
-				char buf[128]; snprintf(buf,128,"%s1",liqcell_getname(d));
+				char buf[128]; snprintf(buf,128,"%s",liqcell_getname(d));
 				liqcell *e=NULL;
 				
 				if(liqcell_propgeti(d,"universeliveview",0))

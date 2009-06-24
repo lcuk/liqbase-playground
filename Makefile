@@ -70,3 +70,7 @@ install:
 	install -m 0755 liqbase_base_fs/etc/sudoers.d/liqbase-playground.sudoers                        $(SUDODIR)
 	install -m 0755 liqbase_base_fs/usr/share/applications/hildon/liqbase_playground.desktop        $(DESKTOPDIR)
 	install -m 0755 liqbase_base_fs/usr/share/dbus-1/services/org.maemo.liqbase_playground.service  $(SERVICEDIR)
+
+	install -m 0755 liqbase_base_fs/etc/osso-backup/applications/liqbase-playground.conf            $(ETCDIR)/osso-backup/applications
+
+

@@ -13,7 +13,7 @@ fi
 cd /home/user/svn/liqbase-playground/src
 
 if make; 
-	then ./liqbase-playground;
+	then ./liqbase-playground -showwidget tagcloud,liqcontrolpanel,liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqbook,liqaccelview;
 fi
 
 

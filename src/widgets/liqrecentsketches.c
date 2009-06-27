@@ -50,6 +50,23 @@ static int liqrecentsketches_sketch_add(liqcell *self,char *filenamebuffer)
 						liqcell *c = liqcell_quickcreatevis(buf,   "sketch",   1,1,1,1    );
 						liqcell_propseti(c,"lockaspect",1);
 						liqcell_propsets(c,"sketchfilename",filenamebuffer);
+						
+						
+						//#########################################
+						liqapp_log("name: %s",pfn.fileuser);
+						char fn[FILENAME_MAX];
+							snprintf(fn,sizeof(fn),"media/avatars/%s.png",pfn.fileuser);
+						if(!liqapp_fileexists(fn))
+						{
+							snprintf(fn,sizeof(fn),"media/avatars/%s.jpg",pfn.fileuser);
+						}
+						if(liqapp_fileexists(fn))
+						{
+							liqcell *p = liqcell_quickcreatevis(fn,   "user",   0,0,42,42    );
+							liqcell_propseti(p,"lockaspect",1);
+							liqcell_propsets(p,"imagefilename",fn);
+							liqcell_child_insert( c, p);
+						}
 
 						liqcell_child_insertsortedbyname( body, c,0);
 						
@@ -186,6 +203,23 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 						liqcell *c = liqcell_quickcreatevis(buf,   "sketch",   1,1,1,1    );
 						liqcell_propseti(c,"lockaspect",1);
 						liqcell_propsets(c,"sketchfilename",fn);
+
+						//#########################################
+						//liqapp_log("name: %s",pfn.fileuser);
+						char fn[FILENAME_MAX];
+							snprintf(fn,sizeof(fn),"media/avatars/%s.png",pfn.fileuser);
+						if(!liqapp_fileexists(fn))
+						{
+							snprintf(fn,sizeof(fn),"media/avatars/%s.jpg",pfn.fileuser);
+						}
+						if(liqapp_fileexists(fn))
+						{
+							liqcell *p = liqcell_quickcreatevis(fn,   "user",   0,0,42,42    );
+							liqcell_propseti(p,"lockaspect",1);
+							liqcell_propsets(p,"imagefilename",fn);
+							liqcell_child_insert( c, p);
+						}
+
 
 						liqcell_child_insertsortedbyname( self, c,0);
 					}

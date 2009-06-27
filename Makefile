@@ -43,6 +43,9 @@ install:
 	mkdir -p                                    									$(PGDIR)/widgets/playground
 	mkdir -p                                    									$(PGDIR)/widgets/desktopmanage
 	mkdir -p                                    									$(PGDIR)/liqbook
+	mkdir -p                                    									$(ETCDIR)
+	mkdir -p                                    									$(ETCDIR)/osso-backup
+	mkdir -p                                    									$(ETCDIR)/osso-backup/applications
 
 	cp -r src/media/*                           									$(PGDIR)/media
 	#cp -r src/widgets/media/*                  									 $(PGDIR)/media

@@ -4,7 +4,15 @@
 
 export DISPLAY=:0.0
 
-sudo /usr/bin/liqbase-playground-cpu-performance
+
+if [ ` grep "cpuboost=0" /home/user/.liqbase/liqbase.prefs 2>/dev/null` ];
+then 
+	echo "liqbase-no_cpuboost"
+else
+	sudo /usr/bin/liqbase-playground-cpu-performance
+fi
+
+
 
 cd /usr/share/liqbase
 
@@ -25,9 +33,14 @@ fi
    ./liqbase-playground -showwidget tagcloud,liqcontrolpanel,liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqbook,liqaccelview
  fi
 
-sudo /usr/bin/liqbase-playground-cpu-ondemand
 
 
 
+if [ ` grep "cpuboost=0" /home/user/.liqbase/liqbase.prefs 2>/dev/null` ];
+then 
+	echo "liqbase-no_cpuboost"; 
+else
+	sudo /usr/bin/liqbase-playground-cpu-ondemand
+fi
 
 

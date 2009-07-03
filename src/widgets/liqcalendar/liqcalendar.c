@@ -9,7 +9,18 @@
 #include <liqbase/liqcell_easyrun.h>
 #include <liqbase/liqcell_easyhandler.h>
 
-
+// 20090701_234724 lcuk :
+// 20090701_234725 lcuk :
+// 20090701_234725 lcuk :
+// 20090701_234725 lcuk :
+// 20090701_234725 lcuk :
+// 20090701_234726 lcuk :
+// 20090701_234726 lcuk :
+// 20090701_234726 lcuk :
+// 20090701_234726 lcuk :
+// 20090701_234727 lcuk :
+// 20090701_234727 lcuk :
+// 20090701_234727 lcuk : todo replace plus/minus with function to show users or show my event 
 
 
 

@@ -18,6 +18,41 @@
 //#####################################################################
 //#####################################################################
 
+#include <curl/curl.h>
+
+
+void post_to_liqbase_net(char *filename,char *datakey)
+{
+	//if(!datakey)datakey="upload test";
+
+	CURL* easyhandle = curl_easy_init();
+	
+	curl_easy_setopt(easyhandle, CURLOPT_URL, "http://liqbase.net/liqbase_mediapush.php");
+	
+	char *username = app.username;
+	char *userpassmd5 = liqapp_pref_getvalue("userpass");
+	if(!userpassmd5 || !*userpassmd5)
+	{
+		liqapp_log("post_to_liqbase_net not performed, no password set");
+	}
+	
+	struct curl_httppost *post=NULL;  
+	struct curl_httppost *last=NULL;  
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "username",         CURLFORM_COPYCONTENTS, username,       CURLFORM_END);
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "userpass",         CURLFORM_COPYCONTENTS, userpassmd5,        CURLFORM_END);
+
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "datakey",          CURLFORM_COPYCONTENTS, datakey,    CURLFORM_END);
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "datafile",         CURLFORM_FILE,         filename,            CURLFORM_END);
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "userto",           CURLFORM_COPYCONTENTS, username,              CURLFORM_END);
+ 
+ 	curl_easy_setopt(easyhandle, CURLOPT_HTTPPOST, post);
+
+	curl_easy_perform(easyhandle);
+
+
+	curl_formfree(post); 
+	
+}
 
 
 
@@ -51,7 +86,9 @@
 
 
 			// 20090421_233231 lcuk : save it now with the special assigned name
-			liqsketch_filesave(liqcell_getsketch(self), fn );
+
+			
+			liqsketch_filesave(liqcell_getsketch(self), fn  );
 			liqcell_setdirty(self,0);
 			return 1;
 		}
@@ -67,6 +104,13 @@
 		snprintf(filenamebuffer,sizeof(filenamebuffer), "%s/sketches/liq.%s.%s.page",    app.userdatapath,    filedate,    app.username );
 
 		liqsketch_filesave(liqcell_getsketch(self), filenamebuffer );
+
+
+			char *notes = liqcell_child_lookup(self,"notes");
+			char *key = liqcell_getcaption(notes);
+					
+		
+		post_to_liqbase_net(filenamebuffer,key);
 		
 		liqcell_setdirty(self,0);
 		
@@ -93,6 +137,7 @@
 		{
 			return 0;
 		}
+		//if(!liqcell_getdirty(self)) return 0;
 
 		sketchedit_save(self);
 
@@ -355,6 +400,8 @@ static int sketchedit_resize(liqcell *self, liqcelleventargs *args, void *contex
 	liqcell *clear = liqcell_child_lookup(self,"clear");
 	liqcell *save = liqcell_child_lookup(self,"save");
 	liqcell *del = liqcell_child_lookup(self,"del");
+	liqcell *notes = liqcell_child_lookup(self,"notes");
+	
 	int ww=liqcell_getw(self);
 	int hh=liqcell_geth(self);
 	
@@ -362,6 +409,11 @@ static int sketchedit_resize(liqcell *self, liqcelleventargs *args, void *contex
 	liqcell_setrect(clear, ww*0.9,  hh*0.3,   ww*0.1,hh*0.3);
 	liqcell_setrect(save , ww*0.9,  hh*0.6,   ww*0.1,hh*0.3);
 	liqcell_setrect(del ,  ww*0.9,  hh*0.9,   ww*0.1,hh*0.1);
+	
+	liqcell_setrect(notes ,  ww*0.25,  hh*0.9,   ww*0.5,hh*0.1);
+	
+	
+	
 }
 
 
@@ -421,6 +473,16 @@ liqcell *liqtop_create()
 		liqcell_propsets(  b,    "backcolor", "rgb(100,0,0)" );
 		liqcell_handleradd(b,    "mouse",   sketchedit__cmdnull_mouse);
 		liqcell_child_insert( self, b );
+
+
+		b = liqcell_quickcreatevis("notes","textbox",  200,480-80,   400,80 );
+		liqcell_setcaption(b,"");
+		//liqcell_setfont(   b, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
+		//liqcell_handleradd(b,    "click",   sketchedit_del_click);
+		//liqcell_propsets(  b,    "backcolor", "rgb(100,0,0)" );
+		//liqcell_handleradd(b,    "mouse",   sketchedit__cmdnull_mouse);
+		liqcell_child_insert( self, b );
+
 
 		sketchedit_resize(self,NULL, NULL);
 

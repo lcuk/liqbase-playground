@@ -3,6 +3,49 @@
 #include <liqbase/liqcell.h>
 #include <liqbase/liqcell_easyrun.h>
 
+
+
+#include <curl/curl.h>
+
+
+
+void post_to_liqbase_net(char *filename,char *datakey)
+{
+	//if(!datakey)datakey="upload test";
+
+	CURL* easyhandle = curl_easy_init();
+	
+	curl_easy_setopt(easyhandle, CURLOPT_URL, "http://liqbase.net/liqbase_mediapush.php");
+	
+	char *username = app.username;
+	char *userpassmd5 = liqapp_pref_getvalue("userpass");
+	if(!userpassmd5 || !*userpassmd5)
+	{
+		liqapp_log("post_to_liqbase_net not performed, no password set");
+	}
+	
+	struct curl_httppost *post=NULL;  
+	struct curl_httppost *last=NULL;  
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "username",         CURLFORM_COPYCONTENTS, username,       CURLFORM_END);
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "userpass",         CURLFORM_COPYCONTENTS, userpassmd5,        CURLFORM_END);
+
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "datakey",          CURLFORM_COPYCONTENTS, datakey,    CURLFORM_END);
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "datafile",         CURLFORM_FILE,         filename,            CURLFORM_END);
+	curl_formadd(&post, &last,   CURLFORM_COPYNAME, "userto",           CURLFORM_COPYCONTENTS, username,              CURLFORM_END);
+ 
+ 	curl_easy_setopt(easyhandle, CURLOPT_HTTPPOST, post);
+
+	curl_easy_perform(easyhandle);
+
+
+	curl_formfree(post); 
+	
+}
+
+
+
+
+
 /**	
  * liqcalendar_dayview shown event
  */ 
@@ -83,6 +126,9 @@ static int liqcalendar_dayview_dialog_close(liqcell *self,liqcelleventargs *args
 				
 				liqapp_log("dialog close 4");
 				liqsketch_filesave( sketch, fn );
+				
+				// hijack this from liqtop
+				post_to_liqbase_net(fn);
 			}
 			
 		}

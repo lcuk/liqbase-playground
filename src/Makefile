@@ -11,7 +11,7 @@ LIBRARIES   =
 # xrandr
 # -DUSE_MAEMO 
 CFLAGS      = -DUSE_MAEMO -Wall   -I/usr/include `pkg-config --cflags  $(LIBRARIES)` 
-LDFLAGS     = -lm -lliqbase `pkg-config --libs $(LIBRARIES)`  -lpthread  -Wl,-export-dynamic -L/usr/local/lib
+LDFLAGS     = -lm -lliqbase `pkg-config --libs $(LIBRARIES)`  -lpthread  -Wl,-export-dynamic -L/usr/local/lib -lcurl 
 
 RM          = /bin/rm -f
 

@@ -33,7 +33,7 @@ static liqcell *mkframe(liqcell *self,char *title,int w,int h)
 	static int key_click(liqcell *self, liqcelleventargs *args,liqcell *keyboard)
 	{
 		// 20090624_005355 lcuk : key was clicked, raise a keyboard event and send the click letter itself through as eventargs
-
+		liqapp_log("liqkeyboard: key click");
 		liqcellkeyeventargs keyargs={0};
 		
 		keyargs.keycode = (int)liqcell_gettag(self);
@@ -66,7 +66,6 @@ static liqcell *mkframe(liqcell *self,char *title,int w,int h)
 	}
 
 
-
 liqcell *liqkeyboard_create()
 {
 
@@ -75,7 +74,7 @@ liqcell *liqkeyboard_create()
 
 liqcell *keyboard;
 
-	keyboard = liqcell_quickcreatewidget("liqkeyboard","form",800,480); //mkframe(liqcellroot,"keyboard",800,480);
+	keyboard = liqcell_quickcreatewidget("liqkeyboard","form",700,240); //mkframe(liqcellroot,"keyboard",800,480);
 
 	//######################################################################
 	//######################################################################
@@ -85,7 +84,7 @@ liqcell *keyboard;
 	
 	void keyrowstart(char *title)
 	{
-		keyrow = mkframe(keyboard,title,800,480/6);
+		keyrow = mkframe(keyboard,title,700,240/5);
 		//keyrow->handlermouse=key_mouse;
 
 
@@ -96,7 +95,7 @@ liqcell *keyboard;
 		float sizes[9] = { 1.0,      1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 6.0, 20.0};
 		// width/15
 		if(keysize<0 || keysize>7) keysize=0;
-		int w=(int)   ((float)(800/16) * sizes[keysize]);
+		int w=(int)   ((float)(700/14) * sizes[keysize]);
 		liqcell *key;
 		
 		int keycodenumeric=1;
@@ -107,7 +106,7 @@ liqcell *keyboard;
 
 		if(keycodenumeric==0)
 		{
-			key = mkframe(keyrow,keycode,w,480/7);
+			key = mkframe(keyrow,keycode,w,240/5);
 			liqcell_setcaption(key,normal);
 
 			//liqcell_propsets(     key,"fontname", "/usr/share/fonts/nokia/nosnb.ttf" );
@@ -120,7 +119,7 @@ liqcell *keyboard;
 		}
 		else
 		{
-			key = mkframe(keyrow,normal,w,480/7);
+			key = mkframe(keyrow,normal,w,240/5);
 			//key->style=stylekeycap;
 			//key->handlermouse=key_mouse;
 
@@ -133,6 +132,7 @@ liqcell *keyboard;
 			liqcell_propseti(     key,"textaligny",2 );
 			
 			liqcell_handleradd_withcontext(   key,"mouse", key_mouse, keyboard );
+			liqcell_handleradd_withcontext(   key,"click", key_click, keyboard );
 			liqcell_settag(       key,(void*)keycodenumeric);
 
 		}

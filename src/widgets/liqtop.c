@@ -283,6 +283,8 @@ void post_to_liqbase_net(char *filename,char *datakey)
 			sketch=s;
 		}
 		liqstroke *stroke;
+		// this was only to see high intensity quickly
+		//args->mez/=2;
 
 		if(args->mcnt==1)
 		{
@@ -291,6 +293,11 @@ void post_to_liqbase_net(char *filename,char *datakey)
 			stroke->pen_y = 255;
 			stroke->pen_u = 128;
 			stroke->pen_v = 128;
+			// ewww yellow experiment looks bad in non aa
+			//stroke->pen_y = 255;
+			//stroke->pen_u = 255;
+			//stroke->pen_v = 1;
+
 			liqstroke_start(stroke,args->mex-args->ox,args->mey-args->oy,args->mez,args->met);
 
 			liqsketch_strokeinsert(sketch,stroke);

@@ -188,7 +188,7 @@ static int alreadyclosing=0;
  */
 void     signalhandler(int sig)
 {
-	liqapp_log("%s signal detected, closing",liqapp_gettitle());
+	liqapp_log("%s signal detected (%i), closing",liqapp_gettitle(),sig);
 	closeall();
 	signal(SIGINT, SIG_DFL);
 	kill(getpid(), SIGINT);
@@ -206,6 +206,7 @@ int main (int argc, char* argv[])
     signal(SIGINT, signalhandler);
 	signal(SIGTERM, signalhandler);
 	signal(SIGHUP, signalhandler);
+	signal(SIGSEGV, signalhandler);
 
 	//########################################################## prepare the app
 

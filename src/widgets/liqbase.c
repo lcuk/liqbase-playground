@@ -147,8 +147,8 @@ liqcell *liqbase_create()
 			grid_button_insert(tbody, "Options",NULL,options_click);
 			//grid_button_insert(tbody, "Zach Netmon",NULL,NULL);
 			
-			//liqcell *x=grid_button_insert(tbody, "Save holymoly!",NULL,saveholymoly_click);
-			//liqcell_propsets(     x,	"backcolor", "rgb(100,100,200)"  );
+			liqcell *x=grid_button_insert(tbody, "Save holymoly!",NULL,saveholymoly_click);
+			liqcell_propsets(     x,	"backcolor", "rgb(100,100,200)"  );
 			
 			//grid_button_insert(tbody, "Quit now",NULL,NULL);
 			

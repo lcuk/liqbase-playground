@@ -7,7 +7,145 @@
 #include <liqbase/liqimage.h>
 #include <liqbase/liq_xsurface.h>
 
-//		inline void xsurface_drawrectwash_uv(   liqimage *surface,int x,int y,int w,int h, unsigned char u,unsigned char v);
+// battery includes
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+//
+// battery info 
+// --------------------------
+// based on kcbatt by KotCzarny
+//
+
+// user_retu_tahvo.h stuff
+
+#define u32 unsigned int
+#define u16 unsigned short
+#define u8 unsigned char
+
+// Chip IDs
+#define CHIP_RETU	1
+#define CHIP_TAHVO	2
+
+// Register access type bits 
+#define READ_ONLY		1
+#define WRITE_ONLY		2
+#define READ_WRITE		3
+#define TOGGLE			4
+
+#define MASK(field)		((u16)(field & 0xFFFF))
+#define REG(field)		((u16)((field >> 16) & 0x3F))
+
+//
+// IOCTL definitions. These should be kept in sync with user space 
+//
+
+#define URT_IOC_MAGIC '`'
+
+/*
+ * IOCTL function naming conventions:
+ * ==================================
+ *  0 -- No argument and return value
+ *  S -- Set through a pointer
+ *  T -- Tell directly with the argument value
+ *  G -- Reply by setting through a pointer
+ *  Q -- response is on the return value
+ *  X -- S and G atomically
+ *  H -- T and Q atomically
+ */
+
+// General
+#define URT_IOCT_IRQ_SUBSCR		_IO(URT_IOC_MAGIC, 0)
+
+// RETU
+#define RETU_IOCH_READ			_IO(URT_IOC_MAGIC, 1)
+#define RETU_IOCX_WRITE			_IO(URT_IOC_MAGIC, 2)
+#define RETU_IOCH_ADC_READ		_IO(URT_IOC_MAGIC, 3)
+
+// TAHVO
+#define TAHVO_IOCH_READ			_IO(URT_IOC_MAGIC, 4)
+#define TAHVO_IOCX_WRITE		_IO(URT_IOC_MAGIC, 5)
+
+// This structure is used for writing RETU/TAHVO registers
+struct retu_tahvo_write_parms {
+    u32	field;
+    u16	value;
+    u8	result;
+};
+
+// kcbatt stuff
+
+#define BATT_DEVICE "/dev/retu"
+
+#define FULL_BATT_EST 550
+#define EMPTY_BATT_EST 340
+
+
+
+// ##############################################################################################
+// ############################################################################################## battery info
+// ##############################################################################################
+
+
+/**
+ * Return linear battery percentage left
+ */
+static int adc2per(int a) 
+{ 
+	// full battery
+	if (a > FULL_BATT_EST) 
+		return 100;
+		
+	return ((a - EMPTY_BATT_EST) * 100 / (FULL_BATT_EST - EMPTY_BATT_EST));
+}
+
+
+/**
+ * Get the current battery percentage left, based on kcbatt
+ * @return -1 Failure...0 success
+ */
+static int get_battery_perct(int *result_percent)
+{
+	liqapp_log("get_battery_perct: starting");
+
+	*result_percent=0;
+	
+	int retval = 0;
+	
+	int s = 8, i, f;
+	int v = 0, vc = 10, vch = 0, vi = 0;
+
+	// open /dev/retu
+	if ((f = open(BATT_DEVICE, O_RDONLY)) < 0)
+	{
+		liqapp_log("get_battery_perct: couldn't open BATT_DEVICE : '%s'",BATT_DEVICE);
+		retval = -1;
+		return retval;
+	}
+		
+	// calculate voltage
+	for(vi = 0; vi < vc; vi++) 
+	{ 
+		//usleep(100000);
+		v += ioctl(f, RETU_IOCH_ADC_READ, s);
+		vch = ioctl(f, RETU_IOCH_ADC_READ, 3);
+   
+		if(vch > 50 && vch < 300) 
+			v -= 35;
+	} 
+	
+	v /= vc;
+	
+	*result_percent = adc2per(v);
+	
+	close(f);
+	liqapp_log("get_battery_perct: completed");
+	
+	return retval;
+}
+
 
 //#####################################################################
 //#####################################################################
@@ -33,14 +171,23 @@ static int liqbattery_paint(liqcell *self, liqcellpainteventargs *args,liqcell *
 	liqcell *piece1g = liqcell_child_lookup(self, "piece1g");
 
 
-	
-	//liqimage *img = liqcell_getimage(self);
-	//if( img)
-	//{
-	//	// color changing!
-	//	xsurface_drawrectwash_uv(img,0,0,img->width,img->height, xx , 20);
-	//}
-	
+/*
+	// 20090709_191846 lcuk : slow, but its just a test
+	int pc=0;
+	if(get_battery_perct(&pc)==0)
+	{
+		liqapp_log("BATTERY PERC: %d", pc);
+		int battery_ind_val = (int)(((float)pc / 100.0) * 255.0); // battery indicator value 0 - 255
+		liqapp_log("BATTERY PERC (CONVERTED): %d", battery_ind_val);
+		liqcell_propseti(self,"batterycharge", battery_ind_val);
+	}
+	else
+	{
+		liqapp_log("BATTERY PERC: ERROR");
+	}
+ */
+
+
 	void colorizeimg(liqimage *img,int u,int v)
 	{
 		if(!img) return;
@@ -64,6 +211,7 @@ static int liqbattery_paint(liqcell *self, liqcellpainteventargs *args,liqcell *
 	
 	liqcell_setrect( piece3, xs + (xx * xw) / 256, ys,  xw-((xx * xw) / 256)   ,yh);
 	
+	// 20090709_192648 lcuk : no need for this now, we expect live proper values
 	xx = (xx+4) % 255;
 	liqcell_propseti(self,"batterycharge",xx );
 	
@@ -164,7 +312,14 @@ liqcell *liqbattery_create()
 	//liqcell_propseti(self,"lockaspect",1);
 	//liqcell_setimage(  self,img );
 	
-	liqcell_propseti(self,"batterycharge",160 );
+	int pc=0;
+	if (get_battery_perct(&pc))
+	{
+		liqapp_log("BATTERY PERC: %d", pc);
+		int battery_ind_val = (int)(((float)pc / 100.0) * 255.0); // battery indicator value 0 - 255
+		liqapp_log("BATTERY PERC (CONVERTED): %d", battery_ind_val);
+		liqcell_propseti(self,"batterycharge", battery_ind_val);
+	}
 	
 	liqcell_handleradd_withcontext(self, "resize", liqbattery_resize ,self);
 	liqcell_handleradd_withcontext(   self,"mouse", liqbattery_mouse, self );

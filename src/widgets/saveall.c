@@ -17,48 +17,14 @@
 extern liqcell *mirror;				// mirror of the universe
 
 
-			
-static void savethumb(liqcell *cell)
-{
-	// 20090528_231040 lcuk : this locks up dunno why
-	// 20090624_005139 lcuk : trying it as a widget itself, to see if it was initializers at fault
-	liqapp_log("...creating image %s",cell->name);
-	liqimage *img = liqimage_newatsize(300,180,0);
-	
-	liqapp_log("...creating cliprect");
-	
-	liqcliprect *cr = liqcliprect_newfromimage(img);
-	
-	liqapp_log("...painting cell %s",cell->name);
-	//liqcell_easypaint(cell,cr,0,0,300,180);
-	
-	liqapp_log("...building filename");
 
-				char 		fmtnow[255];
-	 			liqapp_formatnow(fmtnow,255,"yyyymmdd_hhmmss");
-				char buf[FILENAME_MAX+1];
-				snprintf(buf,FILENAME_MAX,"/home/user/svn/liqbase-playground/src/media/liqbase cell thumbnails/%s.png",cell->name  );
-	
-	liqapp_log("...saving image as '%s'",buf);
-
-				//liqimage_pagesavepng(img,buf);
-				
-	
-	liqapp_log("...releasing cr");
-	liqcliprect_release(cr);
-	
-	liqapp_log("...releasing image");
-	liqimage_release(img);
-	
-	liqapp_log("...done");
-	
-}
 
 			
 static void savethumbs()
 {
 	// 20090528_231040 lcuk : this locks up dunno why
 	// 20090624_005139 lcuk : trying it as a widget itself, to see if it was initializers at fault
+	// 20090709_010456 lcuk : it doesnt now, i fixed it, it was a problem with freeing the image in the cliprect free
 	liqapp_log("...creating image");
 	liqimage *img = liqimage_newatsize(300,180,0);
 	
@@ -105,13 +71,14 @@ static void savethumbs()
 
 
 
+
 /**	
  * saveall clicked
  */	
 static int saveall_click(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
 	// 20090624_011107 lcuk : no need to run anymore for now
-	//savethumbs();
+	savethumbs();
 
 }
 		

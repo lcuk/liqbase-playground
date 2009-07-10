@@ -80,6 +80,23 @@ static int listitemname_click(liqcell *self,liqcellclickeventargs *args, void *c
 
 
 /**   
+ * listitemicon was clicked
+ */   
+static int listitemicon_click(liqcell *self,liqcellclickeventargs *args, void *context)
+{
+	liqcell *c = liqcell_quickcreatevis("c",liqcell_getcaption(self),0,0,-1,-1);
+	if(c)
+	{
+		if(liqcell_getvisible(c))
+		{
+			liqcell_easyrun(c);
+		}
+		liqcell_release(c);
+	}
+	return 1;
+}
+
+/**   
  * listitemtick was clicked
  */   
 static int listitemtick_click(liqcell *self,liqcellclickeventargs *args, void *context)
@@ -229,7 +246,7 @@ liqcell *desktopmanage_create()
 					
 					//############################# listitemicon:picturebox
 					liqcell *listitemicon = liqcell_quickcreatevis("listitemicon", "icon", 40, 10, 130, 80);
-					
+					liqcell_setcaption(listitemicon, dllcacheitem->key );
 					char buf[FILENAME_MAX];
 					snprintf(buf,sizeof(buf),"media/liqbase_cell_thumbnails/%s.png",dllcacheitem->key);
 					
@@ -240,6 +257,7 @@ liqcell *desktopmanage_create()
 					//liqcell_propsets(  listitemicon, "textcolor", "rgb(0,0,0)" );
 					//liqcell_propsets(  listitemicon, "backcolor", "rgb(192,255,192)" );
 					liqcell_propsets(  listitemicon, "bordercolor", "rgb(200,100,100)" );
+					liqcell_handleradd_withcontext(listitemicon, "click", listitemicon_click ,self);
 					liqcell_child_append(  listitem, listitemicon);
 					
 					//############################# listitemname:label
@@ -248,7 +266,7 @@ liqcell *desktopmanage_create()
 					liqcell_setcaption(listitemname, dllcacheitem->key );
 					liqcell_propsets(  listitemname, "textcolor", "rgb(255,255,100)" );
 					//liqcell_propsets(  listitemname, "backcolor", "rgb(0,64,0)" );
-					liqcell_handleradd(listitemname, "click", listitemname_click );
+					//liqcell_handleradd(listitemname, "click", listitemname_click );
 					liqcell_propseti(  listitemname, "textalign", 0 );
 					liqcell_child_append(  listitem, listitemname);
 				// 20090503_232751 lcuk : move this here

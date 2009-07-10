@@ -189,7 +189,6 @@ static int alreadyclosing=0;
 void     signalhandler(int sig)
 {
 	liqapp_log("%s signal detected (%i), closing",liqapp_gettitle(),sig);
-	closeall();
     
     if(sig==SIGSEGV)
     {
@@ -200,6 +199,7 @@ void     signalhandler(int sig)
         liqapp_log("");
         liqapp_log("please check http://liqbase.net for updates or information.");
     }
+	closeall();
     
 	signal(SIGINT, SIG_DFL);
 	kill(getpid(), SIGINT);

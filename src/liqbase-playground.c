@@ -190,6 +190,17 @@ void     signalhandler(int sig)
 {
 	liqapp_log("%s signal detected (%i), closing",liqapp_gettitle(),sig);
 	closeall();
+    
+    if(sig==SIGSEGV)
+    {
+        liqapp_log("*** SEGMENTATION FAULT DETECTED ***");
+        liqapp_log("apologies, something must have gone wrong.");
+        liqapp_log("");
+        liqapp_log("please restart the system and try again.");
+        liqapp_log("");
+        liqapp_log("please check http://liqbase.net for updates or information.");
+    }
+    
 	signal(SIGINT, SIG_DFL);
 	kill(getpid(), SIGINT);
 }

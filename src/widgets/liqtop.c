@@ -106,7 +106,7 @@ void post_to_liqbase_net(char *filename,char *datakey)
 		liqsketch_filesave(liqcell_getsketch(self), filenamebuffer );
 
 
-			char *notes = liqcell_child_lookup(self,"notes");
+			liqcell *notes = liqcell_child_lookup(self,"notes");
 			char *key = liqcell_getcaption(notes);
 					
 		

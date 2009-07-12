@@ -27,6 +27,104 @@ static int monitor_run(liqcell *context);
 //#####################################################################
 //#####################################################################
 
+
+static int liqrecentsketches_sketch_insert(liqcell *self,char *filenamebuffer)
+{
+	liqcell *body = liqcell_child_lookup( self,"body");
+
+	struct pagefilename pfn;
+	
+	if(	(pagefilename_breakapart(&pfn,filenamebuffer) == 0) )
+	{
+		
+		char buf[FILENAME_MAX];			snprintf(buf,sizeof(buf),"%s%s",pfn.filedate,pfn.filetitle);
+		
+		//liqapp_log("ins 1 %s",filenamebuffer);
+		// valid file		
+		char b[255]={0};
+		snprintf(b,5,"%s",pfn.filedate); b[4]='\0';
+		liqcell *xy=liqcell_child_lookup(body,b);
+		if(!xy)
+		{
+			//liqapp_log("ins 2 %s",filenamebuffer);
+			xy=liqcell_quickcreatevis(b,"year",  0,0, (self->w),self->h/15);
+			liqcell_child_insertsortedbyname(body,xy,0);
+			//snprintf(b,5,"%s",pfn.filedate); b[4]='\0';
+			//brk=addframe(xy,b,(self->w),self->h/15);				// year break tile
+			//brk->style=odd;
+		}
+		
+		//liqapp_log("ins 3 %s",filenamebuffer);
+		
+		
+			snprintf(b,3,"%s",&pfn.filedate[4]); b[2]='\0';
+			liqcell *xm=liqcell_child_lookup(xy,b);
+			if(!xm)
+			{
+				//liqapp_log("ins 4 %s",filenamebuffer);
+				xm=liqcell_quickcreatevis(b,"month",  0,0, (self->w),self->h/15);
+				liqcell_child_insertsortedbyname(xy,xm,0);
+				//snprintf(b,7,"%s",pfn.filedate); b[6]='\0';
+				//brk=addframe(xm,b,(self->w),self->h/15);			// month break tile
+				//brk->style=odd;
+			}
+			
+			//liqapp_log("ins 5 %s",filenamebuffer);
+			
+				snprintf(b,3,"%s",&pfn.filedate[6]); b[2]='\0';
+				liqcell *xd=liqcell_child_lookup(xm,b);
+				if(!xd)
+				{
+					//liqapp_log("ins 6 %s",filenamebuffer);
+					xd=liqcell_quickcreatevis(b,"day",  0,0, (self->w),self->h/15);
+					liqcell_child_insertsortedbyname(xm,xd,0);
+					
+					//liqapp_log("ins 7 %s",filenamebuffer);
+					// add title header
+
+					snprintf(b,10,"_%s",pfn.filedate); b[9]='\0';
+					liqcell *brk=liqcell_quickcreatevis(b,"label",  0,0, (self->w),self->h/15);
+
+
+					liqcell_setfont(	brk, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
+					
+					snprintf(b,9,"%s",pfn.filedate); b[8]='\0';
+					
+					liqcell_setcaption(brk, b );
+					liqcell_propsets(  brk, "textcolor", "rgb(255,255,255)" );
+					liqcell_propsets(  brk, "backcolor", "rgb(0,0,100)");
+					liqcell_propseti(  brk, "textalign", 0 );
+
+					liqcell_child_append(xd,brk);
+				}
+				
+				//liqapp_log("ins 8 %s",filenamebuffer);
+				
+
+				liqcell *c = liqcell_quickcreatevis(buf,   "sketch",   0,0,(self->w/5),(self->h/4)    );
+				liqcell_propseti(c,"lockaspect",1);
+				liqcell_propsets(c,"sketchfilename",filenamebuffer);
+				liqcell_child_insertsortedbyname( xd, c,0);
+				
+				//liqapp_log("ins 9 %s",filenamebuffer);
+				
+				liqcell_setsize(xd, self->w, self->h/15 );
+				liqcell_child_arrange_autoflow(xd);
+			liqcell_child_arrange_easycol(xm);			
+		liqcell_child_arrange_easycol(xy);
+				
+		liqcell_child_arrange_easycol(body);	
+	}
+}
+
+
+
+	
+
+
+
+
+
 static int liqrecentsketches_sketch_add(liqcell *self,char *filenamebuffer)
 {
 	// 20090528_215559 lcuk : first attempt at runtime expansion
@@ -41,8 +139,9 @@ static int liqrecentsketches_sketch_add(liqcell *self,char *filenamebuffer)
 	
 	if(	(pagefilename_breakapart(&pfn,filenamebuffer) == 0) )
 	{
-		
-		
+		liqrecentsketches_sketch_insert(self,filenamebuffer);
+		return 0;
+/*		
 		char buf[FILENAME_MAX];			snprintf(buf,sizeof(buf),"%s%s",pfn.filedate,pfn.filetitle);
 
 		liqcell *body = liqcell_child_lookup( self,"body");
@@ -69,11 +168,11 @@ static int liqrecentsketches_sketch_add(liqcell *self,char *filenamebuffer)
 						}
 
 						liqcell_child_insertsortedbyname( body, c,0);
-						
-						
 						liqcell_setsize(body,self->w,self->h);
 						liqcell_child_arrange_makegrid(body,3,3);
-	}					
+ */
+	}
+	return 0;
 }
 
 
@@ -141,6 +240,10 @@ static liqcell *quickdialog_create()
 
 static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 {
+	
+	liqcell *body = liqcell_child_lookup( self,"body");
+	
+	
 		char *widgetpath = path;
 		DIR           *	dir_p;
 		struct dirent *	dir_entry_p;
@@ -188,6 +291,9 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 				if(	stristr(ft,"liq.") && (pagefilename_breakapart(&pfn,ft) == 0) )
 				{
 					
+					liqrecentsketches_sketch_insert(self,fn);
+					
+				/*	
 					
 
 					//if(	pagefilename_breakapart(&pfn,ft) == 0)
@@ -221,8 +327,12 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 						}
 
 
-						liqcell_child_insertsortedbyname( self, c,0);
+						liqcell_child_insertsortedbyname( body, c,0);
 					}
+					
+					
+				*/
+					
 				}
 			}
 		}
@@ -260,10 +370,10 @@ if(liqapp_pathexists(buf))
 	
 		liqcell *body = liqcell_quickcreatevis("body","frame",0 ,0,   self->w,self->h);
 
-		liqcell_scan_folder_for_images(body,buf);
 		
 		liqcell_child_insert( self, body );
 		
+		liqcell_scan_folder_for_images(self,buf);
 		
 		liqcell_propsets(  self, "monitorpath" , buf);
 		//liqcell_propsets(  self, "watchpattern" , "liq.*");
@@ -271,7 +381,7 @@ if(liqapp_pathexists(buf))
 		int cnt=0;
 		liqcell *c=NULL;
 
-		liqcell_child_arrange_makegrid(body,3,3);
+		//liqcell_child_arrange_makegrid(body,3,3);
 
 		c=liqcell_lastchild(body);
 
@@ -353,16 +463,12 @@ if(liqapp_pathexists(buf))
 #define BUFF_SIZE ((sizeof(struct inotify_event)+FILENAME_MAX)*32)
 
 
-
-
 static void monitor_get_event(int fd, const char * target,liqcell *context)
 {
    ssize_t len=0, i = 0;
    char action[81+FILENAME_MAX] = {0};
    char buff[BUFF_SIZE] = {0};
-
 	//liqapp_log("inotify_getevent reading from '%s'",target);
-
    len = read (fd, buff, BUFF_SIZE);
    
    while (i < len)
@@ -373,58 +479,13 @@ static void monitor_get_event(int fd, const char * target,liqcell *context)
 	  
 	  if ( (pevent->len) )
 	  {
-		
-		
-		snprintf(action,sizeof(action),"%s/%s",target,pevent->name);
-		
+		snprintf(action,sizeof(action),"%s/%s",target,pevent->name);	
 		// dealing with a file
 		  if(pevent->mask & IN_CLOSE_WRITE)
 			liqrecentsketches_sketch_add(context,action);
-		//  if(pevent->mask & IN_CREATE)
-		//    liqrecentsketches_sketch_add(context,pevent->name);
 	  }
-/*
-      if (pevent->len) 
-         strcpy (action, pevent->name);
-      else
-         strcpy (action, target);
-    
-      if (pevent->mask & IN_ACCESS) 
-         strcat(action, " was read");
-      if (pevent->mask & IN_ATTRIB) 
-         strcat(action, " Metadata changed");
-      if (pevent->mask & IN_CLOSE_WRITE) 
-         strcat(action, " opened for writing was closed");
-      if (pevent->mask & IN_CLOSE_NOWRITE) 
-         strcat(action, " not opened for writing was closed");
-      if (pevent->mask & IN_CREATE) 
-         strcat(action, " created in watched directory");
-      if (pevent->mask & IN_DELETE) 
-         strcat(action, " deleted from watched directory");
-      if (pevent->mask & IN_DELETE_SELF) 
-         strcat(action, "Watched file/directory was itself deleted");
-      if (pevent->mask & IN_MODIFY) 
-         strcat(action, " was modified");
-      if (pevent->mask & IN_MOVE_SELF) 
-         strcat(action, "Watched file/directory was itself moved");
-      if (pevent->mask & IN_MOVED_FROM) 
-         strcat(action, " moved out of watched directory");
-      if (pevent->mask & IN_MOVED_TO) 
-         strcat(action, " moved into watched directory");
-      if (pevent->mask & IN_OPEN) 
-         strcat(action, " was opened");
-
-	  liqfilemonitor_showmsg(liqfilemonitor,action);
-*/	  
-	  
-	  
-
-
-	  
       i += sizeof(struct inotify_event) + pevent->len;
-
    }
-
 } 
 
 

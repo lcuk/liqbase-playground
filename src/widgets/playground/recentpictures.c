@@ -295,6 +295,7 @@ liqcell *recentpictures_create()
 		scan_folder_for_contents(self, "/home/user" );
 		scan_folder_for_contents(self, "/media/mmc1" );
 		scan_folder_for_contents(self, "/media/mmc2" );
+		
 
 
 		liqcell_child_arrange_makegrid_fly(body,3,3);

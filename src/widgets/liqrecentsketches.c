@@ -28,6 +28,29 @@ static int monitor_run(liqcell *context);
 //#####################################################################
 
 
+	static int liqrecentsketches_sketchitem_click(liqcell *self, liqcellclickeventargs *args, liqcell *liqrecentsketches)
+	{
+		//liqapp_log("general click");
+		//args->newdialogtoopen = self;
+        if(liqcell_getselected(self))
+        {
+			liqcell_setselected(self,0);
+			//liqcell_propremoves(self, "textcolor"   );
+			liqcell_propremoves(self, "backcolor"   );
+			liqcell_propremoves(self, "bordercolor" );
+        }
+        else
+        {
+			liqcell_setselected(self,1);
+			//liqcell_propsets(self, "textcolor",   "rgb(0,255,0)" );
+			liqcell_propsets(self, "backcolor",   "rgb(0,40,0)" );
+			liqcell_propsets(self, "bordercolor", "rgb(0,80,0)" );
+        }
+		return 1;
+	}
+
+
+
 static int liqrecentsketches_sketch_insert(liqcell *self,char *filenamebuffer)
 {
 	liqcell *body = liqcell_child_lookup( self,"body");
@@ -104,6 +127,9 @@ static int liqrecentsketches_sketch_insert(liqcell *self,char *filenamebuffer)
 				liqcell *c = liqcell_quickcreatevis(buf,   "sketch",   0,0,(self->w/5),(self->h/4)    );
 				liqcell_propseti(c,"lockaspect",1);
 				liqcell_propsets(c,"sketchfilename",filenamebuffer);
+				liqcell_handleradd_withcontext(c,"click",liqrecentsketches_sketchitem_click,self);
+				
+				
 				liqcell_child_insertsortedbyname( xd, c,0);
 				
 				//liqapp_log("ins 9 %s",filenamebuffer);

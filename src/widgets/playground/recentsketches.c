@@ -296,8 +296,14 @@ liqcell *recentsketches_create()
 		
 		liqcell_handleradd(body,    "mouse",   liqcell_easyhandler_kinetic_mouse );
 		liqcell_child_insert( self, body );
+
+
+		char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/sketches",app.userdatapath);
+
 		
-		scan_folder_for_contents(self, "/media/mmc1/_apg" );
+		scan_folder_for_contents(self, buf );
+
+
 		liqcell_child_arrange_makegrid_fly(body,3,3);
 		
 		liqcell_propseti(self,"arrangecomplete",0);

@@ -238,15 +238,15 @@ liqcell *playground_create()
 			liqcell *recentsketches1 = liqcell_quickcreatevis("recentsketches1","playground.recentsketches",0,0,0,0);
 			liqcell_child_append( body, recentsketches1 );
 
-			//liqcell *codelist1 = liqcell_quickcreatevis("codelist1","playground.codelist",0,0,0,0);
-			//liqcell_child_append( body, codelist1 );
+			liqcell *codelist1 = liqcell_quickcreatevis("codelist1","playground.codelist",0,0,0,0);
+			liqcell_child_append( body, codelist1 );
 
 			liqcell *songlist1 = liqcell_quickcreatevis("songlist1","playground.songlist",0,0,0,0);
 			liqcell_child_append( body, songlist1 );
 
 
-			//liqcell *tagcloud1 = liqcell_quickcreatevis("tagcloud1","playground.tagcloud",0,0,0,0);
-			//liqcell_child_append( body, tagcloud1 );
+			liqcell *tagcloud1 = liqcell_quickcreatevis("tagcloud1","playground.tagcloud",0,0,0,0);
+			liqcell_child_append( body, tagcloud1 );
             
             
             

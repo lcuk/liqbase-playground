@@ -8,6 +8,56 @@
 #include <liqbase/liqcell_arrange.h>
 
 
+#include <time.h>			// req for sleep
+#include <sys/time.h>		// req for getticks
+
+
+
+
+//############################################################# deeplog runs whenever called
+
+int liqirc_vdeeplog(char *logentry, va_list arg)
+{
+    time_t     now;
+    struct tm  *ts;
+    char       buf[80];
+    time(&now);
+    ts = localtime(&now);
+    strftime(buf, sizeof(buf), "%H:%M:%S", ts);
+	
+	
+	//printf("%s ",buf);
+	//vprintf(logentry, arg);
+	//puts("");	// dang! this feels bad
+	//fflush(stdout);
+	
+	// VERY temporary logging
+	char buf2[FILENAME_MAX+1];
+	snprintf(buf2,FILENAME_MAX,"%s/liqirc.log",app.userdatapath);
+	FILE *fp=fopen(buf2,"a");
+	if(fp)
+	{
+		fprintf(  fp, "%s "   , buf);		// append time
+		vfprintf( fp, logentry, arg );		// now the log item
+		//fputs("\n",fp);
+		fclose(fp);
+	}
+	
+	
+	return 0;
+}
+
+int liqirc_deeplog(char *logentry, ...)
+{
+	va_list arg;
+	va_start(arg, logentry);
+	liqirc_vdeeplog(logentry, arg);
+	va_end(arg);
+	return 0;
+}
+
+
+
 int liqirc_runchannel(liqcell *liqirc);
 
 
@@ -364,6 +414,9 @@ int liqirc_runchannel(liqcell *liqirc)
     do
     {
         fgets(linebuf,512,in);
+		
+		liqirc_deeplog("< %s",linebuf);
+		
         splitline(liqirc);
         parseline(liqirc);
     }
@@ -513,6 +566,8 @@ void sendserv(char *str, ...)
 	
 	
 	
+	
+	
     va_list tmpl;
     char tmp[1024];
 
@@ -520,6 +575,9 @@ void sendserv(char *str, ...)
     vsprintf(tmp,str,tmpl);
     strcat(tmp,"\r\n");
     send(sock,tmp,strlen(tmp),0);
+	
+	liqirc_deeplog("> %s",tmp);
+	
     if (debug)
     {
         printf("Sending data: %s\n",tmp);

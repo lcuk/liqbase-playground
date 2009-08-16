@@ -169,8 +169,8 @@
 			//###############################################################
 			// now, make sure we add a header to the day
 			
-			liqcell *head = liqcell_quickcreatevis("head",NULL,        0,0,       dayw,fh);
-			liqcell_propseti(    head,"textalign",1);
+			liqcell *head = liqcell_quickcreatevis("head",NULL,        0,0,       dayw*0.95,fh);
+			//liqcell_propseti(    head,"textalign",1);
 			liqcell_setfont(     head, font  );  //liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
 			liqcell_setcaption(  head,caption);
 			
@@ -197,13 +197,14 @@
 			{
 				// first day of the month has an additional label
 
-				liqcell *tit = liqcell_quickcreatevis("monthname",NULL,        dayw*0.1,0,       dayw*0.9,fh);
+				liqcell *tit = liqcell_quickcreatevis("monthname",NULL,        dayw*0.1,0,       dayw*0.85,fh);
 
 				strftime(buff, 64, "%B", dayts);
 				liqcell_propseti(  tit,"textalign",0);
 				liqcell_setfont(   tit, liqfont_hold(font)  );  //liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
 				liqcell_setcaption(  tit,buff);
 				liqcell_propsets(  tit, "textcolor", "rgb(0,255,0)" );
+				liqcell_propseti(    tit,"textalign",2);
 
 				liqcell_child_append( head,tit );
 			}
@@ -212,7 +213,7 @@
 
 			//###############################################################
 			// now, add the entry cell (and setup to load in a sketch related..)
-			liqcell *view = liqcell_quickcreatevis("view",NULL,        0,fh,       dayw,dayh-fh);
+			liqcell *view = liqcell_quickcreatevis("view",NULL,        0,fh,       dayw * 0.95,(dayh-fh)*0.95);
 
 			if(istoday)
 			{

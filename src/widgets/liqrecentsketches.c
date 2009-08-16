@@ -435,6 +435,17 @@ if(liqapp_pathexists(buf))
 
 }
 
+
+		//############################# title:label
+		liqcell *title = liqcell_quickcreatevis("title", "label", 0,0, 200, 50);
+		liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+		liqcell_setcaption(title, "Sketches" );
+		liqcell_propsets(  title, "imagefilename", "media/titlebanner_left.png" );
+		liqcell_propsets(  title, "textcolor", "rgb(255,255,0)" );
+		//liqcell_propsets(  title, "backcolor", "rgb(0,0,60)" );
+		liqcell_propseti(  title, "textalign", 0 );
+		liqcell_child_append(  self, title);
+
 	}
 	
 	return self;

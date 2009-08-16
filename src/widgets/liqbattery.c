@@ -289,22 +289,27 @@ liqcell *liqbattery_create()
 	//############################# piece4:label
 	liqcell *piece4 = liqcell_quickcreatevis("piece4", "label", 646, 110, 96, 254);
 	liqcell_propsets(  piece4, "imagefilename", "media/liqbattery_4.png" );
+	liqcell_propseti( piece4 ,  "lockaspect", 0 );
 	liqcell_child_append(  self, piece4);
 	//############################# piece3:label
 	liqcell *piece3 = liqcell_quickcreatevis("piece3", "label", 490, 110, 160, 254);
 	liqcell_propsets(  piece3, "imagefilename", "media/liqbattery_3.png" );
+	liqcell_propseti( piece3 ,  "lockaspect", 0 );
 	liqcell_child_append(  self, piece3);
 	//############################# piece2:label
 	liqcell *piece2 = liqcell_quickcreatevis("piece2", "label", 140, 110, 354, 254);
 	liqcell_propsets(  piece2, "imagefilename", "media/liqbattery_2.png" );
+	liqcell_propseti( piece2 ,  "lockaspect", 0 );
 	liqcell_child_append(  self, piece2);
 	//############################# piece1:label
 	liqcell *piece1 = liqcell_quickcreatevis("piece1", "label", 44, 110, 96, 254);
 	liqcell_propsets(  piece1, "imagefilename", "media/liqbattery_1.png" );
+	liqcell_propseti( piece1 ,  "lockaspect", 0 );
 	liqcell_child_append(  self, piece1);
 	//############################# piece1:label
 	liqcell *piece1g = liqcell_quickcreatevis("piece1g", "label", 44, 110, 96, 254);
 	liqcell_propsets(  piece1g, "imagefilename", "media/liqbattery_1_glow.png" );
+	liqcell_propseti( piece1g ,  "lockaspect", 0 );
 	liqcell_child_append(  self, piece1g);
 	
 		

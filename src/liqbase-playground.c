@@ -484,6 +484,7 @@ liqcell *widgetrecent=NULL;
 	
 
 		liqcell_setimage(  mirror ,  liqimage_cache_getfile( "media/liqbase_back2.jpg",0,0,1) );
+		liqcell_propseti(  mirror ,  "lockaspect",0 );
 		liqapp_log("Starting global");
 
 	//	liqcell_easyrun( liqcell_quickcreatevis("welcome", "liqwelcome", 0,0, 0,0) );

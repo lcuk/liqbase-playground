@@ -28,9 +28,9 @@ fi
  if [ "$HW_VER" -ge "34" -a "$HW_VER" -le "48" ];
  then
 
-   ./liqbase-playground -showwidget tagcloud,liqcontrolpanel,liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqbook
+   ./liqbase-playground -showwidget liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqflow,liqrecentphotos,desktopmanage,onedotzero
  else
-   ./liqbase-playground -showwidget tagcloud,liqcontrolpanel,liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqrecentusers,liqbook,liqaccelview
+   ./liqbase-playground -showwidget liqcalendar,ciroclock_minutes,liqtop,liqrecentsketches,liqflow,liqrecentphotos,desktopmanage,onedotzero,liqaccelview
  fi
 
 

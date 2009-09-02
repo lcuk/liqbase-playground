@@ -2,11 +2,11 @@ Source: liqbase-playground
 Section: user/multimedia
 Priority: extra
 Maintainer: Gary <liquid@gmail.com>
-Build-Depends: debhelper (>= 5) , libliqbase-dev
+Build-Depends: debhelper (>= 5) , libliqbase-dev (>= 0.3.30)
 Standards-Version: 3.7.2
 
 Package: liqbase-playground
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.30), liqtorch, liqcontrolpanel, liqpostcard
 Description: liqbase-playground test package
  usability and testing package release for liqbase-playground

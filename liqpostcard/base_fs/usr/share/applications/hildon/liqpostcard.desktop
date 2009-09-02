@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqpostcard
+Exec=/usr/bin/liqpostcard-run.sh
+Type=Application
+StartupWMClass=liqpostcard
+X-Osso-Service=org.maemo.liqpostcard
+X-Osso-Type=application/x-executable
+StartupNotify=false

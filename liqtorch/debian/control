@@ -1,0 +1,12 @@
+Source: liqtorch
+Section: user/multimedia
+Priority: extra
+Maintainer: Gary Birkett <liquid@gmail.com>
+Build-Depends: debhelper (>= 5) , libliqbase-dev (>= 0.3.30)
+Standards-Version: 3.7.2
+
+Package: liqtorch
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.30)
+Description: a simple bright light to lead the way.
+ a simple bright light to lead the way in the dark.

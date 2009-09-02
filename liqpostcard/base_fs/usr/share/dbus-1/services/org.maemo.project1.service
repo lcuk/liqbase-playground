@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.maemo.project1
+Exec=/usr/bin/project1-run.sh

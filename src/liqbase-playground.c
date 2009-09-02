@@ -228,20 +228,26 @@ int main (int argc, char* argv[])
 
 	//########################################################## open the screen
 
+    int fullscreenflag = atoi(liqapp_pref_getvalue_def("fullscreen","0"));
+    liqapp_log("fs=%i",fullscreenflag);
 
 #ifdef USE_MAEMO
 	//xrotation_set(RR_Rotate_90);
 	//if(0!=liqcanvas_init( 480,800, 1))
 
 	//xrotation_set(RR_Rotate_0);
-	if(0!=liqcanvas_init( 800,480, 1))
+    
+    
+        if(0!=liqcanvas_init( 800,480, fullscreenflag))
+    
     
     
 	//if(0!=liqcanvas_init( 640,480, 1))
 	//if(0!=liqcanvas_init( 400,240, 1))
 
 #else
-	if(0!=liqcanvas_init( 1024,768, 1))
+	if(0!=liqcanvas_init( 1024,768, fullscreenflag))
+
 
 #endif
 	{
@@ -254,7 +260,28 @@ int main (int argc, char* argv[])
 
 	//liqsimpletest_run();
 	
-	superrun();
+	//superrun();
+    
+    
+    	
+    liqcell *playground= liqcell_quickcreatevis("liqbase-playground","liqbase-playground.playground",0,0, 800,480);
+
+
+    char fnbuf[FILENAME_MAX];  snprintf(fnbuf,sizeof(fnbuf),"%s/background.png",app.userdatapath);
+    
+    if(liqapp_fileexists(fnbuf))
+    {
+		liqcell_setimage(  playground ,  liqimage_cache_getfile( fnbuf,0,0,0) );
+    }
+    else
+    {
+ 		liqcell_setimage(  playground ,  liqimage_cache_getfile( "/usr/share/liqbase/media/liqbase_back2.jpg",0,0,0) );
+    }
+    liqcell_propseti(  playground ,  "lockaspect",0 );
+
+		
+		liqcell_easyrun( playground );
+        liqcell_release( playground );
 
 
     
@@ -482,14 +509,24 @@ liqcell *widgetrecent=NULL;
 	else
 	{
 	
-
-		liqcell_setimage(  mirror ,  liqimage_cache_getfile( "media/liqbase_back2.jpg",0,0,1) );
+    
+    char fnbuf[FILENAME_MAX];  snprintf(fnbuf,sizeof(fnbuf),"%s/background.png",app.userdatapath);
+    
+    if(liqapp_fileexists(fnbuf))
+    {
+		liqcell_setimage(  mirror ,  liqimage_cache_getfile( fnbuf,0,0,0) );
+    }
+    else
+    {
+ 		liqcell_setimage(  mirror ,  liqimage_cache_getfile( "/usr/share/liqbase/media/liqbase_back2.jpg",0,0,0) );
+    }
+    
 		liqcell_propseti(  mirror ,  "lockaspect",0 );
 		liqapp_log("Starting global");
 
 	//	liqcell_easyrun( liqcell_quickcreatevis("welcome", "liqwelcome", 0,0, 0,0) );
 	
-
+        liqcell_propseti(mirror,"easyrun_hidetools",1);
 
 		liqcell_easyrun( mirror );
 	}

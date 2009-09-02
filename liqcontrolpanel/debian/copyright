@@ -1,0 +1,23 @@
+This package was debianized by Gary Birkett <liquid@gmail.com> on
+Tue, 01 Sep 2009 01:20:05 +0000
+
+It was downloaded from <http://liqbase.net>
+
+Upstream Author(s):
+
+	 Gary Birkett <liquid@gmail.com>
+
+Copyright:
+
+	 Copyright (C) 2009 Gary Birkett
+	 <likewise for another author>
+
+License:
+
+	 GPL
+
+The Debian packaging is copyright 2009, Gary Birkett <liquid@gmail.com> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+
+# Please also look if there are files or directories which have a
+# different copyright/license attached and list them here.

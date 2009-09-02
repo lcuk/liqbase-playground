@@ -42,7 +42,8 @@ liqcell *uitoolcol_create(char *key,char *caption, ...)
 
 		if(caption && *caption) liqcell_setcaption(   self, caption );
 		//liqcell_setimage(  self,  liqimage_cache_getfile( "media/texturestrip_dark.jpg",0,0,0) );
-		liqcell_setimage(  self,  liqimage_cache_getfile( "media/toolcol_background.png",0,0,0) );
+		liqcell_setimage(  self,  liqimage_cache_getfile( "/usr/share/liqbase/media/toolcol_background.png",0,0,0) );
+		liqcell_propseti(  self ,  "lockaspect",0 );
 
 
 		// main background
@@ -113,7 +114,8 @@ liqcell *uitoolbar_create(char *key,char *caption, ...)
 
 		if(caption && *caption) liqcell_setcaption(   self, caption );
 		//liqcell_setimage(  self,  liqimage_cache_getfile( "media/texturestrip_dark.jpg",0,0,0) );
-		liqcell_setimage(  self,  liqimage_cache_getfile( "media/toolbar_background.png",0,0,0) );
+		liqcell_setimage(  self,  liqimage_cache_getfile( "/usr/share/liqbase/media/toolbar_background.png",0,0,0) );
+		liqcell_propseti(  self ,  "lockaspect",0 );
 
 
 		// main background

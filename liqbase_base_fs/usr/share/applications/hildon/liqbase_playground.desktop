@@ -1,9 +1,13 @@
 [Desktop Entry]
 Version=1.0
 Encoding=UTF-8
-Name=liqbase_playground
+Name=liqbase
 Exec=/usr/bin/liqbase-playground-run.sh
 Type=Application
+Icon=liqbase_playground
+X-Icon-path=/usr/share/icons/hicolor/scalable/apps
+X-Window-Icon=liqbase_playground
+X-Window-Icon-Dimmed=liqbase_playground
 StartupWMClass=liqbase_playground
 X-Osso-Service=org.maemo.liqbase_playground
 X-Osso-Type=application/x-executable

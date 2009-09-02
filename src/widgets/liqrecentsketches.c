@@ -26,7 +26,7 @@ static int monitor_run(liqcell *context);
 //##################################################################### liqrecentsketches :: by gary birkett 
 //#####################################################################
 //#####################################################################
-
+/*
 
 	static int liqrecentsketches_sketchitem_click(liqcell *self, liqcellclickeventargs *args, liqcell *liqrecentsketches)
 	{
@@ -49,6 +49,33 @@ static int monitor_run(liqcell *context);
 		return 1;
 	}
 
+ */
+	
+	int liqrecentsketches_sketchitem_click(liqcell *self, liqcellclickeventargs *args, void *context)
+	{
+		liqapp_log("hello click edit!");
+		//liqcell *mydialog = quickdialog_create();
+		//liqcell_easyrun(mydialog);
+		//liqcell_release(mydialog);
+
+		char *sketchfilename  = liqcell_propgets(self,"sketchfilename",NULL);		
+		if(!sketchfilename) return -1;
+		
+		liqsketch *mysketch=liqsketch_newfromfile(sketchfilename);//   liqcell_getsketch(self);
+		if(!mysketch)return -1;
+		
+		
+		liqcell * top = liqcell_quickcreatevis("liqtop1", "liqtop", 0,0, 800,480);
+		
+		liqcell_setsketch(top, mysketch );
+		
+		
+		args->newdialogtoopen = top;
+		
+
+		return 1;
+	}	
+	
 
 
 static int liqrecentsketches_sketch_insert(liqcell *self,char *filenamebuffer)

@@ -1,0 +1,25 @@
+liqtorch (0.1.3) unstable; urgency=low
+
+  * fixed class bug when sat in the playground, added some gradients
+
+ -- Gary Birkett <liquid@gmail.com>  Mon, 31 Aug 2009 15:05:41 +0000
+
+liqtorch (0.1.2) unstable; urgency=low
+
+  * added icons, thank you once again qwerty12 :)
+
+ -- Gary Birkett <liquid@gmail.com>  Sat, 29 Aug 2009 15:05:41 +0000
+
+liqtorch (0.1.1) unstable; urgency=low
+
+  * increased brightness
+
+ -- Gary Birkett <liquid@gmail.com>  Sun, 16 Aug 2009 15:05:41 +0000
+
+
+liqtorch (0.1.0) unstable; urgency=low
+
+  * liqtorch Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Gary Birkett <liquid@gmail.com>  Sun, 16 Aug 2009 15:05:41 +0000
+

@@ -15,8 +15,6 @@ static int liqaccelview_runchannel(liqcell *liqaccelview);
 
 
 
-
-
 	static int timer_tick(liqcell *self, liqcellmouseeventargs *args, void *context)
 	{
 		liqcell_propseti(self,"timerinterval", 32767 );
@@ -27,6 +25,42 @@ static int liqaccelview_runchannel(liqcell *liqaccelview);
 		return 0;
 	}
 
+
+
+	static int liqaccelview_paint(liqcell *self, liqcellpainteventargs *args,liqcell *context)
+	{
+		
+		//liqapp_log("starpaint %4i,%4i :: '%s'::'%s'",args->mx,args->my,self->name,self->classname);
+		
+		//liqapp_log("drawing args==NULL==%i args->graph==NULL==%i",args==NULL,  args->graph==NULL);
+		// vgraph *graph;
+		// args->graph;
+		
+		//vgraph_setbackcolor(args->graph, vcolor_YUV( (127+(rand()%128)) , (rand()%255) , (rand()%255) ) );
+		
+		
+		
+		//vgraph_drawbox(args->graph, 10, 40,   300, 400 );
+		
+		//vgraph_setpencolor(args->graph, vcolor_YUV(255,128,128) );
+
+
+		
+		if( liqcell_propgeti(self,"dialog_running",0)==1 )
+		{
+			liqaccelview_runchannel((liqcell*)self);
+			//star_calc(self,(STAR *)self->tag, args->graph, liqcell_getsketch(self), args->mx,args->my );
+			//liqcell_setdirty(self,1);
+		}
+		else
+		{
+			// nothing for now...  should show a picture or something..
+		}
+		
+		
+		//liqapp_log("drawing done");
+		return 1;
+	}
 
 
 /**	
@@ -52,7 +86,7 @@ liqcell *liqaccelview_create()
 
 
 	
-
+/*
 	//############################# title:label
 	liqcell *title = liqcell_quickcreatevis("title", "label", 66, 8, 728, 40);
 	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
@@ -71,9 +105,9 @@ liqcell *liqaccelview_create()
 	liqcell_propseti(  icon, "textalign", 2 );
 	liqcell_child_append(  self, icon);
 
-
+ */
 	//############################# bx:picturebox
-	liqcell *bx = liqcell_quickcreatevis("bx", "picturebox", 100, 100, 600, 100);
+	liqcell *bx = liqcell_quickcreatevis("bx", "label", 100, 100, 600, 100);
 	liqcell_setfont(	bx, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (32), 0) );
 	liqcell_propsets(  bx, "textcolor", "rgb(0,0,0)" );
 	liqcell_propsets(  bx, "backcolor", "rgb(200,0,0)" );
@@ -83,7 +117,7 @@ liqcell *liqaccelview_create()
 	liqcell_child_append(  self, bx);
 	
 	//############################# by:picturebox
-	liqcell *by = liqcell_quickcreatevis("by", "picturebox", 100, 220, 600, 100);
+	liqcell *by = liqcell_quickcreatevis("by", "label", 100, 220, 600, 100);
 	liqcell_setfont(	by, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (32), 0) );
 	liqcell_propsets(  by, "textcolor", "rgb(0,0,0)" );
 	liqcell_propsets(  by, "backcolor", "rgb(0,200,0)" );
@@ -94,7 +128,7 @@ liqcell *liqaccelview_create()
 	liqcell_child_append(  self, by);
 
 	//############################# bz:picturebox
-	liqcell *bz = liqcell_quickcreatevis("bz", "picturebox", 100, 340, 600, 100);
+	liqcell *bz = liqcell_quickcreatevis("bz", "label", 100, 340, 600, 100);
 	liqcell_setfont(	bz, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (32), 0) );
 	liqcell_propsets(  bz, "textcolor", "rgb(0,0,0)" );
 	liqcell_propsets(  bz, "backcolor", "rgb(0,0,200)" );
@@ -104,6 +138,19 @@ liqcell *liqaccelview_create()
 	liqcell_child_append(  self, bz);
 
 
+
+
+
+
+	//############################# label3:label
+	liqcell *lbllastmessage = liqcell_quickcreatevis("label3", "label", 12, 0, 772, 40);
+	liqcell_setfont(	lbllastmessage, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
+	liqcell_propsets(  lbllastmessage, "textcolor", "rgb(255,255,0)" );
+	//liqcell_propsets(  label3, "backcolor", "rgb(64,64,64)" );
+	liqcell_propseti(  lbllastmessage, "textalign", 0 );
+	liqcell_child_append(  self, lbllastmessage);
+
+/*
 	//############################# timer1:liqtimer
 	liqcell *timer1=liqcell_quickcreatevis("timer1",   "liqtimer",   0,0,   0,0 );
 	// store ourselves on the tag for use later
@@ -113,21 +160,16 @@ liqcell *liqaccelview_create()
 	liqcell_handleradd(timer1,"timertick",timer_tick);
 	liqcell_setenabled(timer1,1);
 	liqcell_child_insert( self,timer1);
-	
+ */
+	liqcell_handleradd_withcontext(self,    "paint", liqaccelview_paint,self);
 
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	return self;
 }
 
 
-void liqaccelview_showmsg(liqcell *self,char *time,char *nick,char *message)//char *message)//,int rx,int ry,int rz)
+void liqaccelview_showmsg(liqcell *self,char *msgx,char *msgy,char *msgz)//char *message)//,int rx,int ry,int rz)
 {
-	// add a new listitem into the flow
-	// reflow
-	// adjust the top position of the backport to compensate
-
-	//liqapp_log("irc showmsg == %s",self->name);
-
 	int calcsize(char *buf,int ww)
 	{
 		int ii=atoi(buf);
@@ -142,50 +184,50 @@ void liqaccelview_showmsg(liqcell *self,char *time,char *nick,char *message)//ch
 
 	}
 	
-	
-
 
 	liqcell *bx = liqcell_child_lookup( self,"bx");
-	liqcell_setcaption(bx, time);	
-	liqcell_setsize(bx, calcsize(time,600) , bx->h);
+	liqcell_setcaption(bx, msgx);	
+	liqcell_setsize(bx, calcsize(msgx,600) , bx->h);
 
 	liqcell *by = liqcell_child_lookup( self,"by");
-	liqcell_setcaption(by, nick);
-	liqcell_setsize(by, calcsize(nick,600) , by->h);
+	liqcell_setcaption(by, msgy);
+	liqcell_setsize(by, calcsize(msgy,600) , by->h);
 
 	liqcell *bz = liqcell_child_lookup( self,"bz");
-	liqcell_setcaption(bz, message);
-	liqcell_setsize(bz, calcsize(message,600) , bz->h);
+	liqcell_setcaption(bz, msgz);
+	liqcell_setsize(bz, calcsize(msgz,600) , bz->h);
 	
 	liqcell_setdirty(  self, 1);
 
 }
 
 
-static const char *accel_filename = "/sys/class/i2c-adapter/i2c-3/3-001d/coord";
-static int accel_read(char *result,int resultmaxlength)
-{
-	FILE *fd;
-	char *rc;
-	fd = fopen(accel_filename, "r");
-	if(fd==NULL){ liqapp_log("accel, cannot open for reading\n"); return -1;}
-	rc=fgets(result, resultmaxlength, (FILE*) fd);
-	fclose(fd);
-	if(rc==NULL){ liqapp_log("accel, cannot read information\n"); return -2;}
-	//lcuk: cleaning off any trailing \n
-	char *b=result;	while(*b){  if(*b=='\n'){ *b=0;break; } b++; };
-	return 0;
-}
 
 
 static int liqaccelview_runchannel(liqcell *liqaccelview)
 {
-	while(1)
+	//return 0;
+	//while(1)
 	{
-		liqapp_sleep(50);
-		char buff[256];
-		if(0 == accel_read(buff,sizeof(buff)) )
+		//liqapp_sleep(50);
+		//char buff[256];
+		//if(0 == accel_read(buff,sizeof(buff)-1) )
 		{
+			//liqapp_log("accel: ",buff);
+		
+			int aax=0;
+			int aay=0;
+			int aaz=0;
+			
+			liqaccel_read(&aax,&aay,&aaz);
+			
+			//liqapp_log("accel: %i,%i,%i",aax,aay,aaz);
+			
+			char bax[32]; snprintf(bax,32,"%i",aax);
+			char bay[32]; snprintf(bay,32,"%i",aay);
+			char baz[32]; snprintf(baz,32,"%i",aaz);
+			
+			/*
 			int p[3]={0,0,0};
 			char * t[3]={0,0,0};
 			char * tok = strtok(buff, " ");
@@ -197,13 +239,13 @@ static int liqaccelview_runchannel(liqcell *liqaccelview)
 				tok = strtok(NULL," ");
 				idx++;
 			}
-			
+			*/
 			char fmt[256];
-			snprintf(fmt,sizeof(fmt),"%-4i %-4i %-4i",p[0],p[1],p[2]);
+			//snprintf(fmt,sizeof(fmt),"%-4i %-4i %-4i",aax,aay,aaz);
 
 
 			
-			liqaccelview_showmsg(liqaccelview,t[0],t[1],t[2]);
+			liqaccelview_showmsg(liqaccelview,bax,bay,baz);
 		}
 		
 	}

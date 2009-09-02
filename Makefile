@@ -36,34 +36,27 @@ install:
 
 	mkdir -p                                    									$(PGDIR)
 	mkdir -p                                    									$(PGDIR)/media
-	mkdir -p                                    									$(PGDIR)/kotcomix
-	mkdir -p                                    									$(PGDIR)/dialogfileselect
 	mkdir -p                                    									$(PGDIR)/widgets
 	mkdir -p                                    									$(PGDIR)/widgets/liqcalendar
-	mkdir -p                                    									$(PGDIR)/widgets/playground
-	mkdir -p                                    									$(PGDIR)/widgets/desktopmanage
-	mkdir -p                                    									$(PGDIR)/liqbook
 	mkdir -p                                    									$(ETCDIR)
 	mkdir -p                                    									$(ETCDIR)/osso-backup
 	mkdir -p                                    									$(ETCDIR)/osso-backup/applications
 
-	cp -r src/media/*                           									$(PGDIR)/media
-	#cp -r src/widgets/media/*                  									 $(PGDIR)/media
-	#cp -r src/widgets/liqcalendar/media/*      									 $(PGDIR)/media
-	#cp -r src/widgets/playground/media/*       									 $(PGDIR)/media
-	#cp -r src/liqbook/media/*      		    									 $(PGDIR)/media
-	#cp -r src/widgets/desktopmanage/media/*    									 $(PGDIR)/media
+
+
+	mkdir -p															$(PREFIX)
+	mkdir -p															$(PREFIX)/share
+	mkdir -p															$(PREFIX)/share/icons
+	mkdir -p															$(PREFIX)/share/icons/hicolor
+	mkdir -p															$(PREFIX)/share/icons/hicolor/scalable
+	mkdir -p															$(PREFIX)/share/icons/hicolor/scalable/apps
+
+
+	cp -r media/*       	                    									$(PGDIR)/media
 
 	install -m 0755 src/liqbase-playground      									$(PGDIR)
-	install -m 0755 src/kotcomix/kotcomix      									$(PGDIR)/kotcomix
 	cp -r src/widgets/*.so                      									$(PGDIR)/widgets
 	cp -r src/widgets/liqcalendar/*.so          									$(PGDIR)/widgets/liqcalendar
-	cp -r src/widgets/playground/*.so           									$(PGDIR)/widgets/playground
-	cp -r src/widgets/desktopmanage/*.so        									$(PGDIR)/widgets/desktopmanage
-	cp -r src/liqbook/*.so     		         									$(PGDIR)/liqbook
-	cp -r src/kotcomix/kotcomix.so              									$(PGDIR)/kotcomix
-	cp -r src/dialogfileselect/dialogfileselect.so        							$(PGDIR)/dialogfileselect
-
 
 
 	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-run.sh                               $(BINDIR)
@@ -73,7 +66,9 @@ install:
 	install -m 0755 liqbase_base_fs/etc/sudoers.d/liqbase-playground.sudoers                        $(SUDODIR)
 	install -m 0755 liqbase_base_fs/usr/share/applications/hildon/liqbase_playground.desktop        $(DESKTOPDIR)
 	install -m 0755 liqbase_base_fs/usr/share/dbus-1/services/org.maemo.liqbase_playground.service  $(SERVICEDIR)
-
 	install -m 0755 liqbase_base_fs/etc/osso-backup/applications/liqbase-playground.conf            $(ETCDIR)/osso-backup/applications
+
+	install -m 0755 liqbase_base_fs/usr/share/icons/hicolor/scalable/apps/liqbase_playground.png    $(PREFIX)/share/icons/hicolor/scalable/apps/liqbase_playground.png
+
 
 

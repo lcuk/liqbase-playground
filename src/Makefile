@@ -11,11 +11,11 @@ LIBRARIES   =
 # xrandr
 # -DUSE_MAEMO 
 CFLAGS      = -DUSE_MAEMO -Wall   -I/usr/include `pkg-config --cflags  $(LIBRARIES)` 
-LDFLAGS     = -lm -lliqbase `pkg-config --libs $(LIBRARIES)`  -lpthread  -Wl,-export-dynamic -L/usr/local/lib -lcurl 
+LDFLAGS     = -lm -lliqbase `pkg-config --libs $(LIBRARIES)`  -lpthread  -Wl,-export-dynamic -L/usr/local/lib
 
 RM          = /bin/rm -f
 
-OBJSCORE    = 
+OBJSCORE    = playground.o desktopmanage.o
 OBJS        = $(OBJSCORE) $(PROG).o
 
 
@@ -24,9 +24,6 @@ OBJS        = $(OBJSCORE) $(PROG).o
 .PHONY:     clean distclean
 all:        $(PROG)
 	      $(MAKE) -C widgets
-	      $(MAKE) -C kotcomix
-	      $(MAKE) -C liqbook
-	      $(MAKE) -C dialogfileselect
 
 $(PROG):    $(OBJS)
 	      $(LD) $(LDFLAGS) -o $(PROG) $(OBJS) \
@@ -36,9 +33,6 @@ $(PROG):    $(OBJS)
 clean:
 	      $(RM) *~ $(OBJS) $(PROG)
 		$(MAKE) clean -C widgets
-		$(MAKE) clean -C kotcomix
-		$(MAKE) clean -C liqbook
-		$(MAKE) clean -C dialogfileselect
 
 .PHONY:     clean
 

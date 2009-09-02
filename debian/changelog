@@ -1,3 +1,34 @@
+liqbase-playground (0.3.33) unstable; urgency=low
+
+  * lcurl on calendar, and last install dep for the night.
+
+ -- Gary Birkett <liquid@gmail.com>  31 Aug 2009 21:41:03 +0200
+
+liqbase-playground (0.3.32) unstable; urgency=low
+
+  * now its my fault.  left -lcurl on the makefile.
+
+ -- Gary Birkett <liquid@gmail.com>  31 Aug 2009 21:41:03 +0200
+
+liqbase-playground (0.3.31) unstable; urgency=low
+
+  * stupid autobuilder lag
+
+ -- Gary Birkett <liquid@gmail.com>  31 Aug 2009 21:41:03 +0200
+
+liqbase-playground (0.3.30) unstable; urgency=low
+
+  * drastic cleanup and removal of tonnes of test modules.  all still exist but require packaging.
+  * desktopmanager now operates as expected and has been polished
+  * calendar is slick
+  * liqtimer,liqsketchedit,textbox now exist in the library itself
+  * background image loaded from a ~/.liqbase file
+  * numerous stability cleanups and refactoring
+  * prepared for input from outside applications, though does not actively monitor for installation of such
+
+ -- Gary Birkett <liquid@gmail.com>  31 Aug 2009 21:41:03 +0200
+
+
 liqbase-playground (0.3.14) unstable; urgency=low
 
   * changes

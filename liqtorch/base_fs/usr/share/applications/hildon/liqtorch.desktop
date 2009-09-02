@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqtorch
+Exec=/usr/bin/liqtorch-run.sh
+Type=Application
+Icon=liqtorch
+X-Window-Icon=liqtorch
+X-Window-Icon-Dimmed=liqtorch
+StartupWMClass=liqtorch
+X-Osso-Service=org.maemo.liqtorch
+X-Osso-Type=application/x-executable
+StartupNotify=false

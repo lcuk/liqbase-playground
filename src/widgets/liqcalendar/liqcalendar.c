@@ -49,7 +49,7 @@
 	}
 	
 	
-	static int caldayhead_click(liqcell *self, liqcellclickeventargs *args, void *context)
+	static int caldayhead_click(liqcell *self, liqcellclickeventargs *args, void *daybody)
 	{
 		// 20090413_155053 lcuk : disabling zoom into a day for now
 		// it should select the day - like the original liqgraffiti did
@@ -59,7 +59,7 @@
 		//args->newdialogtoopen = self;//liqcell_child_lookup( self, "body" );
 		//args->newdialogtoopen = liqcell_child_lookup( self, "body" );
 
-		liqcell *day = liqcell_getlinkparent(self);
+		liqcell *day = daybody;//liqcell_getlinkparent(self);
 		
 		if(!day)return -1;
 		
@@ -144,6 +144,9 @@
 
 		//
 		liqcell *body = liqcell_quickcreatevis(daykey,NULL,        x,y,w,h);
+		
+		
+		liqcell_handleradd_withcontext(body,    "click",   caldayhead_click,body);
 
 			liqcell_propsets(body,"calendardate",daykey);
 			
@@ -175,7 +178,7 @@
 			liqcell_setcaption(  head,caption);
 			
 			
-			liqcell_handleradd(head,    "click",   caldayhead_click);
+			//liqcell_handleradd_withcontext(head,    "click",   caldayhead_click,body);
 
 
 			if(istoday)
@@ -250,7 +253,7 @@
 			liqcell_child_append( body,view );
 
 
-			liqcell_handleradd(body,    "click",   calday_click);
+			//liqcell_handleradd(body,    "click",   calday_click);
 			
 			
 		return body;
@@ -432,15 +435,15 @@ liqcell *liqcalendar_create()
 		//! create toolbar
 		liqcell *tbar = uitoolcol_create("tools","tools",
 				uitoolitem_create( "reset",     "reset",         "media/quickicons/stock_refresh.png",    toolitem_click,self),
-				uitoolitem_create( "delete", "delete",     "media/quickicons/gtk-remove.png",           toolitem_click,self),
-				uitoolitem_create( "add",    "add",        "media/quickicons/add.png",              toolitem_click,self),
-				uitoolitem_create( "edit", "edit",     "media/quickicons/package_graphics.png",           toolitem_click,self),
+				//uitoolitem_create( "delete", "delete",     "media/quickicons/gtk-remove.png",           toolitem_click,self),
+				//uitoolitem_create( "add",    "add",        "media/quickicons/add.png",              toolitem_click,self),
+				//uitoolitem_create( "edit", "edit",     "media/quickicons/package_graphics.png",           toolitem_click,self),
 				//uitoolitem_create( "close",  "close",      "media/quickicons/gtk-close.png",    toolitem_click),
 				//uitoolitem_create( "back",   "back",       "media/quickicons/back.png",              toolitem_click,self),
 				NULL);
 		
 		
-		liqcell_setrect(tbar, 0,56,56,480-56-56);
+		liqcell_setrect(tbar, 0,56-56,56,480-56-56+56);
 
 		liqcell_child_append( self, tbar );
 

@@ -293,8 +293,6 @@ int b=self->y+self->h;
 				liqcell_setvisible(grabbox ,0);
 
 
-				liqcell *b = liqcell_quickcreatevis("contentx","liqbase",  0,0,0,0 );
-				//liqcell_child_insert( self, b );
 				
 				
 				
@@ -306,10 +304,16 @@ int b=self->y+self->h;
 				liqcell_propsets(c,    	"bordercolor", "rgb(255,0,0)" );
 				liqcell_handleradd(c,   "mouse",       liqdesign_surface_item_mouse);
 				
+                
+                
 				// 20090513_000454 lcuk : set this to make an IFS fractal :)
-				//liqcell_setcontent( c,liqcell_getbasewidget(self) );
+				liqcell_setcontent( c,liqcell_getbasewidget(self) );
 				
-				liqcell_setcontent( c,b );
+                
+				//liqcell *b = liqcell_quickcreatevis("contentx","liqbase",  0,0,0,0 );
+				//liqcell_setcontent( c,b );
+                
+                
 				
 				liqcell_child_insert( self, c );
 

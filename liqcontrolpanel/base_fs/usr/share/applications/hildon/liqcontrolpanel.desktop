@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqcontrolpanel
+Exec=/usr/bin/liqcontrolpanel-run.sh
+Type=Application
+StartupWMClass=liqcontrolpanel
+X-Osso-Service=org.maemo.liqcontrolpanel
+X-Osso-Type=application/x-executable
+StartupNotify=false

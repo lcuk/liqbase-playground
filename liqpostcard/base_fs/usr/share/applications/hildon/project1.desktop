@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=project1
+Exec=/usr/bin/project1-run.sh
+Type=Application
+StartupWMClass=project1
+X-Osso-Service=org.maemo.project1
+X-Osso-Type=application/x-executable
+StartupNotify=false

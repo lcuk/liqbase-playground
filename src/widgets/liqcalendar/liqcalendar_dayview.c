@@ -5,12 +5,15 @@
 
 
 
-#include <curl/curl.h>
+//#include <curl/curl.h>
 
 
 
 void post_to_liqbase_net(char *filename,char *datakey)
 {
+/*
+
+
 	//if(!datakey)datakey="upload test";
 
 	CURL* easyhandle = curl_easy_init();
@@ -21,7 +24,7 @@ void post_to_liqbase_net(char *filename,char *datakey)
 	char *userpassmd5 = liqapp_pref_getvalue("userpass");
 	if(!userpassmd5 || !*userpassmd5)
 	{
-		liqapp_log("post_to_liqbase_net not performed, no password set");
+		liqapp_log("post_to_liqbase_net not performed, no userpass configured");
 	}
 	
 	struct curl_httppost *post=NULL;  
@@ -39,10 +42,10 @@ void post_to_liqbase_net(char *filename,char *datakey)
 
 
 	curl_formfree(post); 
-	
+ */
 }
 
-
+ 
 
 
 
@@ -107,7 +110,7 @@ static int liqcalendar_dayview_dialog_close(liqcell *self,liqcelleventargs *args
 	
 			liqsketch *sketch = liqcell_getsketch(editor);
 			
-			if(sketch && liqcell_getdirty(editor) && sketch && sketch->strokecount>0)
+			if(sketch && liqcell_gettag(editor) && sketch && sketch->strokecount>0)
 			{
 
 				// 20090422_000423 lcuk : make sure we do not overwrite the file
@@ -172,8 +175,8 @@ liqcell *liqcalendar_dayview_create()
 	liqcell_child_append(  self, titlebox);
 	
 	//############################# editor:liqtop
-	liqcell *editor = liqcell_quickcreatevis("editor", "liqtop", 2, 46, 398, 366);
-	liqcell_propsets(  editor, "bordercolor", "rgb(200,100,100)" );
+	liqcell *editor = liqcell_quickcreatevis("editor", "liqsketchedit", 0, 46, 800, 434);
+	//liqcell_propsets(  editor, "bordercolor", "rgb(200,100,100)" );
 	//liqcell_setfont(	label6, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (10), 0) );
 	//liqcell_setcaption(label6, "appointments list" );
 	//liqcell_propsets(  label6, "textcolor", "rgb(255,255,255)" );
@@ -181,7 +184,7 @@ liqcell *liqcalendar_dayview_create()
 	//liqcell_propseti(  editor, "lockaspect", 1 );
 	liqcell_child_append(  self, editor);
 	
-
+/*
 	//############################# tags:tagcloud
 	liqcell *tags = liqcell_quickcreatevis("tags", "tagcloud", 402, 46, 398, 366);
 	liqcell_setfont(	tags, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (10), 0) );
@@ -191,6 +194,9 @@ liqcell *liqcalendar_dayview_create()
 	liqcell_propsets(  tags, "bordercolor", "rgb(200,100,100)" );
 	liqcell_propseti(  tags, "textalign", 2 );
 	liqcell_child_append(  self, tags);	
+
+ */
+
 /*
 	//############################# label15:label
 	liqcell *label15 = liqcell_quickcreatevis("label15", "label", 296, 426, 52, 40);

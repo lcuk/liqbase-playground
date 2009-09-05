@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=org.maemo.onedotzero
-Exec=/usr/bin/onedotzero-run.sh

@@ -1,0 +1,11 @@
+// place media for onedotzero in this folder
+// as long as you have run make install once, the media files will exist in the correct location
+
+
+
+
+	liqapp_log("app codepath = '%s'",app.codepath);
+	char fnbuf[FILENAME_MAX];  snprintf(fnbuf,sizeof(fnbuf),"%s/onedotzero/media/motion_blur.png",app.codepath);
+	//liqcell_propsets( self ,  "imagefilename", fnbuf );
+	liqcell_setimage(  self ,  liqimage_cache_getfile( fnbuf ,0,0,0) );
+	liqcell_propseti( self ,  "lockaspect", 0 );

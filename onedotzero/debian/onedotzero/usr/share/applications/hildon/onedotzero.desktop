@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=onedotzero
+Exec=/usr/bin/onedotzero-run.sh
+Type=Application
+StartupWMClass=onedotzero
+X-Osso-Service=org.maemo.onedotzero
+X-Osso-Type=application/x-executable
+StartupNotify=false

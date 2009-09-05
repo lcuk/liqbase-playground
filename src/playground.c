@@ -49,10 +49,89 @@ liqcell *liqbase_playground_root=NULL;
 			liqcell_propseti(  item,    "lockaspect",1);
 			liqcell_setcontent(item,    newx);
 			liqcell_handleradd_withcontext(item,    "click",   playground_item_click,desktopmanage );
-			liqcell_child_append( body, item );
+			liqcell_child_insertsortedbyname( body, item , 1);
 			return item;
 			
 		}
+
+
+
+
+
+
+
+
+
+        extern char * liqtwitter_message;
+
+
+
+        static int playground_send_tweet(liqcell *button, liqcellclickeventargs *args, liqcell *playground)
+        {
+            liqcell *search = liqcell_child_lookup(playground,"search");
+            liqapp_log("send a tweet :)");
+            liqtwitter_message = liqcell_getcaption(search);
+            
+            liqcell * progress = liqcell_quickcreatevis("liqbase-playground.liqtwitter_sendprogress","liqbase-playground.liqtwitter_sendprogress",0,0,-1,-1);
+            
+            if(progress)
+            {
+                liqcell_easyrun(progress);
+                int sentok = liqcell_propgeti(progress,"sentok",0);
+                liqcell_release(progress);
+                
+                if(!sentok)
+                {
+                    //return 0;
+                }
+                
+                if(sentok)
+                {
+                    liqcell_setcaption(search,"");
+                }
+            }            
+            return 0;
+        }
+
+
+
+        static int playground_send_google(liqcell *button, liqcellclickeventargs *args, liqcell *playground)
+        {
+            liqapp_log("send to google :)");
+        }
+
+
+
+
+        static int playground_send_console(liqcell *button, liqcellclickeventargs *args, liqcell *playground)
+        {
+            liqapp_log("run a sh command :)");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -119,11 +198,14 @@ int liqbase_playground_refresh_desktop_contents()
     // first, run around and remove stuff we no longer need
     liqcell *c = liqcell_getlinkchild_visual(body);
     
-    // skip the first item...
-    if(c)c = liqcell_getlinknext_visual(c);
+   // // skip the first item...
+   // if(c)c = liqcell_getlinknext_visual(c);
     
     while(c)
     {
+        
+            if( (strcasecmp(c->name,"desktopmanage")==0) ) continue;
+        
 
             int isok = 0;
             // loop around the tokens
@@ -322,12 +404,15 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
             liqcell_setvisible(searchinprogress,0);
         else
             liqcell_setvisible(searchinprogress,1);
+            
         
 		//liqcell_setrect(body,   0,40,playground->w,playground->h-40);
 		liqcell_setrect(body,   0,0,playground->w,playground->h);
 		liqcell_child_arrange_easytile( body );
 		//liqcell_child_arrange_makegrid_fly(body,3,3);
 		
+        liqcell_child_arrange_easytile(searchinprogress);
+        
 		liqcell_propseti(self,"arrangecomplete",0);
 		
 		//liqcell_setpos(body,0,40);
@@ -564,12 +649,45 @@ liqcell *playground_create()
  
  
 
-
+ 
+ 
+		liqcell *addsearchkind(char *title,char *imgfilename,void *clickhandler)
+		{
+            
+            
+            
+            
+			
+			//liqcell *item = newx;
+			
+			liqcell *item = liqcell_quickcreatevis(title,"item",0,0,100,100);
+            
+            liqcell_setimage(  item ,  liqimage_cache_getfile( imgfilename,0,0,1) );
+			liqcell_propseti(  item,    "lockaspect",1);
+			
+			liqcell_handleradd_withcontext(item,    "click",   clickhandler ,self );
+			liqcell_child_append( searchinprogress, item );
+			return item;
+			
+		}
+        
+        addsearchkind( "google","/usr/share/liqbase/media/searchimg/google.jpg"   , playground_send_google );
+        addsearchkind( "console","/usr/share/liqbase/media/searchimg/console.jpg" , playground_send_console );
+        
+        
  
 
- 
 
+        liqapp_log("liqtwit: looking up twituser credentials");
+        char *twitname = liqapp_pref_getvalue("twitname");
+        char *twitpass = liqapp_pref_getvalue("twitpass");
+        if(twitname && *twitname  && twitpass && *twitpass)
+        {
+            // ok
+            addsearchkind( "twitter","/usr/share/liqbase/media/searchimg/twitter.png" , playground_send_tweet );
+        } 
 
+        liqcell_child_arrange_easytile(searchinprogress);
 
 		//liqcell_handleradd(body,    "mouse",   liqcell_easyhandler_kinetic_mouse );
 		liqcell_child_insert( self, body );
@@ -641,7 +759,7 @@ liqcell *playground_create()
                 addone(self,body, "liqflow");
             }
             
-            addone(self,body, "floatmap");
+            //addone(self,body, "floatmap");
             
             addone(self,body, "onedotzero");
            // addone(self,body, "liqpostcard");

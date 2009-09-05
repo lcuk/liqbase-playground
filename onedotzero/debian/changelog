@@ -1,0 +1,46 @@
+onedotzero (0.1.5) unstable; urgency=low
+
+  * added profanity filter.
+  * modified osc patterns
+  * added slider bars for zooming on the tilt interaction
+
+ -- Gary Birkett <liquid@gmail.com>  Tue, 05 Sep 2009 02:19:13 +0000
+
+
+onedotzero (0.1.4) unstable; urgency=low
+
+  * sending /mode every few seconds when in screens.
+  * updated liqaccelview again.  much more usable and readable
+  * fixed up bugs
+  * configuration screen was using wrong default port number
+  * configuration dialog is available from the menu screen by pressing [ctrl] + o
+
+ -- Gary Birkett <liquid@gmail.com>  Tue, 26 Aug 2009 02:19:13 +0000
+
+onedotzero (0.1.3) unstable; urgency=low
+
+  * upgraded liqaccelview.
+  * removed nobble
+  * fixed up bugs
+  * removed extra screens
+
+ -- Gary Birkett <liquid@gmail.com>  Tue, 26 Aug 2009 02:19:13 +0000
+
+onedotzero (0.1.2) unstable; urgency=low
+
+  * added liblo OSC protocl library and made numerous tweaks.
+
+ -- Gary Birkett <liquid@gmail.com>  Tue, 24 Aug 2009 02:19:13 +0000
+
+onedotzero (0.1.1) unstable; urgency=low
+
+  * numerous adjustments towards target.
+
+ -- Gary Birkett <liquid@gmail.com>  Tue, 20 Aug 2009 02:19:13 +0000
+
+onedotzero (0.1.0) unstable; urgency=low
+
+  * onedotzero Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Gary Birkett <liquid@gmail.com>  Tue, 11 Aug 2009 02:19:13 +0000
+

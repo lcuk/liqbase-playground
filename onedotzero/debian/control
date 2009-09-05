@@ -1,0 +1,12 @@
+Source: onedotzero
+Section: user/multimedia
+Priority: extra
+Maintainer: Gary Birkett <liquid@gmail.com>
+Build-Depends: debhelper (>= 5) , libliqbase-dev (>= 0.3.30), liblo0-dev
+Standards-Version: 3.7.2
+
+Package: onedotzero
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.30), liblo0ldbl
+Description: short description
+ longer description

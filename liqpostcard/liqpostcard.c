@@ -6,7 +6,7 @@
 #include <liqbase/liqcell_easyrun.h>
 #include <liqbase/liqcell_easyhandler.h>
 		
-		
+extern liqcell * liqpostcard_master;
 //#####################################################################
 //#####################################################################
 //##################################################################### liqpostcard :: by gary birkett
@@ -22,15 +22,43 @@ static int liqpostcard_refresh(liqcell *self,liqcelleventargs *args, liqcell *co
 	// there might be an OS level variable called filter
 	// it should be set and adjusted correctly prior to calling this routine
 	// you should do your best to account for this filter in any way you see fit
+
+    liqcell *cmdconfigure = liqcell_child_lookup(self, "cmdconfigure");
+	liqcell *cmdsend = liqcell_child_lookup(self, "cmdsend");
+
+    
+	char *username = app.username;
+	char *userpassmd5 = liqapp_pref_getvalue("userpass",NULL);
+    
+	char *twitname = liqapp_pref_getvalue_def("twitname",NULL);
+	char *twitpass = liqapp_pref_getvalue_def("twitpass",NULL);
+
+	if(!username || !*username || !userpassmd5 || !*userpassmd5 || !twitname || !*twitname)
+	{
+        liqcell_setenabled(cmdsend,0);
+		liqapp_log("liqpostcard not allowed, no username/userpass/twitname/twitpass configured");
+		return -1;
+	}
+    
+    // everything ok :)
+    liqcell_setenabled(cmdsend,1);
+    
 	return 0;
 }
+
+
 /**	
  * liqpostcard dialog_open - the user zoomed into the dialog
  */	
 static int liqpostcard_dialog_open(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
+
+    liqcell_handlerrun(self,"refresh",NULL);
+    
 	return 0;
 }
+
+
 /**	
  * liqpostcard dialog_close - the dialog was closed
  */	
@@ -89,18 +117,19 @@ static int liqpostcard_resize(liqcell *self,liqcelleventargs *args, liqcell *con
 	float sx=((float)self->w)/((float)self->innerw);
 	float sy=((float)self->h)/((float)self->innerh);
 	
-	liqcell *recipient = liqcell_child_lookup(self, "recipient");
+	liqcell *tweetmessage = liqcell_child_lookup(self, "tweetmessage");
 	liqcell *picfront = liqcell_child_lookup(self, "picfront");
 	liqcell *messageback = liqcell_child_lookup(self, "messageback");
 	//liqcell *cmdmessagewrite = liqcell_child_lookup(self, "cmdmessagewrite");
 	liqcell *label5 = liqcell_child_lookup(self, "label5");
 	liqcell *cmdmessagedraw = liqcell_child_lookup(self, "cmdmessagedraw");
 	liqcell *cmdpicchoose = liqcell_child_lookup(self, "cmdpicchoose");
+    liqcell *cmdconfigure = liqcell_child_lookup(self, "cmdconfigure");
 	liqcell *cmdsend = liqcell_child_lookup(self, "cmdsend");
 	liqcell *pichead = liqcell_child_lookup(self, "pichead");
 	liqcell *messagehead = liqcell_child_lookup(self, "messagehead");
 	liqcell *title = liqcell_child_lookup(self, "title");
-	liqcell_setrect_autoscale( recipient, 56,424, 502,50, sx,sy);
+	liqcell_setrect_autoscale( tweetmessage, 56,424, 502,50, sx,sy);
 	liqcell_setrect_autoscale( picfront, 20,112, 368,186, sx,sy);
 	liqcell_setrect_autoscale( messageback, 418,112, 368,186, sx,sy);
 	//liqcell_setrect_autoscale( cmdmessagewrite, 418,300, 176,52, sx,sy);
@@ -111,6 +140,7 @@ static int liqpostcard_resize(liqcell *self,liqcelleventargs *args, liqcell *con
 	liqcell_setrect_autoscale( pichead, 20,74, 368,36, sx,sy);
 	liqcell_setrect_autoscale( messagehead, 418,74, 368,36, sx,sy);
 	liqcell_setrect_autoscale( title, 0,0, 800,56, sx,sy);
+    liqcell_setrect_autoscale( cmdconfigure, 508,0, 226,56, sx,sy);
 	return 0;
 }
 
@@ -199,11 +229,115 @@ static int cmdpicchoose_click(liqcell *self,liqcelleventargs *args, liqcell *liq
         
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void liqpostcard_sendnow(liqcell *liqpostcard, liqimage *postcardface, liqimage *postcardback, liqsketch *message,char *tweet);
+
+
+
+
+
 /**	
  * liqpostcard.cmdsend clicked
  */	
 static int cmdsend_click(liqcell *self,liqcelleventargs *args, liqcell *liqpostcard)
 {
+
+	liqcell *picfront = liqcell_child_lookup(liqpostcard, "picfront");
+	liqcell *messageback = liqcell_child_lookup(liqpostcard, "messageback");
+	liqcell *tweetmessage = liqcell_child_lookup(liqpostcard, "tweetmessage");
+    
+    
+    liqimage *imgfront = liqcell_getimage(picfront);
+    liqimage *imgback = liqcell_getimage(messageback);
+    liqsketch *sketch = liqcell_getsketch(messageback);
+    char *tweet = liqcell_getcaption(tweetmessage);
+    
+    if(!imgfront)
+    {
+        liqapp_log("cmdsend_click need imgfront");
+        return -1;
+    }
+    if(!imgback)
+    {
+        liqapp_log("cmdsend_click need imgback");
+        return -1;
+    }
+    if(!sketch)
+    {
+        liqapp_log("cmdsend_click need sketch");
+        return -1;
+    }
+    if(!tweet || !*tweet)
+    {
+        liqapp_log("cmdsend_click need tweet");
+        return -1;
+    }
+    
+    //liqpostcard_sendnow(liqpostcard,imgfront,imgback,sketch, tweet);
+    
+    liqpostcard_master = liqpostcard;
+
+		liqcell * progress = liqcell_quickcreatevis("liqpostcard.liqpostcard_sendprogress","liqpostcard.liqpostcard_sendprogress",0,0,-1,-1);
+		
+		if(progress)
+		{
+			liqcell_easyrun(progress);
+            int sentok = liqcell_propgeti(progress,"sentok",0);
+			liqcell_release(progress);
+            
+            if(!sentok)
+            {
+                //return 0;
+            }
+            
+            if(sentok)
+            {
+                liqcell_setcaption(tweetmessage,"");
+                liqsketch_clear(sketch);
+            }
+		}
+        
+    liqpostcard_master = NULL;
+    
+
+	return 0;
+}
+
+/**	
+ * liqpostcard.cmdconfigure clicked
+ */	
+static int cmdconfigure_click(liqcell *self,liqcelleventargs *args, liqcell *liqpostcard)
+{
+
+     //if(args->keycode==111 && args->keymodifierstate==4)
+     {
+		liqcell * conf = liqcell_quickcreatevis("liqpostcard_config","liqpostcard.liqpostcard_config",0,0,-1,-1);
+
+	    liqcell_easyrun(conf);
+        liqcell_release(conf);
+        
+        liqcell_handlerrun(liqpostcard,"refresh",NULL);
+     }
+	 return 0;
+    
 	return 0;
 }
 /**	
@@ -212,10 +346,11 @@ static int cmdsend_click(liqcell *self,liqcelleventargs *args, liqcell *liqpostc
 	  
 static void liqpostcard_child_test_seek(liqcell *self)
 {	  
-	liqcell *recipient = liqcell_child_lookup(self, "recipient");
+	liqcell *tweetmessage = liqcell_child_lookup(self, "tweetmessage");
 	liqcell *picfront = liqcell_child_lookup(self, "picfront");
 	liqcell *messageback = liqcell_child_lookup(self, "messageback");
 	liqcell *cmdmessagewrite = liqcell_child_lookup(self, "cmdmessagewrite");
+    liqcell *cmdconfigure = liqcell_child_lookup(self, "cmdconfigure");
 	liqcell *label5 = liqcell_child_lookup(self, "label5");
 	liqcell *cmdmessagedraw = liqcell_child_lookup(self, "cmdmessagedraw");
 	liqcell *cmdpicchoose = liqcell_child_lookup(self, "cmdpicchoose");
@@ -237,15 +372,15 @@ liqcell *liqpostcard_create()
 	// Optimization:  Minimal layers and complexity
 	// Optimization:  defaults: background, prefer nothing, will be shown through if there is a wallpaper
 	// Optimization:  defaults: text, white, very fast rendering
-	//############################# recipient:textbox
-	liqcell *recipient = liqcell_quickcreatevis("recipient", "textbox", 56, 424, 502, 50);
-	liqcell_setfont(	recipient, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (32), 0) );
-	liqcell_setcaption(recipient, "" );
-	liqcell_propsets(  recipient, "textcolor", "rgb(0,0,0)" );
-	liqcell_propsets(  recipient, "backcolor", "rgb(255,255,255)" );
-	liqcell_propsets(  recipient, "bordercolor", "rgb(200,100,100)" );
-	liqcell_propseti(  recipient, "textalign", 0 );
-	liqcell_child_append(  self, recipient);
+	//############################# tweetmessage:textbox
+	liqcell *tweetmessage = liqcell_quickcreatevis("tweetmessage", "textbox", 56, 424, 502, 50);
+	liqcell_setfont(	tweetmessage, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (32), 0) );
+	liqcell_setcaption(tweetmessage, "" );
+	liqcell_propsets(  tweetmessage, "textcolor", "rgb(0,0,0)" );
+	liqcell_propsets(  tweetmessage, "backcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  tweetmessage, "bordercolor", "rgb(200,100,100)" );
+	liqcell_propseti(  tweetmessage, "textalign", 0 );
+	liqcell_child_append(  self, tweetmessage);
 	//############################# picfront:picturebox
 	liqcell *picfront = liqcell_quickcreatevis("picfront", "picturebox", 20, 112, 368, 186);
 	//liqcell_setfont(	picfront, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
@@ -278,7 +413,7 @@ liqcell *liqpostcard_create()
 	//############################# label5:label
 	liqcell *label5 = liqcell_quickcreatevis("label5", "label", 56, 390, 368, 32);
 	liqcell_setfont(	label5, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
-	liqcell_setcaption(label5, "Recipient" );
+	liqcell_setcaption(label5, "Message" );
 	liqcell_propsets(  label5, "textcolor", "rgb(255,255,255)" );
 	//liqcell_propsets(  label5, "backcolor", "xrgb(0,64,64)" );
 	liqcell_propseti(  label5, "textalign", 0 );
@@ -330,7 +465,7 @@ liqcell *liqpostcard_create()
 	//############################# messagehead:label
 	liqcell *messagehead = liqcell_quickcreatevis("messagehead", "label", 418, 74, 368, 36);
 	liqcell_setfont(	messagehead, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
-	liqcell_setcaption(messagehead, "Message" );
+	liqcell_setcaption(messagehead, "Sketch" );
 	liqcell_propsets(  messagehead, "textcolor", "rgb(255,255,255)" );
 	//liqcell_propsets(  messagehead, "backcolor", "xrgb(0,64,64)" );
 	liqcell_propseti(  messagehead, "textalign", 0 );
@@ -356,6 +491,19 @@ liqcell *liqpostcard_create()
 	//liqcell_handleradd_withcontext(self, "paint", liqpostcard_paint ,self); // use only if required, heavyweight
 	liqcell_handleradd_withcontext(self, "dialog_open", liqpostcard_dialog_open ,self);
 	liqcell_handleradd_withcontext(self, "dialog_close", liqpostcard_dialog_close ,self);
+
+
+	//############################# cmdconfigure:label
+	liqcell *cmdconfigure = liqcell_quickcreatevis("cmdconfigure", "label", 508, 0, 226, 56);
+	liqcell_setfont(	cmdconfigure, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+	liqcell_setcaption(cmdconfigure, "configure" );
+	liqcell_propsets(  cmdconfigure, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  cmdconfigure, "backcolor", "xrgb(0,64,0)" );
+	liqcell_propsets(  cmdconfigure, "bordercolor", "rgb(255,255,255)" );
+	liqcell_propseti(  cmdconfigure, "textalign", 2 );
+	liqcell_handleradd_withcontext(cmdconfigure, "click", cmdconfigure_click, self );
+	liqcell_child_append(  self, cmdconfigure);
+
     
     
     //########## major sideways hack.  classes need declarations and header files.
@@ -368,6 +516,10 @@ liqcell *liqpostcard_create()
         liqcell_propsets(  picfront, "imagefilename", selfn  );
     }
     liqcell_release(liqrecentphotoselect);
+    
+    
+    
+    liqcell_handlerrun(self,"refresh",NULL);
     
 	return self;
 }

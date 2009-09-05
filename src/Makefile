@@ -15,7 +15,7 @@ LDFLAGS     = -lm -lliqbase `pkg-config --libs $(LIBRARIES)`  -lpthread  -Wl,-ex
 
 RM          = /bin/rm -f
 
-OBJSCORE    = playground.o desktopmanage.o
+OBJSCORE    = playground.o desktopmanage.o liqtwit.o liqtwitter_sendprogress.o
 OBJS        = $(OBJSCORE) $(PROG).o
 
 

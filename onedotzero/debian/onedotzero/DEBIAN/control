@@ -1,0 +1,10 @@
+Package: onedotzero
+Version: 0.1.5
+Section: user/multimedia
+Priority: extra
+Architecture: armel
+Depends: libliqbase1 (>= 0.3.30), liblo0ldbl
+Installed-Size: 1020
+Maintainer: Gary Birkett <liquid@gmail.com>
+Description: short description
+ longer description

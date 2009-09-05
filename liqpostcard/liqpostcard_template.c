@@ -138,7 +138,7 @@ liqcell *liqpostcard_template_create()
 	liqcell_setfont(	notice, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
 	liqcell_setcaption(notice, "postcard created within liqbase on maemo" );
 	liqcell_propsets(  notice, "textcolor", "rgb(0,0,0)" );
-	liqcell_propsets(  notice, "backcolor", "rgb(235,233,237)" );
+	//liqcell_propsets(  notice, "backcolor", "rgb(235,233,237)" );
 	liqcell_propseti(  notice, "textalign", 1 );
 	liqcell_child_append(  self, notice);
 	//############################# line4:label
@@ -186,7 +186,7 @@ liqcell *liqpostcard_template_create()
 	liqcell_setfont(	stamp, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
 	liqcell_setcaption(stamp, "stamp" );
 	liqcell_propsets(  stamp, "textcolor", "rgb(0,0,0)" );
-	liqcell_propsets(  stamp, "backcolor", "rgb(224,224,224)" );
+	liqcell_propsets(  stamp, "backcolor", "rgba(224,224,224,128)" );
 	liqcell_propsets(  stamp, "bordercolor", "rgb(200,100,100)" );
 	liqcell_propseti(  stamp, "textalign", 2 );
 	liqcell_child_append(  self, stamp);

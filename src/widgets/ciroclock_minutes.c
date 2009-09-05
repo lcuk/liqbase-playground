@@ -44,12 +44,10 @@ liqcell *ciroclock_minutes_create()
 		liqcell_propseti(     liqcell_child_lookup( self,"clock"),"fontsize", 240 );
 
 		liqcell *timer1=liqcell_quickcreatevis("timer1",   "liqtimer",   0,0,   0,0 );
-		liqcell_handleradd(timer1,"timertick",timer_tick);
+		liqcell_handleradd_withcontext(timer1,"timertick",timer_tick,self);
 		liqcell_propseti(timer1,"timerinterval", 250 );
-		
 		liqcell_setenabled(timer1,1);
 		liqcell_child_insert( self,timer1);
-
 	}
 	return self;
 }

@@ -1,3 +1,9 @@
+liqpostcard (0.1.1) unstable; urgency=low
+
+  * tweaks
+
+ -- Gary Birkett <liquid@gmail.com>  06 September 2009 23:43:31 +0000
+
 liqpostcard (0.1.0) unstable; urgency=low
 
   * liqpostcard Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>

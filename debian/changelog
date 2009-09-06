@@ -1,3 +1,9 @@
+liqbase-playground (0.3.34) unstable; urgency=low
+
+  * tweaks, started to put the variation engine into place.
+
+ -- Gary Birkett <liquid@gmail.com>  06 September 2009 21:41:03 +0200
+
 liqbase-playground (0.3.33) unstable; urgency=low
 
   * lcurl on calendar, and last install dep for the night.

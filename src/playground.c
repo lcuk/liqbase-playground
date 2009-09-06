@@ -20,6 +20,7 @@ liqcell *liqbase_playground_root=NULL;
 
 
 
+	static int playground_item_mouse(liqcell *self, liqcellmouseeventargs *args, liqcell *playground);
 	static int playground_item_click(liqcell *self, liqcellclickeventargs *args, liqcell *playground);
     static int playground_item_dirty(liqcell *self, liqcelleventargs *args, liqcell *playground);
 
@@ -49,6 +50,7 @@ liqcell *liqbase_playground_root=NULL;
 			liqcell_propseti(  item,    "lockaspect",1);
 			liqcell_setcontent(item,    newx);
 			liqcell_handleradd_withcontext(item,    "click",   playground_item_click,desktopmanage );
+			liqcell_handleradd_withcontext(item,    "mouse",   playground_item_mouse,desktopmanage );
 			liqcell_child_insertsortedbyname( body, item , 1);
 			return item;
 			
@@ -438,7 +440,21 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
 //#####################################################################
 //#####################################################################
 	
-	
+	static int playground_item_mouse(liqcell *self, liqcellmouseeventargs *args, liqcell *playground)
+	{
+		//args->newdialogtoopen = liqcell_getcontent( self );
+        
+
+		liqcell_adjustpos((self),args->mdx,args->mdy);
+
+		int liqcell_child_arrange_nooverlap(liqcell *self,liqcell *currentselection);
+		int liqcell_child_arrange_gapfill(liqcell *self,liqcell *currentselection);
+
+		liqcell_child_arrange_nooverlap( liqcell_getlinkparent(self), self );
+
+    
+		return 1;
+	}	
 	static int playground_item_click(liqcell *self, liqcellclickeventargs *args, liqcell *playground)
 	{
 		args->newdialogtoopen = liqcell_getcontent( self );
@@ -608,6 +624,9 @@ liqcell *playground_create()
 
 	if(self)
 	{
+
+
+
 	/*	//############################# title:label
 		liqcell *title = liqcell_quickcreatevis("title", "label", 0,0, 400, 40);
 		liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
@@ -635,6 +654,13 @@ liqcell *playground_create()
 	
 		liqcell *body = liqcell_quickcreatevis("body",NULL,0 ,0,   self->w,self->h);
 
+
+
+        liqcell_propseti(body,"liqcell_child_arrange_nooverlap_minimumw",80);
+        liqcell_propseti(body,"liqcell_child_arrange_nooverlap_minimumh",48);
+
+
+
 		//############################# searchinprogress:label
 		liqcell *searchinprogress = liqcell_quickcreatevis("searchinprogress", NULL, 600, 440, 200, 60);
 		liqcell_setfont(	searchinprogress, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (35), 0) );
@@ -646,6 +672,9 @@ liqcell *playground_create()
 		liqcell_propseti(  searchinprogress, "textaligny",  2 );
 		liqcell_child_append(  body, searchinprogress);
         liqcell_setvisible(searchinprogress,0);
+ 
+ 
+ 
  
  
 

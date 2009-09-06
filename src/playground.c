@@ -15,6 +15,9 @@
 #include <liqbase/liqcell_easyhandler.h>
 
 
+int playground_editable=0;
+
+
 
 liqcell *liqbase_playground_root=NULL;
 
@@ -190,6 +193,9 @@ int liqbase_playground_refresh_desktop_contents()
 
 
     //liqbase_playground_root
+    
+    
+    liqapp_log("liqbase_playground_refresh_desktop_contents: '%s'",listall?listall:"[nothing_curious]");
 
     
     char tokbuf[2048]={0};
@@ -206,8 +212,12 @@ int liqbase_playground_refresh_desktop_contents()
     while(c)
     {
         
-            if( (strcasecmp(c->name,"desktopmanage")==0) ) continue;
-        
+            if( (strcasecmp(c->name,"desktopmanage"   )==0) ||
+                (strcasecmp(c->name,"_searchinprogress")==0) )
+            {
+                c=liqcell_getlinknext_visual(c);
+                continue;
+            }
 
             int isok = 0;
             // loop around the tokens
@@ -380,7 +390,12 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
 		liqcell *body = liqcell_child_lookup(playground,"body");
 		char *searchterm = liqcell_getcaption(self);
 		
-        liqcell *searchinprogress = liqcell_child_lookup(body,"searchinprogress");
+        liqcell *searchinprogress = liqcell_child_lookup(body,"_searchinprogress");
+        if(!searchinprogress)
+        {
+            liqapp_log("search: missing search progress");
+            return 0;
+        }
         
 		liqcell *c = liqcell_getlinkchild_visual(body);
 		while(c)
@@ -388,6 +403,8 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
 			liqcell_filter_run(c,searchterm);
 			c=liqcell_getlinknext_visual(c);
 		}
+        
+        liqapp_log("search: sorting progress");
 
         liqcell_setvisible(searchinprogress,0);
             
@@ -406,6 +423,8 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
             liqcell_setvisible(searchinprogress,0);
         else
             liqcell_setvisible(searchinprogress,1);
+            
+        liqapp_log("search: sorting body");
             
         
 		//liqcell_setrect(body,   0,40,playground->w,playground->h-40);
@@ -444,6 +463,7 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
 	{
 		//args->newdialogtoopen = liqcell_getcontent( self );
         
+        if(!playground_editable) return 1;
 
 		liqcell_adjustpos((self),args->mdx,args->mdy);
 
@@ -662,7 +682,7 @@ liqcell *playground_create()
 
 
 		//############################# searchinprogress:label
-		liqcell *searchinprogress = liqcell_quickcreatevis("searchinprogress", NULL, 600, 440, 200, 60);
+		liqcell *searchinprogress = liqcell_quickcreatevis("_searchinprogress", NULL, 600, 440, 200, 60);
 		liqcell_setfont(	searchinprogress, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (35), 0) );
 		liqcell_setcaption(searchinprogress, "searching:" );
 		liqcell_propsets(  searchinprogress, "textcolor",   "rgb(0,255,0)" );

@@ -290,7 +290,9 @@ static int listitemtick_click(liqcell *self,liqcellclickeventargs *args, void *c
  */	
 static int desktopmanage_dialog_open(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
+    liqapp_log("desktopmanage_dialog_open start");
     desktopmanage_updateticks(self);
+    liqapp_log("desktopmanage_dialog_open fin");
 	return 0;
 }
 /**	

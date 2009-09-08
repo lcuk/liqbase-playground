@@ -35,7 +35,7 @@ liqcell *universe = NULL;
 	static int layoutitem_click(liqcell *self, liqcellclickeventargs *args, liqcell *context)
 	{
         // autozoom on click :)
-		args->newdialogtoopen = liqcell_getcontent( self );
+		args->newdialogtoopen =liqcell_hold( liqcell_getcontent( self ) );
 		return 1;
 	}
     

@@ -9,7 +9,7 @@ LIBRARIES   = sqlite3 liblo
 CFLAGS		= -Wall `pkg-config --cflags  $(LIBRARIES)`  
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic -lcurl -L /usr/lib `pkg-config --libs $(LIBRARIES)`
 RM			 = /bin/rm -f
-OBJSCORE	 = onemessage.o oneinteract.o onetouch.o onemessageprogress.o liqflow.o liqaccelview.o onetiltcontrol.o zoombox.o liqaccelview_alternative.o liqaccelview_angle.o oneconfigure.o oneread.o textbox.o buttonrollover.o onemenu.o nokiapicture.o onemove.o onetouchslide.o slidebar.o osc_onedotzero.o angleruler.o
+OBJSCORE	 = onemessage.o onemessageprogress.o textbox.o onetilt.o zoombox.o oneconfigure.o buttonrollover.o onemenu.o nokiapicture.o onemove.o osc_onedotzero.o 
 OBJS		  = $(OBJSCORE) $(PROG).o
 .PHONY:	  clean distclean
 all:		  $(PROG) $(PROG).so

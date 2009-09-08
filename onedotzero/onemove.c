@@ -121,7 +121,7 @@ static int onemove_paint(liqcell *self, liqcellpainteventargs *args,liqcell *con
  */	
 static int onemove_resize(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
-	float sx=((float)self->w)/((float)self->innerw);
+/*	float sx=((float)self->w)/((float)self->innerw);
 	float sy=((float)self->h)/((float)self->innerh);
 	
 	liqcell *backplane = liqcell_child_lookup(self, "backplane");
@@ -132,7 +132,7 @@ static int onemove_resize(liqcell *self,liqcelleventargs *args, liqcell *context
 	//liqcell_setrect_autoscale( title, 0,0, 800,46, sx,sy);
 	liqcell_setrect_autoscale( backplane, 0,0, 800,480, sx,sy);
 	liqcell_setrect_autoscale( knob, 302,112, 170,118, sx,sy);
-	return 0;
+ */	return 0;
 }
 
 /**	
@@ -166,17 +166,20 @@ liqcell *onemove_create()
 	//liqcell_propsets(  backplane, "backcolor", "rgb(64,64,64)" );
 	//liqcell_propsets(  backplane, "bordercolor", "rgb(200,100,100)" );
 		//############################# knob:label
-		liqcell *knob = liqcell_quickcreatevis("knob", "label", 302, 112, 170, 118);
-		liqcell_setfont(	knob, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-		liqcell_setcaption(knob, "Move Me!" );
-		liqcell_propsets(  knob, "textcolor", "rgb(0,0,0)" );
+		liqcell *knob = liqcell_quickcreatevis("knob", "label", 310, 150, 180, 180);
+		//liqcell_setfont(	knob, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+		//liqcell_setcaption(knob, "Move Me!" );
+		//liqcell_propsets(  knob, "textcolor", "rgb(0,0,0)" );
 		//liqcell_propsets(  knob, "backcolor", "rgb(0,0,128)" );
 		//liqcell_propsets(  knob, "bordercolor", "rgb(200,100,100)" );
-		liqcell_propseti(  knob, "textalign", 2 );
-		liqcell_propseti(  knob, "textaligny", 2 );
+		//liqcell_propseti(  knob, "textalign", 2 );
+		//liqcell_propseti(  knob, "textaligny", 2 );
+
+        liqcell_setimage(  knob,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/move_me.png", 0,0,1) );
+
 		
-		liqcell_propsets(  knob, "imagefilename",  "/usr/share/liqbase/onedotzero/media/button_back.png" );
-		liqcell_propseti(  knob,  "lockaspect",  0 );
+		//liqcell_propsets(  knob, "imagefilename",  "/usr/share/liqbase/onedotzero/media/move_me.png" );
+		//liqcell_propseti(  knob,  "lockaspect",  0 );
 		liqcell_handleradd_withcontext(knob, "mouse", knob_mouse,self );
 		liqcell_child_append(  backplane, knob);
 	/*	int x;
@@ -240,6 +243,10 @@ liqcell *onemove_create()
 	//############################# nokiapicture1:nokiapicture
 	liqcell *nokiapicture1 = liqcell_quickcreatevis("nokiapicture1", "nokiapicture", 652, 438, 130, 24);
 	liqcell_child_insert(  self, nokiapicture1);
+
+
+    liqcell_setimage(  self,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/input_field_black_bg.png", 0,0,0) );
+
 	 
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	liqcell_handleradd_withcontext(self, "refresh", onemove_refresh ,self);

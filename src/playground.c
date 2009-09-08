@@ -477,8 +477,9 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
 	}	
 	static int playground_item_click(liqcell *self, liqcellclickeventargs *args, liqcell *playground)
 	{
-		args->newdialogtoopen = liqcell_getcontent( self );
-
+        liqapp_log("playground_item_click1");
+		args->newdialogtoopen =liqcell_hold(  liqcell_getcontent( self ) );
+        liqapp_log("playground_item_click2");
 		return 1;
 	}
     

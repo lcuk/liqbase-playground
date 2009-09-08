@@ -10,6 +10,10 @@
 #include "osc_onedotzero.h"
 
 
+
+int onemenu_moderunning = 0;
+
+
 //    osc_onedotzero_send_();		
 		
 //#####################################################################
@@ -99,7 +103,7 @@ static int onemenu_keyrelease(liqcell *self, liqcellkeyeventargs *args,liqcell *
  */	
 static int onemenu_resize(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
-	float sx=((float)self->w)/((float)self->innerw);
+/*	float sx=((float)self->w)/((float)self->innerw);
 	float sy=((float)self->h)/((float)self->innerh);
 	
 	liqcell *cmdtilt = liqcell_child_lookup(self, "cmdtilt");
@@ -120,7 +124,11 @@ static int onemenu_resize(liqcell *self,liqcelleventargs *args, liqcell *context
 	liqcell_setrect_autoscale( label1, 312,318, 166,34, sx,sy);
 	liqcell_setrect_autoscale( lbltile, 82,318, 166,34, sx,sy);
 	liqcell_setrect_autoscale( title, 0,0, 800,38, sx,sy);
-	return 0;
+ */
+
+    return 0;
+
+
 }
 
 /**	
@@ -128,10 +136,9 @@ static int onemenu_resize(liqcell *self,liqcelleventargs *args, liqcell *context
  */	
 static int cmdtilt_click(liqcell *self,liqcellclickeventargs *args, liqcell *onemenu)
 {
-	osc_onedotzero_send_menu(0);
-	//args->newdialogtoopen = liqcell_quickcreatevis("a","onedotzero.liqaccelview_angle",0,0,-1,-1);
-	//args->newdialogtoopen = liqcell_quickcreatevis("onedotzero.liqaccelview","onedotzero.liqaccelview_alternative",0,0,-1,-1);
-	args->newdialogtoopen = liqcell_quickcreatevis("onetiltcontrol","onedotzero.onetiltcontrol",0,0,-1,-1);
+    onemenu_moderunning = 0;   
+	osc_onedotzero_send_menu(onemenu_moderunning);
+	args->newdialogtoopen =(  liqcell_quickcreatevis("onetiltcontrol","onedotzero.onetilt",0,0,-1,-1) );
 	return 1;	
 }
 /**	
@@ -139,19 +146,40 @@ static int cmdtilt_click(liqcell *self,liqcellclickeventargs *args, liqcell *one
  */	
 static int cmdshake_click(liqcell *self,liqcellclickeventargs *args, liqcell *onemenu)
 {
-	osc_onedotzero_send_menu(1);
-	args->newdialogtoopen = liqcell_quickcreatevis("onedotzero.liqflow","onedotzero.liqflow",0,0,-1,-1);
-	return 1;
+    onemenu_moderunning = 1;   
+	osc_onedotzero_send_menu(onemenu_moderunning);
+	args->newdialogtoopen =( liqcell_quickcreatevis("onetiltcontrol","onedotzero.onetilt",0,0,-1,-1) );
+	return 1; 
+ 
+ 	//osc_onedotzero_send_menu(1);
+	//args->newdialogtoopen = liqcell_quickcreatevis("onedotzero.liqflow","onedotzero.liqflow",0,0,-1,-1);
+	//return 1;
 }
 /**	
  * onemenu.cmdtouch clicked
  */	
 static int cmdtouch_click(liqcell *self,liqcellclickeventargs *args, liqcell *onemenu)
 {
-	osc_onedotzero_send_menu(2);
-	args->newdialogtoopen = liqcell_quickcreatevis("onedotzero.onemove","onedotzero.onemove",0,0,-1,-1);
-	return 1;
+    onemenu_moderunning = 2;   
+	osc_onedotzero_send_menu(onemenu_moderunning);
+	args->newdialogtoopen =(  liqcell_quickcreatevis("onetiltcontrol","onedotzero.onetilt",0,0,-1,-1) );
+	return 1; 
+    
+//	osc_onedotzero_send_menu(2);
+//	args->newdialogtoopen = liqcell_quickcreatevis("onedotzero.onemove","onedotzero.onemove",0,0,-1,-1);
+//	return 1;
 }
+
+
+/**	
+ * onemenu.cmdback clicked
+ */	
+static int cmdback_click(liqcell *self,liqcelleventargs *args, liqcell *onemenu)
+{
+    liqcell_setvisible(  onemenu,0 );
+	return 0;
+}
+
 /**	
  * onemenu_child_test_seek this function shows how to access members
  */	
@@ -173,6 +201,8 @@ static void onemenu_child_test_seek(liqcell *self)
  */	
 liqcell *onemenu_create()
 {
+    
+    
 	liqcell *self = liqcell_quickcreatewidget("onemenu", "form", 800, 480);
 	if(!self) {liqapp_log("liqcell error not create 'onemenu'"); return NULL;  } 
 	
@@ -182,47 +212,46 @@ liqcell *onemenu_create()
 	// Optimization:  defaults: background, prefer nothing, will be shown through if there is a wallpaper
 	// Optimization:  defaults: text, white, very fast rendering
 	//############################# cmdtilt:buttonrollover
-	liqcell *cmdtilt = liqcell_quickcreatevis("cmdtilt", "buttonrollover", 54, 144, 216, 164);
+	liqcell *cmdtilt = liqcell_quickcreatevis("cmdtilt", "buttonrollover", 64, 154, 181,226);
 	liqcell_setcaption(cmdtilt, "Tilt" );
-	liqcell_propsets(  cmdtilt, "imagefilename_pressed",  "/usr/share/liqbase/onedotzero/media/3_tilt_ico.png" );
-	liqcell_propsets(  cmdtilt, "imagefilename_released", "/usr/share/liqbase/onedotzero/media/3_tilt_ico.png" );
+	liqcell_propsets(  cmdtilt, "imagefilename_pressed",  "/usr/share/liqbase/onedotzero/media/3.menu/tilt_button.png" );
+	liqcell_propsets(  cmdtilt, "imagefilename_released", "/usr/share/liqbase/onedotzero/media/3.menu/tilt_button.png" );
 	liqcell_handleradd_withcontext(cmdtilt, "click", cmdtilt_click, self );
 	liqcell_child_append(  self, cmdtilt);
+	//############################# cmdshake:buttonrollover
+	liqcell *cmdshake = liqcell_quickcreatevis("cmdshake", "buttonrollover", 309, 154, 181,226);
+	liqcell_setcaption(cmdshake, "Shake" );
+	liqcell_handleradd_withcontext(cmdshake, "click", cmdshake_click, self );
+	liqcell_propsets(  cmdshake, "imagefilename_pressed",  "/usr/share/liqbase/onedotzero/media/3.menu/shake_button.png" );
+	liqcell_propsets(  cmdshake, "imagefilename_released", "/usr/share/liqbase/onedotzero/media/3.menu/shake_button.png" );
+	liqcell_child_append(  self, cmdshake);
+	//############################# cmdtouch:buttonrollover
+	liqcell *cmdtouch = liqcell_quickcreatevis("cmdtouch", "buttonrollover", 554, 154, 181,226);
+	liqcell_setcaption(cmdtouch, "Touch" );
+	liqcell_handleradd_withcontext(cmdtouch, "click", cmdtouch_click, self );
+	liqcell_propsets(  cmdtouch, "imagefilename_pressed",  "/usr/share/liqbase/onedotzero/media/3.menu/touch_button.png" );
+	liqcell_propsets(  cmdtouch, "imagefilename_released", "/usr/share/liqbase/onedotzero/media/3.menu/touch_button.png" );
+	liqcell_child_append(  self, cmdtouch);
+    
 	//############################# nokiapicture1:nokiapicture
 	liqcell *nokiapicture1 = liqcell_quickcreatevis("nokiapicture1", "nokiapicture", 652, 438, 130, 24);
 	liqcell_child_append(  self, nokiapicture1);
-	//############################# cmdshake:buttonrollover
-	liqcell *cmdshake = liqcell_quickcreatevis("cmdshake", "buttonrollover", 284, 144, 216, 164);
-	liqcell_setcaption(cmdshake, "Shake" );
-	liqcell_handleradd_withcontext(cmdshake, "click", cmdshake_click, self );
-	liqcell_propsets(  cmdshake, "imagefilename_pressed",  "/usr/share/liqbase/onedotzero/media/3_shake_ico.png" );
-	liqcell_propsets(  cmdshake, "imagefilename_released", "/usr/share/liqbase/onedotzero/media/3_shake_ico.png" );
-	liqcell_child_append(  self, cmdshake);
-	//############################# cmdtouch:buttonrollover
-	liqcell *cmdtouch = liqcell_quickcreatevis("cmdtouch", "buttonrollover", 514, 144, 216, 164);
-	liqcell_setcaption(cmdtouch, "Touch" );
-	liqcell_handleradd_withcontext(cmdtouch, "click", cmdtouch_click, self );
-	liqcell_propsets(  cmdtouch, "imagefilename_pressed",  "/usr/share/liqbase/onedotzero/media/3_touch_ico.png" );
-	liqcell_propsets(  cmdtouch, "imagefilename_released", "/usr/share/liqbase/onedotzero/media/3_touch_ico.png" );
-	liqcell_child_append(  self, cmdtouch);
-	//############################# label2:label
-	liqcell *label2 = liqcell_quickcreatevis("label2", "label", 538, 318, 166, 34);
-	liqcell_setfont(	label2, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (26), 0) );
-	liqcell_setcaption(label2, "Touch" );
-	liqcell_propsets(  label2, "textcolor", "rgb(255,255,255)" );
-	//liqcell_propsets(  label2, "backcolor", "rgb(0,0,0)" );
-	liqcell_propseti(  label2, "textalign", 2 );
-	liqcell_child_append(  self, label2);
-	//############################# label1:label
-	liqcell *label1 = liqcell_quickcreatevis("label1", "label", 312, 318, 166, 34);
-	liqcell_setfont(	label1, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (26), 0) );
-	liqcell_setcaption(label1, "Shake" );
-	liqcell_propsets(  label1, "textcolor", "rgb(255,255,255)" );
-	//liqcell_propsets(  label1, "backcolor", "rgb(0,0,0)" );
-	liqcell_propseti(  label1, "textalign", 2 );
-	liqcell_child_append(  self, label1);
-	
-	
+
+
+    
+        //############################# cmdback:label
+        liqcell *cmdback = liqcell_quickcreatevis("cmdback", "label", 670, 16, 101, 42);
+        //liqcell_setfont(	cmdback, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+        //liqcell_setcaption(cmdback, "back" );
+        //liqcell_propsets(  cmdback, "textcolor", "rgb(0,0,0)" );
+        //liqcell_propsets(  cmdback, "backcolor", "rgb(235,233,237)" );
+        //liqcell_propseti(  cmdback, "textalign", 0 );
+        liqcell_setimage(  cmdback,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/back_button.png", 0,0,1) );
+        liqcell_handleradd_withcontext(cmdback, "click", cmdback_click, self );
+        liqcell_child_append(  self, cmdback);
+
+    
+/*    
 	//############################# lbltile:label
 	liqcell *lbltile = liqcell_quickcreatevis("lbltile", "label", 82, 318, 166, 34);
 	liqcell_setfont(	lbltile, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (26), 0) );
@@ -231,7 +260,30 @@ liqcell *onemenu_create()
 	//liqcell_propsets(  lbltile, "backcolor", "rgb(0,0,0)" );
 	liqcell_propseti(  lbltile, "textalign", 2 );
 	liqcell_child_append(  self, lbltile);
+    
+    
+	//############################# label1:label
+	liqcell *label1 = liqcell_quickcreatevis("label1", "label", 312, 318, 166, 34);
+	liqcell_setfont(	label1, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (26), 0) );
+	liqcell_setcaption(label1, "Shake" );
+	liqcell_propsets(  label1, "textcolor", "rgb(255,255,255)" );
+	//liqcell_propsets(  label1, "backcolor", "rgb(0,0,0)" );
+	liqcell_propseti(  label1, "textalign", 2 );
+	liqcell_child_append(  self, label1);
+    
+		    
+	//############################# label2:label
+	liqcell *label2 = liqcell_quickcreatevis("label2", "label", 538, 318, 166, 34);
+	liqcell_setfont(	label2, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (26), 0) );
+	liqcell_setcaption(label2, "Touch" );
+	liqcell_propsets(  label2, "textcolor", "rgb(255,255,255)" );
+	//liqcell_propsets(  label2, "backcolor", "rgb(0,0,0)" );
+	liqcell_propseti(  label2, "textalign", 2 );
+	liqcell_child_append(  self, label2);
+ */    
+
 	
+
 	
 	/*
 	//############################# label3:label
@@ -257,6 +309,10 @@ liqcell *onemenu_create()
 	liqcell_propseti(  title, "textalign", 0 );
 	liqcell_child_append(  self, title);
  */	
+
+    liqcell_setimage(  self,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/input_field_black_bg.png", 0,0,0) );
+
+
 //	liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	liqcell_handleradd_withcontext(self, "refresh", onemenu_refresh ,self);
 	liqcell_handleradd_withcontext(self, "shown", onemenu_shown ,self);

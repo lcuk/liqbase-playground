@@ -221,7 +221,7 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 		// lets cheat a little
 	//	liqcell_propseti(self,"imagewantbig",1);
 	//	liqcell_setimage(self,NULL);
-		args->newdialogtoopen = self;//liqcell_child_lookup( self, "body" );
+		args->newdialogtoopen = liqcell_hold( self );//liqcell_child_lookup( self, "body" );
 		return 1;
 	}
 

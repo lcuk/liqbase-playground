@@ -149,6 +149,7 @@ static int timer_tick(liqcell *self, liqcellmouseeventargs *args, liqcell *oneme
         
         liqcell_propsets(liqlistactual,"backcolor","rgb(50,0,0)" );
         
+        
         liqcell_propseti(  onemessageprogress, "sentok", 0 );
         return 0;        
     }
@@ -259,6 +260,18 @@ static int onemessageprogress_resize(liqcell *self,liqcelleventargs *args, liqce
 
 }
 
+
+
+/**	
+ * onemenu.cmdback clicked
+ */	
+static int cmdback_click(liqcell *self,liqcelleventargs *args, liqcell *onemenu)
+{
+    liqcell_setvisible(  onemenu,0 );
+	return 0;
+}
+
+
 /**	
  * onemessageprogress.cmdaccept clicked
  */	
@@ -306,7 +319,7 @@ liqcell *onemessageprogress_create()
 	liqcell_setcontent(  liqlist1,liqlistactual);
 	liqcell_child_append(  self, liqlist1);
     
-    liqcell_handleradd_withcontext(liqlist1,    "click",   liqcell_easyhandler_content_zoom_click,self);
+//    liqcell_handleradd_withcontext(liqlist1,    "click",   liqcell_easyhandler_content_zoom_click,self);
     
     
     
@@ -328,7 +341,7 @@ liqcell *onemessageprogress_create()
 	liqcell_propseti(  lblfail, "textalign", 2);
 	liqcell_child_append(  self, lblfail);
 	//############################# cmdaccept:label
-	liqcell *cmdaccept = liqcell_quickcreatevis("cmdaccept", "label", 472, 394, 328, 86);
+	liqcell *cmdaccept = liqcell_quickcreatevis("cmdaccept", "label", 472, 394, 228, 86);
 	liqcell_setfont(	cmdaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
 	liqcell_setcaption(cmdaccept, "Close" );
 	//liqcell_propsets(  cmdaccept, "textcolor", "rgb(255,255,255)" );
@@ -340,6 +353,8 @@ liqcell *onemessageprogress_create()
 	liqcell_child_append(  self, cmdaccept);
     
     
+    
+
     
     
 	liqcell_propsets(  cmdaccept, "textcolor", "rgb(0,0,0)" );

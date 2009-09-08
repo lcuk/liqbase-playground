@@ -1,3 +1,9 @@
+liqtorch (0.1.5) unstable; urgency=low
+
+  * bug fix for click event
+
+ -- Gary Birkett <liquid@gmail.com>  08 September 2009 15:05:41 +0000
+
 liqtorch (0.1.4) unstable; urgency=low
 
   * tweaks

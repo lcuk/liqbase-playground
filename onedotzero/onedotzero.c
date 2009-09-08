@@ -49,20 +49,32 @@
 	}
 	static int widget_click(liqcell *self, liqcellclickeventargs *args, void *context)
 	{
-		 args->newdialogtoopen = liqcell_getcontent( self );
+		 args->newdialogtoopen = liqcell_hold( liqcell_getcontent( self ) );
 		 return 1;
 	}
     
     /**	
      * piccover click - occurs when a short mouse stroke occured
      */	
-    static int piccover_click(liqcell *self, liqcelleventargs *args,liqcell *context)
+    static int piccover_click(liqcell *self, liqcelleventargs *args,liqcell *onedotzero)
     {
         
         osc_onedotzero_send_entermsg();
         
+            liqcell *backplane = liqcell_child_lookup(onedotzero,"backplane");
+        
+            liqcell *onemessage = liqcell_child_lookup(backplane,"onemessage");
+            
+            onemessage_clear(onemessage);
+        
+        
           liqcell_propseti(self,"clicked",1);
           liqcell_setdirty(self,1);
+          
+         // liqcell_setvisible(   liqcell_child_lookup(onedotzero,"cmdback")   ,1);
+          liqcell *cmdback = liqcell_child_lookup(onedotzero,"cmdback");
+          liqcell_setimage(  cmdback,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/back_button.png", 0,0,1) );
+         
         return 0;
     }
     
@@ -96,11 +108,46 @@ static int onedotzero_paint(liqcell *self, liqcellpainteventargs *args,liqcell *
 /**	
  * onemessage dialog_close - the dialog was closed
  */	
-static int onedotzero_dialog_close(liqcell *self,liqcelleventargs *args, liqcell *context)
+static int onedotzero_dialog_close(liqcell *self,liqcelleventargs *args, liqcell *onedotzero)
 {
+    // restore the cover when closing :)
+    liqcell *piccover = liqcell_child_lookup(self,"piccover");
+    liqcell_propremovei(piccover,"clicked");
+    liqcell_setpos(piccover, 0,0);
+    liqcell_setvisible(piccover,1);
+    
+    liqcell_setvisible(liqcell_child_lookup(onedotzero,"cmdback") ,0);
+    
     osc_onedotzero_send_closeapp();
 	return 0;
 }
+
+
+
+/**	
+ * onedotzero.cmdback clicked
+ */	
+static int cmdback_click(liqcell *self,liqcelleventargs *args, liqcell *onedotzero)
+{
+    liqcell *cmdback = liqcell_child_lookup(onedotzero,"cmdback");
+	liqcell *piccover = liqcell_child_lookup(onedotzero,"piccover");
+	if( liqcell_propgeti(piccover,"clicked",0) )
+    {
+        // its back, turn it back into a close
+
+        liqcell_propremovei(piccover,"clicked");
+        liqcell_setpos(piccover, 0,0);
+        liqcell_setvisible(piccover,1);
+
+        liqcell_setimage(  cmdback,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/close_button.png", 0,0,1) );
+    }
+    else
+    {
+        liqcell_propseti(onedotzero,"dialog_running",0);
+        return 0;
+    }
+}
+
 
 /**	
  * create a new onedotzero widget
@@ -118,8 +165,8 @@ liqcell *onedotzero_create()
 
 
 
-	//############################# canvas:label
-	liqcell *backplane = liqcell_quickcreatevis("canvas", "label", 0, 0, 800, 480);
+	//############################# backplane:label
+	liqcell *backplane = liqcell_quickcreatevis("backplane", "label", 0, 0, 800, 480);
 	//liqcell_setfont(	backplane, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
 	//liqcell_setcaption(backplane, "canvas" );
 	//liqcell_propsets(  backplane, "textcolor", "rgb(255,0,0)" );
@@ -131,7 +178,7 @@ liqcell *onedotzero_create()
 
 
 	
-    void one(char *classname)
+    void one(char *name,char *classname)
    	{
 	//	 liqcell *ctrl = liqcell_quickcreatevis(classname, classname, 0,0,-1,-1);
      //    //liqcell_propseti(  ctrl, "rowid", 1 );
@@ -142,12 +189,12 @@ liqcell *onedotzero_create()
 	//	 liqcell_handleradd(item,	 "click",	widget_click);
 
 
-		 liqcell *item = liqcell_quickcreatevis(classname, classname, 0,0,800,480);
+		 liqcell *item = liqcell_quickcreatevis(name, classname, 0,0,800,480);
 
 		 liqcell_child_append( backplane, item );
 	}
     
-    one("onedotzero.onemessage");
+    one("onemessage","onedotzero.onemessage");
     
     
   //  one("liqstarspull");
@@ -169,11 +216,15 @@ liqcell *onedotzero_create()
 
    // one("oneconfigure");
    
+
+
+
+
    
 
 	//############################# piccover:picturebox
 	liqcell *piccover = liqcell_quickcreatevis("piccover", "picturebox", 0,0, 800,480);
-    liqcell_setimage(  piccover,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/1.jpg", 0,0,1) );
+    liqcell_setimage(  piccover,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/1.intro/splash_screen.png", 0,0,0) );
     
     liqcell_propseti( piccover ,  "lockaspect", 0 );
     
@@ -185,7 +236,24 @@ liqcell *onedotzero_create()
     
 	liqcell_child_append(  self, piccover);   
 
-
+        //############################# cmdback:label
+        liqcell *cmdback = liqcell_quickcreatevis("cmdback", "label", 670, 16, 101, 42);
+        liqcell_setfont(	cmdback, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+      /*  liqcell_setcaption(cmdback, "close" );
+        liqcell_propsets(  cmdback, "textcolor", "rgb(0,0,0)" );
+        //liqcell_propsets(  cmdback, "backcolor", "rgb(235,233,237)" );
+        liqcell_propseti(  cmdback, "textalign", 2 );
+        liqcell_propseti(  cmdback, "textaligny", 2 );
+        liqcell_propseti( cmdback ,  "lockaspect", 0 );
+        liqcell_setimage(  cmdback,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/button_back.png", 0,0,1) );
+      */  
+        
+        liqcell_setimage(  cmdback,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/close_button.png", 0,0,1) );
+        liqcell_handleradd_withcontext(cmdback, "click", cmdback_click, self );
+        liqcell_child_append(  self, cmdback);
+        
+        //liqcell_setvisible(cmdback,0);
+        
     
 		
 	//liqapp_log("app codepath = '%s'",app.codepath);
@@ -216,6 +284,7 @@ liqcell *onedotzero_create()
     
     // onedotzero do not need tools
     liqcell_propseti(self,"easyrun_hidetools",1);
+    liqcell_propseti(self,"easyrun_hideback",1);
     
     
     liqcell_handleradd_withcontext(self, "dialog_close", onedotzero_dialog_close ,self);

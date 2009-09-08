@@ -49,6 +49,9 @@ char *              osc_send_port   = NULL;         // port    we are going to s
 char *              osc_listen_port = NULL;         // port that our listening thread will bind itself to
 
 
+int osc_server_playstate = 0;
+
+
 int osc_running =0;
 
 int osc_modeinprogress = -1;
@@ -74,6 +77,16 @@ char *get_osc_onedotzero_lastmsg()
 {
 	return osc_onedotzero_lastmsg;
 }
+
+
+
+
+int get_osc_onedotzero_server_playstate()
+{
+    return  osc_server_playstate;
+}
+
+
 
 
     
@@ -159,6 +172,25 @@ int osc_onedotzero_send_menu(int modenum)
 	lo_send(osc_addr, "/menu", "i",  modenum);
     return 0;
 }
+
+
+int osc_onedotzero_send_playstatecmd(int playing)
+{
+    if((!osc_addr) || (osc_running==0))
+    {
+        liqapp_log("osc: no addr, cannot send playstatecmd");
+        return -1;
+    }
+    liqapp_log("osc: sending /playstatecmd %i",playing);
+    
+    //usage: user clicks play/pause button
+    //address path: /playstatecmd
+    //param: int (0=play, 1=pause)
+	lo_send(osc_addr, "/playstatecmd", "i",  playing);
+    return 0;
+}
+
+
 //#########################################################################
 
 int osc_onedotzero_send_menufinished(int modenum)
@@ -198,9 +230,6 @@ int osc_onedotzero_send_zoom(char *zoomname,float zoom)
     //param: int (mode number 1,2,3)
 	lo_send(osc_addr, "/zoom", "sf",  zoomname,zoom);
     
-    
-    // now interally call the menuscreen fn
-    osc_onedotzero_send_menuscreen();
     
     return 0;
 }
@@ -394,6 +423,16 @@ int osc_onedotzero_handler_msgok(const char *path, const char *types, lo_arg **a
     return 0;
 }
 
+int osc_onedotzero_handler_playstate(const char *path, const char *types, lo_arg **argv, int argc, void *data, void *user_data)
+{
+    liqapp_log("osc: got playstate");
+    
+    //liqapp_log("%s <- f:%f, i:%d", path, argv[0]->f, argv[1]->i);
+    
+    osc_server_playstate = argv[0]->i;
+    
+    return 0;
+}
 
 //#########################################################################
 //#########################################################################
@@ -471,6 +510,8 @@ int osc_onedotzero_init()
     lo_server_thread_add_method(osc_st, "/ping", "", osc_onedotzero_handler_ping, NULL);
 	
     lo_server_thread_add_method(osc_st, "/msgok", "", osc_onedotzero_handler_msgok, NULL);
+
+    lo_server_thread_add_method(osc_st, "/playstate", "", osc_onedotzero_handler_playstate, NULL);
 	
     //#####################################
     liqapp_log("osc: init recv thread starting");

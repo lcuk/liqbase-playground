@@ -27,6 +27,12 @@ int textbox_clear(liqcell *textbox)
 	
 }
 
+int onemessage_clear(liqcell *onemessage)
+{
+    liqcell *messagetext = liqcell_child_lookup(onemessage, "messagetext");
+    liqcell_setcaption(messagetext, "" );
+}
+
 
 
 int onemessage_checkforbadwords(char *msg)
@@ -206,9 +212,20 @@ static int messagetext_captionchange(liqcell *self,liqcelleventargs *args, liqce
         liqcell_setvisible(  swearfilter, 0 );
     }
     
-	liqcell_setenabled(cmdsubmit,  (  (tl>0)  && (isbad==0) )?1:0  );	
+    if( (tl>0)  && (isbad==0) )
+    {
+        liqcell_setimage(  cmdsubmit,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/2.message/send_button.png", 0,0,1) );
+    }
+    else
+    {
+        liqcell_setimage(  cmdsubmit,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/2.message/send_button_off.png", 0,0,1) );
+    }
+    
+	//liqcell_setenabled(cmdsubmit,  (  (tl>0)  && (isbad==0) )?1:0  );
+    
+    
     liqcell *messageremain = liqcell_child_lookup(onemessage, "messageremain");
-    liqcell_setcaption_printf(messageremain,"%i",140-tl);
+    liqcell_setcaption_printf(messageremain,"%i",50-tl);
 	
 	if(tl>100)
 	{
@@ -332,6 +349,9 @@ static void onemessage_child_test_seek(liqcell *self)
 }
 
 
+
+
+
 /**	
  * create a new onemessage widget
  */	
@@ -348,29 +368,45 @@ liqcell *onemessage_create()
 
 
 	//############################# cmdsubmit:label
-	liqcell *cmdsubmit = liqcell_quickcreatevis("cmdsubmit", "label", 250, 380, 300, 80);
-	liqcell_setfont(	cmdsubmit, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (34), 0) );
-	liqcell_setcaption(cmdsubmit, "Send" );
-	liqcell_propsets(  cmdsubmit, "textcolor", "rgb(0,0,0)" );
+	liqcell *cmdsubmit = liqcell_quickcreatevis("cmdsubmit", "label", 315, 380, 170, 70);
+	//liqcell_setfont(	cmdsubmit, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (34), 0) );
+	//liqcell_setcaption(cmdsubmit, "Send" );
+	//liqcell_propsets(  cmdsubmit, "textcolor", "rgb(0,0,0)" );
 	//liqcell_propsets(  cmdsubmit, "backcolor", "rgb(0,128,0)" );
 	//liqcell_propsets(  cmdsubmit, "bordercolor", "rgb(200,100,100)" );
-	liqcell_setimage(  cmdsubmit,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/button_back.png", 0,0,1) );
-	liqcell_propseti(  cmdsubmit, "textalign", 2 );
-	liqcell_propseti(  cmdsubmit, "textaligny", 2 );
-	liqcell_propseti(  cmdsubmit,  "lockaspect",  0 );
+	//liqcell_propsets(  cmdsubmit, "imagefilename", "/usr/share/liqbase/onedotzero/media/2.message/send_button_off.png" );
+
+	liqcell_setimage(  cmdsubmit,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/2.message/send_button_off.png", 0,0,1) );
+
+    //liqcell_propseti(  cmdsubmit, "autosize", 1 );
+    //liqcell_propseti(  cmdsubmit, "imageallowalpha", 1 );
+	//liqcell_propseti(  cmdsubmit, "textalign", 2 );
+	//liqcell_propseti(  cmdsubmit, "textaligny", 2 );
+	//liqcell_propseti(  cmdsubmit,  "lockaspect",  1 );
 	liqcell_handleradd_withcontext(cmdsubmit, "click", cmdsubmit_click, self );
 	liqcell_child_append(  self, cmdsubmit);
 
 
 
 	//############################# messageremain:label
-	liqcell *messageremain = liqcell_quickcreatevis("messageremain", "label", 582, 100, 200, 60);
+	liqcell *messageremain = liqcell_quickcreatevis("messageremain", "label", 555, 85, 130, 60);
 	liqcell_setfont(	messageremain, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (33), 0) );
-	liqcell_setcaption(messageremain, "140" );
-	liqcell_propsets(  messageremain, "textcolor", "rgb(128,128,128)" );
+	liqcell_setcaption(messageremain, "50" );
+	liqcell_propsets(  messageremain, "textcolor", "rgb(231,0,137)" );
 	liqcell_propseti(  messageremain, "textalign", 1 );
-	liqcell_propseti(  messageremain, "textaligny", 2 );
+	liqcell_propseti(  messageremain, "textaligny", 1 );
 	liqcell_child_append(  self, messageremain);
+
+
+	//############################# messageremainch:label
+	liqcell *messageremainch = liqcell_quickcreatevis("messageremainch", "label", 680, 80, 120, 60);
+	liqcell_setfont(	messageremainch, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (15), 0) );
+	liqcell_setcaption(messageremainch, "Chars" );
+	liqcell_propsets(  messageremainch, "textcolor", "rgb(231,0,137)" );
+	liqcell_propseti(  messageremainch, "textalign", 0 );
+	liqcell_propseti(  messageremainch, "textaligny", 1 );
+	liqcell_child_append(  self, messageremainch);
+
 
 
 	//############################# messageremain:label
@@ -389,12 +425,12 @@ liqcell *onemessage_create()
 
 
 	//############################# messagetitle:label
-	liqcell *messagetitle = liqcell_quickcreatevis("messagetitle", "label", 18, 100, 526, 60);
-	liqcell_setfont(	messagetitle, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+	liqcell *messagetitle = liqcell_quickcreatevis("messagetitle", "label", 75, 100, 526, 60);
+	liqcell_setfont(	messagetitle, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
 	liqcell_setcaption(messagetitle, "Type your message, then press send" );
 
 	
-	liqcell_propsets(  messagetitle, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  messagetitle, "textcolor", "rgb(204,204,204)" );
 	//liqcell_propsets(  messagetitle, "backcolor", "rgb(64,64,64)" );
 	liqcell_propseti(  messagetitle, "textalign", 0 );
 	liqcell_child_append(  self, messagetitle);
@@ -402,7 +438,7 @@ liqcell *onemessage_create()
     
     
 	//############################# messagetext:textbox
-	liqcell *messagetext = liqcell_quickcreatevis("messagetext", "textbox", 18, 150, 764, 200);
+	liqcell *messagetext = liqcell_quickcreatevis("messagetext", "textbox", 75, 150, 650, 200);
 	liqcell_setfont(	messagetext, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (33), 0) );
 	//liqcell_propsets(  messagetext, "textcolor", "rgb(0,40,0)" );
 	//liqcell_propsets(  messagetext, "backcolor", "rgba(0,0,64,128)" );
@@ -410,8 +446,8 @@ liqcell *onemessage_create()
 	liqcell_propseti(  messagetext, "textalign", 0 );
 	liqcell_child_append(  self, messagetext);
 	
-		liqcell_setimage(  messagetext,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/2_text_back.png", 0,0,1) );
-		liqcell_propseti(  messagetext,  "maxlength",  140 );
+		liqcell_setimage(  messagetext,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/2.message/message_input_field.png", 0,0,1) );
+		liqcell_propseti(  messagetext,  "maxlength",  50 );
 		liqcell_propseti(  messagetext,  "lockaspect",  0 );
 		liqcell_propremoves(  messagetext,  "bordercolor" );
 		liqcell_propremoves(  messagetext,  "backcolor" );
@@ -425,6 +461,7 @@ liqcell *onemessage_create()
 	int x;
 	for(x=0;x<sizeof(dd);x++) dd[x]= 65+x%26;
 	dd[140]=0;
+    dd[50]=0;
 
 	//liqcell_setcaption(messagetext, dd );
 	
@@ -433,6 +470,11 @@ liqcell *onemessage_create()
 
 	//liqcell_setenabled(cmdsubmit,0);
 
+
+
+
+    
+    liqcell_setimage(  self,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/input_field_black_bg.png", 0,0,0) );
 
 
 	//############################# nokiapicture1:nokiapicture

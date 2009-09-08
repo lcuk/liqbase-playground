@@ -354,7 +354,7 @@ int main (int argc, char* argv[])
 
 	static int widget_click(liqcell *self, liqcellclickeventargs *args)
 	{
-		args->newdialogtoopen = liqcell_getcontent( self );
+		args->newdialogtoopen = liqcell_hold( liqcell_getcontent( self ) );
 
 		return 1;
 	}

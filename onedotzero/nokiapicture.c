@@ -139,6 +139,10 @@ liqcell *nokiapicture_create()
 	//liqcell_handleradd_withcontext(self, "paint", nokiapicture_paint ,self); // use only if required, heavyweight
 	liqcell_handleradd_withcontext(self, "dialog_open", nokiapicture_dialog_open ,self);
 	liqcell_handleradd_withcontext(self, "dialog_close", nokiapicture_dialog_close ,self);
+    
+    // Mon Sep 07 12:09:53 2009 lcuk : remove for now, karsten change request
+    liqcell_setvisible(self,0);
+    
 	return self;
 }
 

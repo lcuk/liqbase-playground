@@ -259,7 +259,7 @@ static int liqrecentsketches_sketch_add(liqcell *self,char *filenamebuffer)
 
 	static int widget_click(liqcell *self, liqcellclickeventargs *args, void *context)
 	{
-		args->newdialogtoopen = self;//liqcell_child_lookup( self, "body" );
+		args->newdialogtoopen = liqcell_hold( self );//liqcell_child_lookup( self, "body" );
 		return 1;
 	}
 

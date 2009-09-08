@@ -6,6 +6,8 @@
 #include <liqbase/liqcell_easyrun.h>
 #include <liqbase/liqcell_easyhandler.h>
 		
+        
+#include "osc_onedotzero.h"
 		
 //#####################################################################
 //#####################################################################
@@ -50,15 +52,20 @@ static int zoombox_shown(liqcell *self,liqcelleventargs *args, liqcell *context)
  */	
 static int zoombox_mouse(liqcell *self, liqcellmouseeventargs *args,liqcell *context)
 {
+    
+    
+    int yy = args->mey-args->oy;
+    
 	liqcell *knob = liqcell_child_lookup(self, "knob");
-    knob->y = (args->mey-(knob->h/2));
+    knob->y = (yy-(knob->h/2));
     liqcell_forceinboundparent(knob);
     
     
     float zoom = ((float)knob->y) / ((float)(self->h-knob->h));
     
+    //liqapp_log("mm %3i   %3i   %3.3f",args->mey,args->oy,zoom);
     
-    osc_onedotzero_send_zoom(liqcell_getname(self), zoom);
+    osc_onedotzero_send_zoom(liqcell_getname(self), 1-zoom);
     
 	return 0;
 }
@@ -96,12 +103,12 @@ static int zoombox_keyrelease(liqcell *self, liqcellkeyeventargs *args,liqcell *
  */	
 static int zoombox_resize(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
-	float sx=((float)self->w)/((float)self->innerw);
+/*	float sx=((float)self->w)/((float)self->innerw);
 	float sy=((float)self->h)/((float)self->innerh);
 	
 	liqcell *knob = liqcell_child_lookup(self, "knob");
 	liqcell_setrect_autoscale( knob, 0, 45, 40, 10, sx,sy);
-	return 0;
+ */	return 0;
 }
 
 
@@ -120,7 +127,7 @@ static void zoombox_child_test_seek(liqcell *self)
  */	
 liqcell *zoombox_create()
 {
-	liqcell *self = liqcell_quickcreatewidget("zoombox", "form", 40, 100);
+	liqcell *self = liqcell_quickcreatewidget("zoombox", "form", 89, 100);
 	if(!self) {liqapp_log("liqcell error not create 'zoombox'"); return NULL;  } 
 	
 	// Optimization:  The aim is to REDUCE the number of drawn layers and operations called.
@@ -129,15 +136,20 @@ liqcell *zoombox_create()
 	// Optimization:  defaults: background, prefer nothing, will be shown through if there is a wallpaper
 	// Optimization:  defaults: text, white, very fast rendering
 	//############################# knob:label
-	liqcell *knob = liqcell_quickcreatevis("knob", "label", 0, 45, 40, 10);
+	liqcell *knob = liqcell_quickcreatevis("knob", "label", 0, 45, 89, 55);
 	//liqcell_setfont(	knob, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
 	//liqcell_setcaption(knob, "94" );
 	//liqcell_propsets(  knob, "textcolor", "rgb(192,255,192)" );
-	liqcell_propsets(  knob, "backcolor", "xrgb(0,64,0)" );
+	//liqcell_propsets(  knob, "backcolor", "xrgb(0,64,0)" );
 	//liqcell_propsets(  knob, "bordercolor", "rgb(255,255,255)" );
-	liqcell_propseti(  knob, "textalign", 2 );
+	//liqcell_propseti(  knob, "textalign", 2 );
+    
+    liqcell_setimage(  knob,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/slider_blue_button.png", 0,0,1) );
+    
+    
+    
 	liqcell_child_append(  self, knob);
-	liqcell_propsets(  self, "backcolor", "xrgb(0,0,64)" );
+	//liqcell_propsets(  self, "backcolor", "xrgb(0,0,64)" );
 	liqcell_handleradd_withcontext(self, "refresh", zoombox_refresh ,self);
 	liqcell_handleradd_withcontext(self, "shown", zoombox_shown ,self);
 	liqcell_handleradd_withcontext(self, "resize", zoombox_resize ,self);

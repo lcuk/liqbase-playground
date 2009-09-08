@@ -105,7 +105,7 @@ static int liqtorch_resize(liqcell *self,liqcelleventargs *args, liqcell *contex
 static int cmdturnon_click(liqcell *self,liqcellclickeventargs *args, liqcell *liqtorch)
 {
 	liqcell *c = liqcell_quickcreatevis("torch","liqtorch.liqtorch_run",0,0,-1,-1);
-	args->newdialogtoopen=c;
+	args->newdialogtoopen= c ;
 	//liqcell_easyrun(c);
 	//liqcell_release(c);
 	return 1;

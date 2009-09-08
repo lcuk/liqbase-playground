@@ -1,3 +1,9 @@
+liqbase-playground (0.3.35) unstable; urgency=low
+
+  * bugfixes.
+
+ -- Gary Birkett <liquid@gmail.com>  08 September 2009 21:41:03 +0200
+
 liqbase-playground (0.3.34) unstable; urgency=low
 
   * tweaks, started to put the variation engine into place.

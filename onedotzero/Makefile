@@ -33,18 +33,26 @@ install:
 			 install -d								 $(PREFIX)/share/liqbase
 
 
-			 install -d								 $(PREFIX)/share/icons
-			 install -d								 $(PREFIX)/share/icons/hicolor
-			 install -d								 $(PREFIX)/share/icons/hicolor/64x64
-
 
 			 install -d								 $(PREFIX)/share/liqbase/onedotzero
 			 install -d								 $(PREFIX)/share/liqbase/onedotzero/media
 
-			 cp base_fs/usr/share/icons/hicolor/64x64/onedotzero_icon.png   $(PREFIX)/share/icons/hicolor/64x64
+
+
+
+	mkdir -p															$(PREFIX)
+	mkdir -p															$(PREFIX)/share
+	mkdir -p															$(PREFIX)/share/icons
+	mkdir -p															$(PREFIX)/share/icons/hicolor
+	mkdir -p															$(PREFIX)/share/icons/hicolor/scalable
+	mkdir -p															$(PREFIX)/share/icons/hicolor/scalable/apps
+
+
+			 cp base_fs/usr/share/icons/hicolor/scalable/apps/onedotzero_icon.png   $(PREFIX)/share/icons/hicolor/scalable/apps
 
 			 
 			 mkdir -p									$(PREFIX)/share/liqbase
+			 mkdir -p									$(PREFIX)/share/liqbase/onedotzero
 			 mkdir -p									$(PREFIX)/share/liqbase/onedotzero/media
 			 
 			 install -m 0755 onedotzero			  $(PREFIX)/share/liqbase/onedotzero

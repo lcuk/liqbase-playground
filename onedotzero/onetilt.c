@@ -131,13 +131,13 @@ static int ty=0;
             
             if(get_osc_onedotzero_server_playstate() ==0)
             {
-                // server is paused..
+                // server is paused..  show play button
                 liqcell_setimage(  cmdplaypause,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/play_button.png", 0,0,1) );
                 
             }
             else
             {
-                // server is playing
+                // server is playing,  show pause button
                 liqcell_setimage(  cmdplaypause,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/pause_button.png", 0,0,1) );
             }    
         
@@ -389,7 +389,7 @@ else
 							
 		if(args->mez==0)	osc_onedotzero_send_touchoff();
 		
-		liqcell_child_arrange_nooverlap( liqcell_getlinkparent(self), self );
+	//	liqcell_child_arrange_nooverlap( liqcell_getlinkparent(self), self );
 		
 		if(args->mez==0) liqcell_forceinboundparent(self);
 
@@ -503,7 +503,7 @@ static int onetilt_paint(liqcell *self, liqcellpainteventargs *args,liqcell *one
 {
 	// big heavy event, use sparingly
     
-if( onemenu_moderunning<2)
+//if( onemenu_moderunning<2)
 {
     runx(onetilt);
         
@@ -611,6 +611,13 @@ liqcell *onetilt_create()
         //liqcell_propseti(  slider, "textalign", 0 );
         liqcell_child_append(  sidebar, slider);
         
+        
+        liqcell *sliderknob = liqcell_child_lookup(slider, "knob");
+            liqcell_setpos(sliderknob,0,99999);
+            liqcell_forceinboundparent(sliderknob);
+
+        
+        
         //############################# cmdplaypause:label
         liqcell *cmdplaypause = liqcell_quickcreatevis("cmdplaypause", "label", 22, 406, 101, 42);
         //liqcell *cmdplaypause = liqcell_quickcreatevis("cmdplaypause", "label", 22, 40, 101, 42);
@@ -620,7 +627,7 @@ liqcell *onetilt_create()
         //liqcell_propsets(  cmdplaypause, "backcolor", "rgb(192,192,192)" );
         //liqcell_propseti(  cmdplaypause, "textalign", 0 );
     
-        liqcell_setimage(  cmdplaypause,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/play_button.png", 0,0,1) );
+        liqcell_setimage(  cmdplaypause,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/pause_button.png", 0,0,1) );
     
         liqcell_handleradd_withcontext(cmdplaypause, "click", cmdplaypause_click, self );
         liqcell_child_append(  sidebar, cmdplaypause);
@@ -632,21 +639,6 @@ liqcell *onetilt_create()
 	//liqcell_propsets(  backplane, "textcolor", "rgb(0,0,0)" );
 	//liqcell_propsets(  backplane, "backcolor", "rgb(0,128,0)" );
 	//liqcell_propseti(  backplane, "textalign", 0 );
-    
-
-
-        //############################# cmdback:label
-        liqcell *cmdback = liqcell_quickcreatevis("cmdback", "label", 670-144, 16, 101, 42);
-        //liqcell_setfont(	cmdback, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
-        //liqcell_setcaption(cmdback, "back" );
-        //liqcell_propsets(  cmdback, "textcolor", "rgb(0,0,0)" );
-        //liqcell_propsets(  cmdback, "backcolor", "rgb(235,233,237)" );
-        //liqcell_propseti(  cmdback, "textalign", 0 );
-        liqcell_setimage(  cmdback,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/back_button.png", 0,0,1) );
-        liqcell_handleradd_withcontext(cmdback, "click", cmdback_click, self );
-        liqcell_child_append(  backplane, cmdback);
-        
-        //liqcell_setvisible(cmdback,0);
     
 
     
@@ -696,6 +688,21 @@ if(onemenu_moderunning==2)
 
 		liqcell_child_append(  backplane, knob);
 
+
+
+        //############################# cmdback:label
+        liqcell *cmdback = liqcell_quickcreatevis("cmdback", "label", 670-144, 16, 101, 42);
+        //liqcell_setfont(	cmdback, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+        //liqcell_setcaption(cmdback, "back" );
+        //liqcell_propsets(  cmdback, "textcolor", "rgb(0,0,0)" );
+        //liqcell_propsets(  cmdback, "backcolor", "rgb(235,233,237)" );
+        //liqcell_propseti(  cmdback, "textalign", 0 );
+        liqcell_setimage(  cmdback,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/back_button.png", 0,0,1) );
+        liqcell_handleradd_withcontext(cmdback, "click", cmdback_click, self );
+        liqcell_child_append(  backplane, cmdback);
+        
+        //liqcell_setvisible(cmdback,0);
+    
 
 
 /*

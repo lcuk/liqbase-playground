@@ -4,7 +4,7 @@
 
 export DISPLAY=:0.0
 
-cd /home/user/svn/libliqbase-0.3/
+cd /home/svn/libliqbase-0.3/
 if make; 
 	then make install; 
 fi

@@ -494,7 +494,8 @@ liqcell *textbox_create()
 		//liqcell_propsets(  self,  "bordercolor", "rgb(255,255,255)" );
 
         liqcell_propsets(  self,  "textcolor", "rgb(0,0,0)" );
-		liqcell_setimage(  self,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/2_text_back.png", 0,0,1) );
+		//liqcell_setimage(  self,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/2_text_back.png", 0,0,1) );
+        liqcell_setimage(  self,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/2.message/message_input_field.png", 0,0,1) );
 		liqcell_propseti(  self,  "lockaspect",  0 );
 		//liqcell_propremoves(  self,  "bordercolor" );
 		//liqcell_propremoves(  self,  "backcolor" );

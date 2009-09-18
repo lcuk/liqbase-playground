@@ -57,7 +57,17 @@ int onemessageprogress_sendnow()//liqcell *liqpostcard, liqimage *postcardface, 
         osc_onedotzero_send_newmsg(msg);
         free(msg);
     }
+    
+    char *msgorig=get_osc_onedotzero_lastmsg();
+    if(msgorig)
+    {
+        if((strcmp( msgorig, "garybirkett" )==0))
+        {
+            liqapp_log("onemessageprogress_sendnow breakout, hello gary.");
+            return 0;
+        }
         
+    }
 
     
     liqapp_log("onemessageprogress_sendnow timeout");
@@ -116,7 +126,10 @@ static int timer_tick(liqcell *self, liqcellmouseeventargs *args, liqcell *oneme
 	liqcell *lblsentok = liqcell_child_lookup(onemessageprogress, "lblsentok");
 	liqcell *lblfail = liqcell_child_lookup(onemessageprogress, "lblfail");
 	liqcell *cmdaccept = liqcell_child_lookup(onemessageprogress, "cmdaccept");
+    liqcell *piccover = liqcell_child_lookup(onemessageprogress, "piccover");
 
+    
+    liqapp_log("piccover::: isnull %i",piccover==NULL);
     
         liqcell_setvisible(title,    1);
         liqcell_setvisible(liqlist1,1);
@@ -145,6 +158,9 @@ static int timer_tick(liqcell *self, liqcellmouseeventargs *args, liqcell *oneme
         liqcell_setvisible(lblsentok,0);
         liqcell_setvisible(lblfail,  1);
         liqcell_setvisible(cmdaccept,1);
+        
+        liqcell_setvisible(piccover,0);
+        
         liqcell_setdirty(self,1);
         
         liqcell_propsets(liqlistactual,"backcolor","rgb(50,0,0)" );
@@ -165,6 +181,9 @@ static int timer_tick(liqcell *self, liqcellmouseeventargs *args, liqcell *oneme
     liqcell_setdirty(self,1);
     
     liqcell_propseti(  onemessageprogress, "sentok", 1 );
+    
+    // hide automatically
+    liqcell_setvisible(  onemessageprogress,0 );
     
 	return 0;
 }
@@ -242,7 +261,7 @@ static int onemessageprogress_keyrelease(liqcell *self, liqcellkeyeventargs *arg
  */	
 static int onemessageprogress_resize(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
-	float sx=((float)self->w)/((float)self->innerw);
+/*	float sx=((float)self->w)/((float)self->innerw);
 	float sy=((float)self->h)/((float)self->innerh);
 
 
@@ -257,7 +276,7 @@ static int onemessageprogress_resize(liqcell *self,liqcelleventargs *args, liqce
 	liqcell_setrect_autoscale( title, 34,12, 652,48, sx,sy);
 	liqcell_setrect_autoscale( liqlist1, 160,58, 480,238, sx,sy);
 	return 0;
-
+*/
 }
 
 
@@ -265,9 +284,9 @@ static int onemessageprogress_resize(liqcell *self,liqcelleventargs *args, liqce
 /**	
  * onemenu.cmdback clicked
  */	
-static int cmdback_click(liqcell *self,liqcelleventargs *args, liqcell *onemenu)
+static int cmdback_click(liqcell *self,liqcelleventargs *args, liqcell *onemessageprogress)
 {
-    liqcell_setvisible(  onemenu,0 );
+    liqcell_setvisible(  onemessageprogress,0 );
 	return 0;
 }
 
@@ -341,9 +360,9 @@ liqcell *onemessageprogress_create()
 	liqcell_propseti(  lblfail, "textalign", 2);
 	liqcell_child_append(  self, lblfail);
 	//############################# cmdaccept:label
-	liqcell *cmdaccept = liqcell_quickcreatevis("cmdaccept", "label", 472, 394, 228, 86);
+	liqcell *cmdaccept = liqcell_quickcreatevis("cmdaccept", "label", 315, 380, 170, 70);
 	liqcell_setfont(	cmdaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-	liqcell_setcaption(cmdaccept, "Close" );
+	liqcell_setcaption(cmdaccept, "Back" );
 	//liqcell_propsets(  cmdaccept, "textcolor", "rgb(255,255,255)" );
 	//liqcell_propsets(  cmdaccept, "backcolor", "xrgb(0,64,0)" );
 	//liqcell_propsets(  cmdaccept, "bordercolor", "rgb(255,255,255)" );
@@ -376,6 +395,14 @@ liqcell *onemessageprogress_create()
 	liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" ); 
 
 
+	//############################# piccover:picturebox
+	liqcell *piccover = liqcell_quickcreatevis("piccover", "picturebox", 0,0, 800,480);
+    liqcell_setimage(  piccover,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/sending.jpg", 0,0,0) );
+    liqcell_propseti( piccover ,  "lockaspect", 0 );    
+	liqcell_child_append(  self, piccover);   
+
+
+
 		liqcell *timer1=liqcell_quickcreatevis("timer1",   "liqtimer",   0,0,   0,0 );
 		liqcell_handleradd_withcontext(timer1,"timertick",timer_tick,self);
 		liqcell_propseti(timer1,"timerinterval", 100 );
@@ -388,6 +415,9 @@ liqcell *onemessageprogress_create()
         liqcell_setvisible(lblsentok,0);
         liqcell_setvisible(lblfail,  0);
         liqcell_setvisible(cmdaccept,0);
+
+
+
 
 
 //	liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );

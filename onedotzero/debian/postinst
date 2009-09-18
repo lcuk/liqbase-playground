@@ -20,6 +20,14 @@ fi
   fi
  fi
 
- gtk-update-icon-cache -f /usr/share/icons/hicolor/64x64
+
+if [ -r /etc/osso-af-init/af-defines.sh ]; then
+  source /etc/osso-af-init/af-defines.sh
+fi
+
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  gtk-update-icon-cache -f /usr/share/icons/hicolor || true
+fi
+
 
 exit 0

@@ -276,7 +276,14 @@ static int cmdsubmit_click(liqcell *self,liqcelleventargs *args, liqcell *onemes
 {
 	liqcell *messagetext = liqcell_child_lookup(onemessage, "messagetext");
 	
+    liqcell *swearfilter = liqcell_child_lookup(onemessage, "swearfilter");
 	
+    
+    if(liqcell_getvisible(  swearfilter ) )
+    {
+        // doh! cannot send profanity filter enabled
+        return -1;
+    }
 	
 	
 	char *tweet = liqcell_getcaption(messagetext);
@@ -286,7 +293,7 @@ static int cmdsubmit_click(liqcell *self,liqcelleventargs *args, liqcell *onemes
 		//
 		//liqtwit_sendtweet(tweet);
         
-        
+ /*       
         if((strcmp( tweet, "testmsg" )==0))
         {
             // shortcut
@@ -310,7 +317,7 @@ static int cmdsubmit_click(liqcell *self,liqcelleventargs *args, liqcell *onemes
                 }
             }
         }
-
+ */
 		
 		
 		liqcell * onemenu = NULL;

@@ -49,7 +49,7 @@ char *              osc_send_port   = NULL;         // port    we are going to s
 char *              osc_listen_port = NULL;         // port that our listening thread will bind itself to
 
 
-int osc_server_playstate = 0;
+int osc_server_playstate = 1;			// its playing by default
 
 
 int osc_running =0;
@@ -183,9 +183,12 @@ int osc_onedotzero_send_playstatecmd(int playing)
     }
     liqapp_log("osc: sending /playstatecmd %i",playing);
     
+	// sermad change: just use the live state as clicked
+	osc_server_playstate = playing;
+
     //usage: user clicks play/pause button
     //address path: /playstatecmd
-    //param: int (0=play, 1=pause)
+    //param: int (0=paused, 1=playing)
 	lo_send(osc_addr, "/playstatecmd", "i",  playing);
     return 0;
 }
@@ -426,6 +429,8 @@ int osc_onedotzero_handler_msgok(const char *path, const char *types, lo_arg **a
 int osc_onedotzero_handler_playstate(const char *path, const char *types, lo_arg **argv, int argc, void *data, void *user_data)
 {
     liqapp_log("osc: got playstate");
+
+	// playstate from server, 0==paused, 1==playing
     
     //liqapp_log("%s <- f:%f, i:%d", path, argv[0]->f, argv[1]->i);
     

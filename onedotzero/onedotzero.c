@@ -224,7 +224,7 @@ liqcell *onedotzero_create()
 
 	//############################# piccover:picturebox
 	liqcell *piccover = liqcell_quickcreatevis("piccover", "picturebox", 0,0, 800,480);
-    liqcell_setimage(  piccover,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/1.intro/splash_screen.png", 0,0,0) );
+    liqcell_setimage(  piccover,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/1.intro/screen_1.jpg", 0,0,0) );
     
     liqcell_propseti( piccover ,  "lockaspect", 0 );
     
@@ -238,7 +238,7 @@ liqcell *onedotzero_create()
 
         //############################# cmdback:label
         liqcell *cmdback = liqcell_quickcreatevis("cmdback", "label", 670, 16, 101, 42);
-        liqcell_setfont(	cmdback, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+        //liqcell_setfont(	cmdback, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
       /*  liqcell_setcaption(cmdback, "close" );
         liqcell_propsets(  cmdback, "textcolor", "rgb(0,0,0)" );
         //liqcell_propsets(  cmdback, "backcolor", "rgb(235,233,237)" );

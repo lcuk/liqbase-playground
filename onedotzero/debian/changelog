@@ -1,3 +1,45 @@
+onedotzero (1.0.1) unstable; urgency=low
+
+  * tweak for play/pause inversion,  /playstate from server should be 0==paused, 1==playing.  when starting, assume server is in playing mode, and show pause button.  when pause clicked, send /playstate=0 and invert
+
+ -- Gary Birkett <liquid@gmail.com>  09 Sep 2009 11:08:13 +0000
+
+onedotzero (1.0) unstable; urgency=low
+
+  * at 1.0
+
+ -- Gary Birkett <liquid@gmail.com>  08 Sep 2009 18:14:13 +0000
+
+onedotzero (0.9.1) unstable; urgency=low
+
+  * tweak to the profanity filter.
+
+ -- Gary Birkett <liquid@gmail.com>  08 Sep 2009 16:19:13 +0000
+
+onedotzero (0.9.0) unstable; urgency=low
+
+  * removed wait for reply
+
+ -- Gary Birkett <liquid@gmail.com>  08 Sep 2009 16:19:13 +0000
+
+onedotzero (0.1.9) unstable; urgency=low
+
+  * options dialog missing background
+
+ -- Gary Birkett <liquid@gmail.com>  08 Sep 2009 16:19:13 +0000
+
+onedotzero (0.1.8) unstable; urgency=low
+
+  * more minor changes
+
+ -- Gary Birkett <liquid@gmail.com>  08 Sep 2009 02:19:13 +0000
+
+onedotzero (0.1.7) unstable; urgency=low
+
+  * tweaks and finalization, failed to up version number
+
+ -- Gary Birkett <liquid@gmail.com>  08 Sep 2009 02:19:13 +0000
+
 onedotzero (0.1.6) unstable; urgency=low
 
   * tweaks and finalization

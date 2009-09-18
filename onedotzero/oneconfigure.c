@@ -150,6 +150,16 @@ static int cmdsave_click(liqcell *self,liqcelleventargs *args, liqcell *oneconfi
 
 	return 0;
 }
+
+/**	
+ * oneconfigure.cmdback clicked
+ */	
+static int cmdback_click(liqcell *self,liqcelleventargs *args, liqcell *oneconfigure)
+{
+    liqcell_setvisible(  oneconfigure,0 );
+	return 0;
+}
+
 /**	
  * oneconfigure_child_test_seek this function shows how to access members
  */	
@@ -226,7 +236,7 @@ liqcell *oneconfigure_create()
 	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
 	liqcell_setcaption(title, "onedotzero :: configure accounts" );
 	liqcell_propsets(  title, "textcolor", "rgb(255,255,255)" );
-	liqcell_propsets(  title, "backcolor", "rgb(0,64,64)" );
+	//liqcell_propsets(  title, "backcolor", "rgb(0,64,64)" );
 	liqcell_propseti(  title, "textalign", 0 );
 	liqcell_child_append(  self, title);
 	//############################# label1:label
@@ -271,6 +281,18 @@ liqcell *oneconfigure_create()
 	liqcell_handleradd_withcontext(self, "dialog_close", oneconfigure_dialog_close ,self);
 
  
+
+
+        //############################# cmdback:label
+        liqcell *cmdback = liqcell_quickcreatevis("cmdback", "label", 670, 16, 101, 42);
+        //liqcell_setfont(	cmdback, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+        //liqcell_setcaption(cmdback, "back" );
+        //liqcell_propsets(  cmdback, "textcolor", "rgb(0,0,0)" );
+        //liqcell_propsets(  cmdback, "backcolor", "rgb(235,233,237)" );
+        //liqcell_propseti(  cmdback, "textalign", 0 );
+        liqcell_setimage(  cmdback,  liqimage_cache_getfile("/usr/share/liqbase/onedotzero/media/back_button.png", 0,0,1) );
+        liqcell_handleradd_withcontext(cmdback, "click", cmdback_click, self );
+        liqcell_child_append(  self, cmdback);
 
 
 

@@ -9,7 +9,7 @@ OPT_FLAGS = -O3
 CFLAGS		= 
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic
 RM			 = /bin/rm -f
-OBJSCORE	 =  liqpostcard_ready.o liqpostcard_template.o liqpostcard_sendprogress.o liqpostcard_selectimage.o liqrecentphotoselect.o liqpostcard_config.o liqpostcard_start.o
+OBJSCORE	 =  liqpostcard_ready.o liqpostcard_template.o liqpostcard_sendprogress.o liqpostcard_selectimage.o liqpostcard_config.o liqpostcard_start.o
 OBJS		  = $(OBJSCORE) $(PROG).o
 
 .PHONY:	  clean distclean

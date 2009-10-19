@@ -800,6 +800,9 @@ liqcell *liqrecentphotos_create()
 										snprintf(buf,sizeof(buf),"%s/MyDocs/.camera",app.homepath);
 			liqcell_scan_folder_for_images(self,buf);
 	
+										snprintf(buf,sizeof(buf),"%s/MyDocs/DCIM",app.homepath);
+			liqcell_scan_folder_for_images(self,buf);
+
 			//							snprintf(buf,sizeof(buf),"/home/user/MyDocs/.camera");
 			//liqcell_scan_folder_for_images(self,buf);
 	

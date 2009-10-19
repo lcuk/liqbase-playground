@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=maemosummit2009
+Exec=/usr/bin/maemosummit2009-run.sh
+Type=Application
+StartupWMClass=maemosummit2009
+X-Osso-Service=org.maemo.maemosummit2009
+X-Osso-Type=application/x-executable
+StartupNotify=false

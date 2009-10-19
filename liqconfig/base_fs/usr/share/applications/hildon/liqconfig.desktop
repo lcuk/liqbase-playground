@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqconfig
+Exec=/usr/bin/liqconfig-run.sh
+Type=Application
+StartupWMClass=liqconfig
+X-Osso-Service=org.maemo.liqconfig
+X-Osso-Type=application/x-executable
+StartupNotify=false

@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.maemo.maemosummit2009
+Exec=/usr/bin/maemosummit2009-run.sh

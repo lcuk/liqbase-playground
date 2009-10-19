@@ -2,4 +2,4 @@
 # make and run
 # by lcuk on #maemo  liquid@gmail.com
 
-if make; then ./liqcontrolpanel; fi
+if make; then ./doorbell; fi

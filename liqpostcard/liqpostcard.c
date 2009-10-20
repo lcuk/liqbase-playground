@@ -195,7 +195,7 @@ static int cmdpicchoose_click(liqcell *self,liqcelleventargs *args, liqcell *liq
 	liqcell *picfront = liqcell_child_lookup(liqpostcard, "picfront");
 
 
-		liqcell * oneedit = liqcell_quickcreatevis("liqpostcard.choose","liqpostcard.liqpostcard_selectimage",0,0,-1,-1);
+		liqcell * oneedit = liqcell_quickcreatevis("liqpostcard.choose","dialog_selectimage",0,0,-1,-1);
 		
 		if(oneedit)
 		{

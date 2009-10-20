@@ -2,11 +2,11 @@ Source: onedotzero
 Section: user/multimedia
 Priority: extra
 Maintainer: Gary Birkett <liquid@gmail.com>
-Build-Depends: debhelper (>= 5) , x11proto-core-dev, libliqbase-dev (>= 0.3.35), liblo0-dev, libsqlite3-dev, libcurl3-dev
+Build-Depends: debhelper (>= 5) , x11proto-core-dev, libliqbase-dev (>= 0.3.45), liblo0-dev, libsqlite3-dev, libcurl3-dev
 Standards-Version: 3.7.2
 
 Package: onedotzero
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.35), liblo0ldbl
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.45), liblo0ldbl
 Description: onedotzero interactive remote control
  onedotzero interactive remote control

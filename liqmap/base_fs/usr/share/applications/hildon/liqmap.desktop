@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqmap
+Exec=/usr/bin/liqmap-run.sh
+Type=Application
+StartupWMClass=liqmap
+X-Osso-Service=org.maemo.liqmap
+X-Osso-Type=application/x-executable
+StartupNotify=false

@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=org.maemo.liqflow
-Exec=/usr/bin/liqflow-run.sh

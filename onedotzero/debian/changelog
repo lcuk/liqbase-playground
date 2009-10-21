@@ -1,3 +1,9 @@
+onedotzero (1.0.2) unstable; urgency=low
+
+  * rebuild for new lib version
+
+ -- Gary Birkett <liquid@gmail.com>  21 Oct 2009 11:08:13 +0000
+
 onedotzero (1.0.1) unstable; urgency=low
 
   * tweak for play/pause inversion,  /playstate from server should be 0==paused, 1==playing.  when starting, assume server is in playing mode, and show pause button.  when pause clicked, send /playstate=0 and invert

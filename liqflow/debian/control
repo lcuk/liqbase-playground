@@ -1,0 +1,12 @@
+Source: liqflow
+Section: user/multimedia
+Priority: extra
+Maintainer: Gary Birkett <liquid@gmail.com>
+Build-Depends: debhelper (>= 5) , libliqbase-dev
+Standards-Version: 3.7.2
+
+Package: liqflow
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1
+Description: short description
+ longer description

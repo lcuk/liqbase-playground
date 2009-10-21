@@ -1,0 +1,10 @@
+Package: liqflow
+Version: 0.1.0
+Section: user/multimedia
+Priority: extra
+Architecture: armel
+Depends: libliqbase1
+Installed-Size: 136
+Maintainer: Gary Birkett <liquid@gmail.com>
+Description: short description
+ longer description

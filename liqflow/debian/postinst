@@ -1,0 +1,22 @@
+#!/bin/sh
+# postinst script for liqflow
+#
+# see: dh_installdeb(1)
+# thank you qwerty12 and kotczarny
+# just make sure this is only run on n8x0
+if [ -e /proc/component_version ];
+then
+ HW_VER=`awk '/^product/ { print $2;}' /proc/component_version | cut -d- -f2`
+else
+ HW_VER="0"
+fi
+ if [ "$HW_VER" -ge "34" -a "$HW_VER" -le "48" ];
+ then
+  update-sudoers || true
+  fc-cache -fs /usr/share/fonts/ || true
+  oldversion="$2"
+  if [ -x /usr/bin/maemo-select-menu-location -a -z "$oldversion" ]; then
+	 maemo-select-menu-location liqflow.desktop
+  fi
+ fi
+exit 0

@@ -1,0 +1,8 @@
+25cdd3724f4e000b7dc1272da9340a86  usr/bin/liqflow-run.sh
+80cb79e19f3e8637515ddfb91d0b6df5  usr/share/doc/liqflow/copyright
+3f064266cb1194263a8aa9f891fe66c3  usr/share/doc/liqflow/changelog.gz
+187ae9b7cd42e8e848675b494de95c7e  usr/share/dbus-1/services/org.maemo.liqflow.service
+c65d0511b60a9aaff8fac95e9b78f02f  usr/share/liqbase/liqflow/liqflow.so
+527e853da18e5da17f98e538beca2f4b  usr/share/liqbase/liqflow/liqflow
+6978e1ffe0797b89b43765d0a3d7863e  usr/share/liqbase/liqflow/media/readme
+5bc57d24c2e9a4e7e31cf0d5c7427464  usr/share/applications/hildon/liqflow.desktop

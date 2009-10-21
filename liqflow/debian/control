@@ -2,11 +2,11 @@ Source: liqflow
 Section: user/multimedia
 Priority: extra
 Maintainer: Gary Birkett <liquid@gmail.com>
-Build-Depends: debhelper (>= 5) , libliqbase-dev
+Build-Depends: debhelper (>= 5) , libliqbase-dev (>= 0.3.45)
 Standards-Version: 3.7.2
 
 Package: liqflow
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1
-Description: short description
- longer description
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.45)
+Description: finger friendly fluid dynamics with accelerometer control
+ finger friendly fluid dynamics with accelerometer rainfall effect

@@ -8,5 +8,5 @@ Standards-Version: 3.7.2
 Package: liqflow
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.45)
-Description: finger friendly fluid dynamics with accelerometer control
- finger friendly fluid dynamics with accelerometer rainfall effect
+Description: Graphics Demo: touchscreen fluid dynamics
+ Graphics Demo: touchscreen fluid dynamics with accelerometer assist

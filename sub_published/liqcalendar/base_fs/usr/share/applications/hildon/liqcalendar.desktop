@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqcalendar
+Exec=/usr/bin/liqcalendar-run.sh
+Type=Application
+Icon = liqcalendar
+x-Window-Icon = liqcalendar
+x-Window-Icon-Dimmed = liqcalendar
+StartupWMClass=liqcalendar
+X-Osso-Service=org.maemo.liqcalendar
+X-Osso-Type=application/x-executable
+StartupNotify=false

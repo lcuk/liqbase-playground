@@ -271,7 +271,8 @@ int liqbase_playground_refresh_desktop_contents()
         //
         liqcell *c = liqcell_getlinkchild_visual(body);
         // skip the first item...
-        if(c)c = liqcell_getlinknext_visual(c);
+        // Sat Nov 14 03:57:06 2009 lcuk : dont skip the first item
+        //if(c)c = liqcell_getlinknext_visual(c);
         while(c)
         {
             if( (strcasecmp(c->name,tok)==0) ) break;
@@ -674,6 +675,8 @@ liqcell *playground_create()
 	
 	
 		liqcell *body = liqcell_quickcreatevis("body",NULL,0 ,0,   self->w,self->h);
+		//liqcell *body = liqcell_quickcreatevis("body","liqstars",0 ,0,   self->w,self->h);
+
 
 
 
@@ -776,6 +779,13 @@ liqcell *playground_create()
             liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/media/liqbase_back2.jpg",0,0,0) );
         }
         liqcell_propseti(  self ,  "lockaspect",0 );
+        
+        
+        //char *imagefloat = liqapp_pref_getvalue_def("liqbase_playground_imagefloat",    NULL);
+        //if(imagefloat)        
+        //    liqcell_propsets(  self ,  "imagefloat",imagefloat );
+        
+        
 		playground_resize(self,NULL,self);
 
 

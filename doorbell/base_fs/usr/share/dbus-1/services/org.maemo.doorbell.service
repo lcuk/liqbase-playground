@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=org.maemo.doorbell
-Exec=/usr/bin/doorbell-run.sh

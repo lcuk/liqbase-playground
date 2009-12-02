@@ -37,7 +37,6 @@ install:
 	mkdir -p                                    									$(PGDIR)
 	mkdir -p                                    									$(PGDIR)/media
 	mkdir -p                                    									$(PGDIR)/widgets
-	mkdir -p                                    									$(PGDIR)/widgets/liqcalendar
 	mkdir -p                                    									$(ETCDIR)
 	mkdir -p                                    									$(ETCDIR)/osso-backup
 	mkdir -p                                    									$(ETCDIR)/osso-backup/applications
@@ -56,7 +55,6 @@ install:
 
 	install -m 0755 src/liqbase-playground      									$(PGDIR)
 	cp -r src/widgets/*.so                      									$(PGDIR)/widgets
-	cp -r src/widgets/liqcalendar/*.so          									$(PGDIR)/widgets/liqcalendar
 
 
 	install -m 0755 liqbase_base_fs/usr/bin/liqbase-playground-run.sh                               $(BINDIR)

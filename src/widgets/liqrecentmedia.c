@@ -260,6 +260,68 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 
 
 
+	//##########################################################################
+	//########################################################################## latest, click event
+	//##########################################################################
+
+	/**	
+	* liqrecentmedia_item dialog_open - the user zoomed into the dialog
+	*/	
+	static int liqrecentmedia_item_dialog_open(liqcell *self,liqcelleventargs *args, liqcell *context)
+	{
+		char *myimgnamebig = liqcell_propgets(self,"imagefilenamebig",NULL);
+		if(myimgnamebig && *myimgnamebig)
+		{
+			// only set after a thumbnailing
+			char *myimgname = liqcell_propgets(self,"imagefilename",NULL);
+			if(myimgname && *myimgname)
+			{
+				// set most of the time
+				liqapp_log("liqrecentmedia_item_dialog_open %i,  %s=%s",strcasecmp(myimgnamebig,myimgname),myimgnamebig,myimgname);
+				if(strcasecmp(myimgnamebig,myimgname)==0)
+				{
+					// same, do nothing
+				}
+				else
+				{
+					// different!  reload mighty image
+					liqcell_propsets(self,"imagefilename",myimgnamebig);
+					//liqcell_propremoves(self,"imagefilenamebig");
+					liqcell_threadloadimage(self,myimgnamebig);
+				}				
+			}
+		}
+				
+	   return 0;
+	}
+	
+	/**	
+	* liqrecentmedia_item dialog_close - the dialog was closed
+	*/	
+	static int liqrecentmedia_item_dialog_close(liqcell *self,liqcelleventargs *args, liqcell *context)
+	{
+		char *myimgnamebig = liqcell_propgets(self,"imagefilenamebig",NULL);
+		if(myimgnamebig && *myimgnamebig)
+		{
+			char *myimgname = liqcell_propgets(self,"imagefilename",NULL);
+			if(myimgname && *myimgname)
+			{
+				if(strcasecmp(myimgnamebig,myimgname)==0)
+				{
+					// same
+					//liqcell_propsets(self,"imagefilename",myimgnamebig);
+					liqcell_propremoves(self,"imagefilenamebig");
+					autothumb_getthumb(self,myimgname);
+				}
+				else
+				{
+					// different!
+				}				
+			}
+		}
+	   return 0;
+	}
+
 
 
 
@@ -424,6 +486,8 @@ static int liqrecentmedia_additem(liqcell *self,char *path)
 					liqcell_handleradd(c,    "shown",   liqrecentmedia_item_shown);
 					liqcell_handleradd(c,    "imageloaded",   liqrecentmedia_item_imageloaded);
 
+					liqcell_handleradd_withcontext(c, "dialog_open", liqrecentmedia_item_dialog_open ,self);
+					liqcell_handleradd_withcontext(c, "dialog_close", liqrecentmedia_item_dialog_close ,self);
 
 
 

@@ -1,3 +1,9 @@
 *.so
 *.o
+*.dsc
+*.tar.gz
+*.changes
+*.deb
 debian/liqbase-playground/*
+sub_test/*
+

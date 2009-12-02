@@ -1,0 +1,1 @@
+shlibs:Depends=libc6 (>= 2.5.0-1), libcurl3 (>= 7.16.2-1), libliqbase1 (>= 0.3.45), liblo0ldbl (>= 0.23), libsqlite3-0 (>= 3.6.14)

@@ -11,8 +11,8 @@ CFLAGS      = $(OPT_FLAGS) -DUSE_MAEMO -Wall
 LDFLAGS     = -lm -lliqbase
 RM          = /bin/rm -f
 
-SUBDIRS     = liqcalendar 
-aaa = desktopmanage liqui playground
+SUBDIRS     =  
+aaa = desktopmanage liqui playground liqcalendar
 
 SRCS        = $(wildcard *.c)
 

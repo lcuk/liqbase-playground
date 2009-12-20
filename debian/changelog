@@ -1,3 +1,9 @@
+liqbase-playground (0.3.58) unstable; urgency=low
+
+  * left silly testing widget in.
+
+ -- Gary Birkett <liquid@gmail.com>  01 December 2009 08:41:03 +0200
+
 liqbase-playground (0.3.57) unstable; urgency=low
 
   * bugfixes and side issues.

@@ -642,7 +642,7 @@ liqcell *liqflow_run_create()
 	liqcell_propsets(  cmdclear, "textcolor", "rgb(0,0,0)" );
 	//liqcell_propsets(  cmdclear, "backcolor", "rgb(0,128,0)" );
 	//liqcell_propsets(  cmdclear, "bordercolor", "rgb(200,100,100)" );
-	liqcell_setimage(  cmdclear,  liqimage_cache_getfile("/usr/share/liqbase/media/button_back.png", 0,0,1) );
+	liqcell_setimage(  cmdclear,  liqimage_cache_getfile("/usr/share/liqbase/liqflow/media/button_back.png", 0,0,1) );
 	liqcell_propseti(  cmdclear, "textalign", 2 );
 	liqcell_propseti(  cmdclear, "textaligny", 2 );
 	liqcell_propseti(  cmdclear,  "lockaspect",  0 );
@@ -673,7 +673,7 @@ liqcell *liqflow_run_create()
 	liqcell_propsets(  ainvite, "textcolor", "rgb(0,0,0)" );
 	//liqcell_propsets(  ainvite, "backcolor", "rgb(0,128,0)" );
 	//liqcell_propsets(  ainvite, "bordercolor", "rgb(200,100,100)" );
-	liqcell_setimage(  ainvite,  liqimage_cache_getfile("/usr/share/liqbase/media/button_back.png", 0,0,1) );
+	liqcell_setimage(  ainvite,  liqimage_cache_getfile("/usr/share/liqbase/liqflow/media/button_back.png", 0,0,1) );
 	liqcell_propseti(  ainvite, "textalign", 2 );
 	liqcell_propseti(  ainvite, "textaligny", 2 );
 	liqcell_propseti(  ainvite,  "lockaspect",  0 );

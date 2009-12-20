@@ -40,10 +40,11 @@
 	
 	static int caldayhead_click(liqcell *self, liqcellclickeventargs *args, void *daybody)
 	{
+		
 		// 20090413_155053 lcuk : disabling zoom into a day for now
 		// it should select the day - like the original liqgraffiti did
 		// its too fidgety as it stands
-		
+	liqapp_log("aaa 1");	
 		
 		//args->newdialogtoopen = self;//liqcell_child_lookup( self, "body" );
 		//args->newdialogtoopen = liqcell_child_lookup( self, "body" );
@@ -52,6 +53,8 @@
 		
 		if(!day)return -1;
 		
+	liqapp_log("aaa 2");	
+		
 		
 		liqcell *preview = liqcell_child_lookup( day, "view" );
 		if(!preview) return -1;
@@ -59,20 +62,25 @@
 		}
 		char *sketchfilename  = liqcell_propgets(preview,"sketchfilename",NULL);
 		
+	liqapp_log("aaa 3");	
+		
 		if(!sketchfilename) return -1;
 
 
 		liqcell *dayview = liqcalendar_dayview_create();   //liqcell_quickcreatevis("dayview", "liqcalendar_dayview", 0,0, 800,480);
 		
+	liqapp_log("aaa 4");	
+		
 		// ponder if this is the right way to do this
 		liqcell_setname(dayview,sketchfilename);
 		
-
+		
+	liqapp_log("aaa 5");	
 
 		liqcell_easyrun(dayview);
 		liqcell_release(dayview);
 		
-		
+	liqapp_log("aaa 6");	
 		
 		// make sure we refresh this ;)
 		liqcell_setsketch(preview,NULL);

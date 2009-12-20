@@ -1,0 +1,9 @@
+#!/bin/bash
+# make and run
+# by lcuk on #maemo  liquid@gmail.com
+if make; then
+ scp liqcalendar liqcalendar.so root@10.0.0.8:/usr/share/liqbase/liqcalendar; 
+ #ssh root@10.0.0.8 liqtactoe-run.sh;
+fi;
+
+

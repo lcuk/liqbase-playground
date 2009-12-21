@@ -1,0 +1,28 @@
+#!/bin/sh
+# postinst script for sheepdrawing
+#
+# see: dh_installdeb(1)
+# thank you qwerty12 and kotczarny
+# just make sure this is only run on n8x0
+if [ -e /proc/component_version ];
+then
+ HW_VER=`awk '/^product/ { print $2;}' /proc/component_version | cut -d- -f2`
+else
+ HW_VER="0"
+fi
+ if [ "$HW_VER" -ge "34" -a "$HW_VER" -le "48" ];
+ then
+  update-sudoers || true
+  fc-cache -fs /usr/share/fonts/ || true
+  if [ -x /usr/bin/dbus-send -a -x /usr/bin/gtk-update-icon-cache ]; then
+	 dbus-send --type=method_call --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.Notifications.SystemNoteInfoprint string:"Updating icon cache" || true
+  fi
+  if [ -x /usr/bin/gtk-update-icon-cache ]; then
+	 gtk-update-icon-cache -f /usr/share/icons/hicolor || true
+  fi
+  oldversion="$2"
+  if [ -x /usr/bin/maemo-select-menu-location -a -z "$oldversion" ]; then
+	 maemo-select-menu-location sheepdrawing.desktop
+  fi
+ fi
+exit 0

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=sheepdog
+Exec=/usr/bin/sheepdog-run.sh
+Type=Application
+Icon = sheepdog
+x-Window-Icon = sheepdog
+x-Window-Icon-Dimmed = sheepdog
+StartupWMClass=sheepdog
+X-Osso-Service=org.maemo.sheepdog
+X-Osso-Type=application/x-executable
+StartupNotify=false

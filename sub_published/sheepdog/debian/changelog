@@ -1,0 +1,6 @@
+sheepdog (0.1.0) unstable; urgency=low
+
+  * sheepdog Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Gary Birkett <liquid@gmail.com>  Wed, 09 Dec 2009 11:59:27 +0000
+

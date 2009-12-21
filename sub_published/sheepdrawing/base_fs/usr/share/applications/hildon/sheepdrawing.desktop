@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=sheepdrawing
+Exec=/usr/bin/sheepdrawing-run.sh
+Type=Application
+Icon = sheepdrawing
+x-Window-Icon = sheepdrawing
+x-Window-Icon-Dimmed = sheepdrawing
+StartupWMClass=sheepdrawing
+X-Osso-Service=org.maemo.sheepdrawing
+X-Osso-Type=application/x-executable
+StartupNotify=false

@@ -1,11 +1,66 @@
 // this file is part of liqbase by Gary Birkett
 		
+		
+		
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
+#include <dirent.h>
+
+#include <unistd.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <sys/types.h>            
+#include <fcntl.h>                                                                             
+#include <unistd.h>
+#include <errno.h>
+
+
 #include <liqbase/liqbase.h>
 #include <liqbase/liqcell.h>
 #include <liqbase/liqcell_prop.h>
 #include <liqbase/liqcell_easyrun.h>
 #include <liqbase/liqcell_easyhandler.h>
 		
+#include "sheepdrawing_editor.h"		
+	int sheepdrawing_editor_clear(liqcell *editor);
+	int sheepdrawing_editor_undo(liqcell *editor);
+	int sheepdrawing_editor_save(liqcell *editor);
+	
+		static int liqapp_trymakepath_int(char *path,char *upto)
+		{
+			char *bit=strchr(upto,'/');
+			if(bit)
+			{
+				*bit=0;
+				liqapp_trymakepath_int(path,upto);
+				*bit='/';
+				upto=bit+1;
+				liqapp_trymakepath_int(path,upto);
+				return 0;
+			}	
+			if(!liqapp_pathexists(path))
+			{
+				int status;
+				status = mkdir(path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+				if(status)
+				{
+					liqapp_log("liqapp error: could not mkdir '%s'",path);
+					return -1;			
+				}
+			}
+			return 0;
+		}
+		
+		static int liqapp_trymakepath(char *path)
+		{
+			return liqapp_trymakepath_int(path,path);
+		}
+
+
+	//snprintf(buf,FILENAME_MAX,"%s",app.userdatapath);
+	//trymakepath(buf);		
 		
 //#####################################################################
 //#####################################################################
@@ -114,7 +169,7 @@ static int sheepdrawing_run_keyrelease(liqcell *self, liqcellkeyeventargs *args,
  */	
 static int sheepdrawing_run_resize(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
-	float sx=((float)self->w)/((float)self->innerw);
+/*	float sx=((float)self->w)/((float)self->innerw);
 	float sy=((float)self->h)/((float)self->innerh);
 	
 	liqcell *backplane = liqcell_child_lookup(self, "backplane");
@@ -123,15 +178,15 @@ static int sheepdrawing_run_resize(liqcell *self,liqcelleventargs *args, liqcell
 	liqcell *cmdundo = liqcell_child_lookup(self, "cmdundo");
 	liqcell *cmdclear = liqcell_child_lookup(self, "cmdclear");
 	liqcell *cmdselect = liqcell_child_lookup(self, "cmdselect");
-	liqcell *label1 = liqcell_child_lookup(self, "label1");
+	liqcell *cmdcolor = liqcell_child_lookup(self, "cmdcolor");
 	liqcell_setrect_autoscale( backplane, 0,58, 800,422, sx,sy);
 	liqcell_setrect_autoscale( title, 0,0, 800,58, sx,sy);
 	liqcell_setrect_autoscale( cmdaccept, 594,434, 206,48, sx,sy);
 	liqcell_setrect_autoscale( cmdundo, 728,60, 72,72, sx,sy);
 	liqcell_setrect_autoscale( cmdclear, 728,132, 72,86, sx,sy);
 	liqcell_setrect_autoscale( cmdselect, 728,344, 72,90, sx,sy);
-	liqcell_setrect_autoscale( label1, 728,218, 72,124, sx,sy);
-	return 0;
+	liqcell_setrect_autoscale( cmdcolor, 728,218, 72,124, sx,sy);
+ */	return 0;
 }
 
 /**	
@@ -139,6 +194,113 @@ static int sheepdrawing_run_resize(liqcell *self,liqcelleventargs *args, liqcell
  */	
 static int cmdaccept_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_run)
 {
+	// GO GO GO!
+	
+	//
+	liqcell *backplane = liqcell_child_lookup(sheepdrawing_run, "backplane");
+	liqcell *cmdcolor = liqcell_child_lookup(sheepdrawing_run, "cmdcolor");
+	liqcell *title = liqcell_child_lookup(sheepdrawing_run, "title");
+	
+	liqsketch *sketch = liqcell_getsketch(backplane);
+
+
+		if(!sketch)
+		{
+			// no sketch!
+			return 0;
+		}
+
+		if(!sketch->strokelast)
+		{
+			// nothing drawn
+			return 0;
+		}
+
+	liqcell_setcaption(title, "preparing to save.." );
+
+	char fileday[256];	
+	liqapp_formatnow(fileday,sizeof(fileday),"yyyy/mm/dd");
+	
+	char filedate[256];	
+	liqapp_formatnow(filedate,sizeof(filedate),"yyyymmdd_hhmmss");
+	
+	char path[ FILENAME_MAX ];	
+	snprintf(path,sizeof(path),"%s/MyDocs/sheepdrawing/%s",app.homepath,fileday);
+	
+	char sketchfn[ FILENAME_MAX ];	
+	snprintf(sketchfn,sizeof(sketchfn),"%s/liq.%s.%s.page",path,filedate,app.username,"sheepdrawing");
+
+	char imgfn[ FILENAME_MAX ];	
+	snprintf(imgfn,sizeof(imgfn),      "%s/liq.%s.%s.png",path,filedate,app.username,"sheepdrawing");
+
+	liqcell_setcaption(title, "creating folders.." );
+
+	
+	liqapp_trymakepath(path);
+	
+	
+	liqcell_setcaption(title, "saving sketch.." );
+
+	
+	liqsketch_filesave(sketch , sketchfn );
+
+
+	liqcell_setcaption(title, "creating image.." );
+	
+	liqapp_log("...creating image");	
+	liqimage *img = liqimage_newatsize(backplane->w,backplane->h,0);
+	
+	liqapp_log("...creating cliprect");
+	liqcliprect *cr = liqcliprect_newfromimage(img);
+
+	liqcell_setcaption(title, "rendering image.." );
+	
+	liqcell_easypaint(backplane,cr,0,0,backplane->w,backplane->h);
+
+	liqcell_setcaption(title, "saving image.." );
+
+
+	liqimage_pagesavepng(img,imgfn);
+	
+	
+	liqcell_setcaption(title, "releasing image.." );
+
+	liqapp_log("...releasing cr");
+	liqcliprect_release(cr);
+	
+	liqapp_log("...releasing image");
+	liqimage_release(img);
+	
+	liqapp_log("...done");
+		
+	liqcell_setcaption(title, "preparing to send ..");
+
+		
+	// so, now i have saved a sketch :D
+	// and i have also saved a png!
+	
+	char cmd[FILENAME_MAX*4];
+
+
+	char *txtusername=       liqapp_pref_getvalue_def("sheepdrawing_username",  "");
+	char *txtpassword=       liqapp_pref_getvalue_def("sheepdrawing_password",  "");
+	char *txtthread=         liqapp_pref_getvalue_def("sheepdrawing_thread",  "");
+
+	// todo make this safe for sending
+
+	snprintf(cmd,sizeof(cmd),"sheepdrawing-upload.sh --sketchfn '%s' --imgfn '%s' --username '%s' --password '%s' --thread '%s'",sketchfn,imgfn,txtusername,txtpassword,txtthread);
+	
+	liqcell_setcaption_printf(title, "sending to http://talk.maemo.org/showthread.php?t=%s FIXME!.." ,txtthread);
+
+	
+	system(cmd);
+
+	liqcell_setcaption(title, "clearing .." );
+
+	sheepdrawing_editor_clear(backplane);
+
+	liqcell_setcaption(title, "Draw your sheep" );
+	
 	return 0;
 }
 /**	
@@ -146,6 +308,8 @@ static int cmdaccept_click(liqcell *self,liqcellclickeventargs *args, liqcell *s
  */	
 static int cmdundo_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_run)
 {
+	liqcell *backplane = liqcell_child_lookup(sheepdrawing_run, "backplane");
+	sheepdrawing_editor_undo(backplane);
 	return 0;
 }
 /**	
@@ -153,6 +317,8 @@ static int cmdundo_click(liqcell *self,liqcellclickeventargs *args, liqcell *she
  */	
 static int cmdclear_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_run)
 {
+	liqcell *backplane = liqcell_child_lookup(sheepdrawing_run, "backplane");
+	sheepdrawing_editor_clear(backplane);
 	return 0;
 }
 /**	
@@ -160,7 +326,64 @@ static int cmdclear_click(liqcell *self,liqcellclickeventargs *args, liqcell *sh
  */	
 static int cmdselect_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_run)
 {
+//	liqcell *backplane = liqcell_child_lookup(sheepdrawing_run, "backplane");
+//	sheepdrawing_editor_clear(backplane);
+	liqcell *backplane = liqcell_child_lookup(sheepdrawing_run, "backplane");
+	liqcell *cmdcolor = liqcell_child_lookup(sheepdrawing_run, "cmdcolor");
+
+
+	 liqcell *dialog = liqcell_quickcreatevis("sheepdrawing_run", "sheepdrawing.sheepdrawing_pictureselect", 0,0, -1,-1);
+	 liqcell_easyrun(dialog);
+
+
+            // process dialog results      
+            char *selfn=liqcell_propgets(  dialog, "imagefilenameselected",NULL );
+            if( selfn && *selfn )
+            {
+                //
+
+				liqapp_pref_setvalue("sheepdrawing_background", selfn );
+				liqapp_prefs_save();
+				
+				// refresh the actual contents..
+				liqcell_handlerrun(backplane,"refresh",NULL);                
+
+            }
+ 
+
+	 liqcell_release(dialog);
 	return 0;
+}
+/**	
+ * sheepdrawing_run.cmdcolor clicked
+ */	
+static int cmdcolor_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_run)
+{
+	
+	liqcell *backplane = liqcell_child_lookup(sheepdrawing_run, "backplane");
+	liqcell *cmdcolor = liqcell_child_lookup(sheepdrawing_run, "cmdcolor");
+
+
+	liqcell *dialog = liqcell_quickcreatevis("colorpicker", "sheepdrawing.colorpicker", 0,0, -1,-1);
+	liqcell_easyrun(dialog);
+	
+	
+            char *selcol=liqcell_propgets(  dialog, "colorselected",NULL );
+            if( selcol && *selcol )
+            {	
+				liqcell_propsets(  cmdcolor, "backcolor", selcol );
+				
+				liqapp_pref_setvalue("sheepdrawing_pencolor", selcol );
+				liqapp_prefs_save();
+				
+				// refresh the actual contents..
+				liqcell_handlerrun(backplane,"refresh",NULL);
+			}
+
+	liqcell_release(dialog);
+
+	return 0;
+
 }
 /**	
  * sheepdrawing_run_child_test_seek this function shows how to access members
@@ -174,7 +397,7 @@ static void sheepdrawing_run_child_test_seek(liqcell *sheepdrawing_run)
 	liqcell *cmdundo = liqcell_child_lookup(sheepdrawing_run, "cmdundo");
 	liqcell *cmdclear = liqcell_child_lookup(sheepdrawing_run, "cmdclear");
 	liqcell *cmdselect = liqcell_child_lookup(sheepdrawing_run, "cmdselect");
-	liqcell *label1 = liqcell_child_lookup(sheepdrawing_run, "label1");
+	liqcell *cmdcolor = liqcell_child_lookup(sheepdrawing_run, "cmdcolor");
 }	  
 /**	
  * create a new sheepdrawing_run widget
@@ -190,36 +413,27 @@ liqcell *sheepdrawing_run_create()
 	// Optimization:  defaults: background, prefer nothing, will be shown through if there is a wallpaper
 	// Optimization:  defaults: text, white, very fast rendering
 	//############################# backplane:label
-	liqcell *backplane = liqcell_quickcreatevis("backplane", "label", 0, 58, 800, 422);
-	liqcell_setfont(	backplane, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
-	liqcell_setcaption(backplane, "backplane" );
-	liqcell_propsets(  backplane, "textcolor", "rgb(255,0,0)" );
-	liqcell_propsets(  backplane, "backcolor", "rgb(0,64,64)" );
-	liqcell_propseti(  backplane, "textalign", 2 );
-	liqcell_propseti(  backplane, "textaligny", 2 );
+	liqcell *backplane = liqcell_quickcreatevis("backplane", "sheepdrawing_editor", 0, 58, 800, 422);
+	//liqcell_setfont(	backplane, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+	//liqcell_setcaption(backplane, "backplane" );
+	//liqcell_propsets(  backplane, "textcolor", "rgb(255,0,0)" );
+	//liqcell_propsets(  backplane, "backcolor", "rgb(0,64,64)" );
+	//liqcell_propseti(  backplane, "textalign", 2 );
+	//liqcell_propseti(  backplane, "textaligny", 2 );
 	liqcell_child_append(  self, backplane);
+	
 	//############################# title:label
-	liqcell *title = liqcell_quickcreatevis("title", "label", 0, 0, 800, 58);
+	liqcell *title = liqcell_quickcreatevis("title", "label", 0, 0, 800, 56);
 	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-	liqcell_setcaption(title, "Draw your sheep" );
+	liqcell_setcaption(title, "Draw your sheep - todo, finish upload script sheepdog-upload.sh" );
 	liqcell_propsets(  title, "textcolor", "rgb(255,255,255)" );
 	liqcell_propsets(  title, "backcolor", "xrgb(128,128,128)" );
 	liqcell_propseti(  title, "textalign", 0 );
 	liqcell_propseti(  title, "textaligny", 0 );
 	liqcell_child_append(  self, title);
-	//############################# cmdaccept:label
-	liqcell *cmdaccept = liqcell_quickcreatevis("cmdaccept", "label", 594, 434, 206, 48);
-	liqcell_setfont(	cmdaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-	liqcell_setcaption(cmdaccept, "Upload" );
-	liqcell_propsets(  cmdaccept, "textcolor", "rgb(255,255,255)" );
-	liqcell_propsets(  cmdaccept, "backcolor", "xrgb(0,64,0)" );
-	liqcell_propsets(  cmdaccept, "bordercolor", "rgb(255,255,255)" );
-	liqcell_propseti(  cmdaccept, "textalign", 2 );
-	liqcell_propseti(  cmdaccept, "textaligny", 2 );
-	liqcell_handleradd_withcontext(cmdaccept, "click", cmdaccept_click, self );
-	liqcell_child_append(  self, cmdaccept);
+
 	//############################# cmdundo:label
-	liqcell *cmdundo = liqcell_quickcreatevis("cmdundo", "label", 728, 60, 72, 72);
+	liqcell *cmdundo = liqcell_quickcreatevis("cmdundo", "label", 728, 56, 72, 96);
 	liqcell_setfont(	cmdundo, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
 	liqcell_setcaption(cmdundo, "undo" );
 	liqcell_propsets(  cmdundo, "textcolor", "rgb(255,255,255)" );
@@ -229,8 +443,9 @@ liqcell *sheepdrawing_run_create()
 	liqcell_propseti(  cmdundo, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdundo, "click", cmdundo_click, self );
 	liqcell_child_append(  self, cmdundo);
+	
 	//############################# cmdclear:label
-	liqcell *cmdclear = liqcell_quickcreatevis("cmdclear", "label", 728, 132, 72, 86);
+	liqcell *cmdclear = liqcell_quickcreatevis("cmdclear", "label", 728, 152, 72, 96);
 	liqcell_setfont(	cmdclear, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
 	liqcell_setcaption(cmdclear, "clear" );
 	liqcell_propsets(  cmdclear, "textcolor", "rgb(255,255,255)" );
@@ -240,8 +455,21 @@ liqcell *sheepdrawing_run_create()
 	liqcell_propseti(  cmdclear, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdclear, "click", cmdclear_click, self );
 	liqcell_child_append(  self, cmdclear);
+	
+	//############################# cmdcolor:label
+	liqcell *cmdcolor = liqcell_quickcreatevis("cmdcolor", "label", 728, 248, 72, 96);
+	liqcell_setfont(	cmdcolor, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+	liqcell_setcaption(cmdcolor, "color" );
+	liqcell_propsets(  cmdcolor, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  cmdcolor, "backcolor", "xrgb(255,255,255)" );
+	liqcell_propsets(  cmdcolor, "bordercolor", "rgb(255,255,255)" );
+	liqcell_propseti(  cmdcolor, "textalign", 2 );
+	liqcell_propseti(  cmdcolor, "textaligny", 2 );
+	liqcell_handleradd_withcontext(cmdcolor, "click", cmdcolor_click, self );
+	liqcell_child_append(  self, cmdcolor);
+	
 	//############################# cmdselect:label
-	liqcell *cmdselect = liqcell_quickcreatevis("cmdselect", "label", 728, 344, 72, 90);
+	liqcell *cmdselect = liqcell_quickcreatevis("cmdselect", "label", 728, 344, 72, 96);
 	liqcell_setfont(	cmdselect, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
 	liqcell_setcaption(cmdselect, "select" );
 	liqcell_propsets(  cmdselect, "textcolor", "rgb(255,255,255)" );
@@ -251,16 +479,25 @@ liqcell *sheepdrawing_run_create()
 	liqcell_propseti(  cmdselect, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdselect, "click", cmdselect_click, self );
 	liqcell_child_append(  self, cmdselect);
-	//############################# label1:label
-	liqcell *label1 = liqcell_quickcreatevis("label1", "label", 728, 218, 72, 124);
-	liqcell_setfont(	label1, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-	liqcell_setcaption(label1, "color" );
-	liqcell_propsets(  label1, "textcolor", "rgb(255,255,255)" );
-	liqcell_propsets(  label1, "backcolor", "rgb(64,64,0)" );
-	liqcell_propsets(  label1, "bordercolor", "rgb(255,255,255)" );
-	liqcell_propseti(  label1, "textalign", 2 );
-	liqcell_propseti(  label1, "textaligny", 2 );
-	liqcell_child_append(  self, label1);
+
+
+	//############################# cmdaccept:label
+	liqcell *cmdaccept = liqcell_quickcreatevis("cmdaccept", "label", 594, 440, 206, 40);
+	liqcell_setfont(	cmdaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+	liqcell_setcaption(cmdaccept, "Upload" );
+	liqcell_propsets(  cmdaccept, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  cmdaccept, "backcolor", "xrgb(0,64,0)" );
+	liqcell_propsets(  cmdaccept, "bordercolor", "rgb(255,255,255)" );
+	liqcell_propseti(  cmdaccept, "textalign", 2 );
+	liqcell_propseti(  cmdaccept, "textaligny", 2 );
+	liqcell_handleradd_withcontext(cmdaccept, "click", cmdaccept_click, self );
+	liqcell_child_append(  self, cmdaccept);
+	
+    char *t =  liqapp_pref_getvalue_def("sheepdrawing_pencolor", "xrgb(255,255,255)");
+    if(t && *t)
+		liqcell_propsets(  cmdcolor, "backcolor", t );
+	
+	
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	//liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/sheepdrawing/media/sheepdrawing_run_back.png",0,0,0) );
 	liqcell_handleradd_withcontext(self, "filter", sheepdrawing_run_filter ,self);

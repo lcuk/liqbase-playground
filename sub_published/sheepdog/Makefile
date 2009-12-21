@@ -9,7 +9,7 @@ OPT_FLAGS = -O3
 CFLAGS		= 
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic
 RM			 = /bin/rm -f
-OBJSCORE	 = sheepdog_cover.o sheepdog_leveldesign.o sheepdog_levelplay.o sheepdog_levelstickers.o timelinerow.o sheepdog_flow.o
+OBJSCORE	 = sheepdog_cover.o sheepdog_leveldesign.o sheepdog_levelplay.o sheepdog_levelstickers.o timelinerow.o
 OBJS		  = $(OBJSCORE) $(PROG).o
 
 .PHONY:	  clean distclean

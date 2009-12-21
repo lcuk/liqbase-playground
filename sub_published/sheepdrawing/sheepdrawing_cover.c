@@ -118,29 +118,45 @@ static int sheepdrawing_cover_resize(liqcell *self,liqcelleventargs *args, liqce
 	float sy=((float)self->h)/((float)self->innerh);
 	
 	liqcell *label3 = liqcell_child_lookup(self, "label3");
-	liqcell *title = liqcell_child_lookup(self, "title");
+	liqcell *head = liqcell_child_lookup(self, "head");
 	liqcell *author = liqcell_child_lookup(self, "author");
 	liqcell *slidetext3 = liqcell_child_lookup(self, "slidetext3");
 	liqcell *slidetext2 = liqcell_child_lookup(self, "slidetext2");
 	liqcell *slidetext1 = liqcell_child_lookup(self, "slidetext1");
-	liqcell *cmdaccept = liqcell_child_lookup(self, "cmdaccept");
-	liqcell *label1 = liqcell_child_lookup(self, "label1");
+	liqcell *cmdconfigure = liqcell_child_lookup(self, "cmdconfigure");
+	liqcell *cmddraw = liqcell_child_lookup(self, "cmddraw");
 	liqcell_setrect_autoscale( label3, 14,446, 764,30, sx,sy);
-	liqcell_setrect_autoscale( title, 18,0, 644,80, sx,sy);
+	liqcell_setrect_autoscale( head, 18,0, 644,80, sx,sy);
 	liqcell_setrect_autoscale( author, 24,84, 696,48, sx,sy);
 	liqcell_setrect_autoscale( slidetext3, 26,308, 442,30, sx,sy);
 	liqcell_setrect_autoscale( slidetext2, 26,266, 442,30, sx,sy);
 	liqcell_setrect_autoscale( slidetext1, 26,226, 442,30, sx,sy);
-	liqcell_setrect_autoscale( cmdaccept, 516,178, 206,68, sx,sy);
-	liqcell_setrect_autoscale( label1, 516,288, 206,68, sx,sy);
+	liqcell_setrect_autoscale( cmdconfigure, 516,178, 206,68, sx,sy);
+	liqcell_setrect_autoscale( cmddraw, 516,288, 206,68, sx,sy);
 	return 0;
 }
 
 /**	
- * sheepdrawing_cover.cmdaccept clicked
+ * sheepdrawing_cover.cmdconfigure clicked
  */	
-static int cmdaccept_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_cover)
+static int cmdconfigure_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_cover)
 {
+
+	 liqcell *dialog = liqcell_quickcreatevis("sheepdrawing_configure", "sheepdrawing.sheepdrawing_configure", 0,0, -1,-1);
+	 liqcell_easyrun(dialog);
+	 liqcell_release(dialog);
+
+	return 0;
+}
+/**	
+ * sheepdrawing_cover.cmddraw clicked
+ */	
+static int cmddraw_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_cover)
+{
+	 liqcell *dialog = liqcell_quickcreatevis("sheepdrawing_run", "sheepdrawing.sheepdrawing_run", 0,0, -1,-1);
+	 liqcell_easyrun(dialog);
+	 liqcell_release(dialog);
+
 	return 0;
 }
 /**	
@@ -150,13 +166,13 @@ static int cmdaccept_click(liqcell *self,liqcellclickeventargs *args, liqcell *s
 static void sheepdrawing_cover_child_test_seek(liqcell *sheepdrawing_cover)
 {	  
 	liqcell *label3 = liqcell_child_lookup(sheepdrawing_cover, "label3");
-	liqcell *title = liqcell_child_lookup(sheepdrawing_cover, "title");
+	liqcell *head = liqcell_child_lookup(sheepdrawing_cover, "head");
 	liqcell *author = liqcell_child_lookup(sheepdrawing_cover, "author");
 	liqcell *slidetext3 = liqcell_child_lookup(sheepdrawing_cover, "slidetext3");
 	liqcell *slidetext2 = liqcell_child_lookup(sheepdrawing_cover, "slidetext2");
 	liqcell *slidetext1 = liqcell_child_lookup(sheepdrawing_cover, "slidetext1");
-	liqcell *cmdaccept = liqcell_child_lookup(sheepdrawing_cover, "cmdaccept");
-	liqcell *label1 = liqcell_child_lookup(sheepdrawing_cover, "label1");
+	liqcell *cmdconfigure = liqcell_child_lookup(sheepdrawing_cover, "cmdconfigure");
+	liqcell *cmddraw = liqcell_child_lookup(sheepdrawing_cover, "cmddraw");
 }	  
 /**	
  * create a new sheepdrawing_cover widget
@@ -180,15 +196,15 @@ liqcell *sheepdrawing_cover_create()
 	liqcell_propseti(  label3, "textalign", 2 );
 	liqcell_propseti(  label3, "textaligny", 2 );
 	liqcell_child_append(  self, label3);
-	//############################# title:label
-	liqcell *title = liqcell_quickcreatevis("title", "label", 18, 0, 644, 80);
-	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (58), 0) );
-	liqcell_setcaption(title, "sheepdrawing" );
-	liqcell_propsets(  title, "textcolor", "rgb(255,255,0)" );
-	liqcell_propsets(  title, "backcolor", "xrgb(0,0,0)" );
-	liqcell_propseti(  title, "textalign", 0 );
-	liqcell_propseti(  title, "textaligny", 0 );
-	liqcell_child_append(  self, title);
+	//############################# head:label
+	liqcell *head = liqcell_quickcreatevis("head", "label", 18, 0, 644, 80);
+	liqcell_setfont(	head, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (58), 0) );
+	liqcell_setcaption(head, "sheepdrawing" );
+	liqcell_propsets(  head, "textcolor", "rgb(255,255,0)" );
+	liqcell_propsets(  head, "backcolor", "rgb(0,0,0)" );
+	liqcell_propseti(  head, "textalign", 0 );
+	liqcell_propseti(  head, "textaligny", 0 );
+	liqcell_child_append(  self, head);
 	//############################# author:label
 	liqcell *author = liqcell_quickcreatevis("author", "label", 24, 84, 696, 48);
 	liqcell_setfont(	author, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (33), 0) );
@@ -225,27 +241,28 @@ liqcell *sheepdrawing_cover_create()
 	liqcell_propseti(  slidetext1, "textalign", 0 );
 	liqcell_propseti(  slidetext1, "textaligny", 0 );
 	liqcell_child_append(  self, slidetext1);
-	//############################# cmdaccept:label
-	liqcell *cmdaccept = liqcell_quickcreatevis("cmdaccept", "label", 516, 178, 206, 68);
-	liqcell_setfont(	cmdaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-	liqcell_setcaption(cmdaccept, "configure" );
-	liqcell_propsets(  cmdaccept, "textcolor", "rgb(255,255,255)" );
-	liqcell_propsets(  cmdaccept, "backcolor", "xrgb(0,64,0)" );
-	liqcell_propsets(  cmdaccept, "bordercolor", "rgb(255,255,255)" );
-	liqcell_propseti(  cmdaccept, "textalign", 2 );
-	liqcell_propseti(  cmdaccept, "textaligny", 2 );
-	liqcell_handleradd_withcontext(cmdaccept, "click", cmdaccept_click, self );
-	liqcell_child_append(  self, cmdaccept);
-	//############################# label1:label
-	liqcell *label1 = liqcell_quickcreatevis("label1", "label", 516, 288, 206, 68);
-	liqcell_setfont(	label1, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-	liqcell_setcaption(label1, "draw!" );
-	liqcell_propsets(  label1, "textcolor", "rgb(255,255,255)" );
-	liqcell_propsets(  label1, "backcolor", "rgb(0,64,0)" );
-	liqcell_propsets(  label1, "bordercolor", "rgb(255,255,255)" );
-	liqcell_propseti(  label1, "textalign", 2 );
-	liqcell_propseti(  label1, "textaligny", 2 );
-	liqcell_child_append(  self, label1);
+	//############################# cmdconfigure:label
+	liqcell *cmdconfigure = liqcell_quickcreatevis("cmdconfigure", "label", 516, 178, 206, 68);
+	liqcell_setfont(	cmdconfigure, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+	liqcell_setcaption(cmdconfigure, "configure" );
+	liqcell_propsets(  cmdconfigure, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  cmdconfigure, "backcolor", "xrgb(0,64,0)" );
+	liqcell_propsets(  cmdconfigure, "bordercolor", "rgb(255,255,255)" );
+	liqcell_propseti(  cmdconfigure, "textalign", 2 );
+	liqcell_propseti(  cmdconfigure, "textaligny", 2 );
+	liqcell_handleradd_withcontext(cmdconfigure, "click", cmdconfigure_click, self );
+	liqcell_child_append(  self, cmdconfigure);
+	//############################# cmddraw:label
+	liqcell *cmddraw = liqcell_quickcreatevis("cmddraw", "label", 516, 288, 206, 68);
+	liqcell_setfont(	cmddraw, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+	liqcell_setcaption(cmddraw, "draw!" );
+	liqcell_propsets(  cmddraw, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  cmddraw, "backcolor", "xrgb(0,64,0)" );
+	liqcell_propsets(  cmddraw, "bordercolor", "rgb(255,255,255)" );
+	liqcell_propseti(  cmddraw, "textalign", 2 );
+	liqcell_propseti(  cmddraw, "textaligny", 2 );
+	liqcell_handleradd_withcontext(cmddraw, "click", cmddraw_click, self );
+	liqcell_child_append(  self, cmddraw);
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	//liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/sheepdrawing/media/sheepdrawing_cover_back.png",0,0,0) );
 	liqcell_handleradd_withcontext(self, "filter", sheepdrawing_cover_filter ,self);

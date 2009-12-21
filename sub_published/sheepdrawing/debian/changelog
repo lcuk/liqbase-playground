@@ -1,6 +1,12 @@
+sheepdrawing (0.1.1) unstable; urgency=low
+
+  * silly
+
+ -- Gary Birkett <liquid@gmail.com>  Fri, 11 Dec 2009 00:42:38 +0000
+
 sheepdrawing (0.1.0) unstable; urgency=low
 
   * sheepdrawing Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 
- -- Gary Birkett <liquid@gmail.com>  Thu, 10 Dec 2009 22:08:55 +0000
+ -- Gary Birkett <liquid@gmail.com>  Fri, 11 Dec 2009 00:42:38 +0000
 

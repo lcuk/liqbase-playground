@@ -22,7 +22,7 @@ Begin VB.Form sheepdrawing_run
    ScaleHeight     =   7200
    ScaleWidth      =   12015
    StartUpPosition =   3  'Windows Default
-   Begin VB.Label Label1 
+   Begin VB.Label cmdcolor 
       Alignment       =   2  'Center
       BackColor       =   &H00004040&
       BorderStyle     =   1  'Fixed Single

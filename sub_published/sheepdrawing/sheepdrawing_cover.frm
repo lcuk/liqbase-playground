@@ -22,7 +22,7 @@ Begin VB.Form sheepdrawing_cover
    ScaleHeight     =   7200
    ScaleWidth      =   12015
    StartUpPosition =   3  'Windows Default
-   Begin VB.Label Label1 
+   Begin VB.Label cmddraw 
       Alignment       =   2  'Center
       BackColor       =   &H00004000&
       BorderStyle     =   1  'Fixed Single
@@ -43,7 +43,7 @@ Begin VB.Form sheepdrawing_cover
       Top             =   4320
       Width           =   3105
    End
-   Begin VB.Label cmdaccept 
+   Begin VB.Label cmdconfigure 
       Alignment       =   2  'Center
       BackColor       =   &H00004000&
       BorderStyle     =   1  'Fixed Single
@@ -140,7 +140,7 @@ Begin VB.Form sheepdrawing_cover
       Top             =   1260
       Width           =   10455
    End
-   Begin VB.Label title 
+   Begin VB.Label head 
       BackColor       =   &H00000000&
       Caption         =   "sheepdrawing"
       BeginProperty Font 

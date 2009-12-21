@@ -157,7 +157,7 @@ Begin VB.Form sheepdrawing_configure
       Top             =   1260
       Width           =   10455
    End
-   Begin VB.Label title 
+   Begin VB.Label head 
       BackColor       =   &H00000000&
       Caption         =   "sheepdrawing configure"
       BeginProperty Font 

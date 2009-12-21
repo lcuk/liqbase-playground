@@ -1,11 +1,12 @@
 // this file is part of liqbase by Gary Birkett
 		
 #include <liqbase/liqbase.h>
+#include <liqbase/liqapp_prefs.h>
 #include <liqbase/liqcell.h>
 #include <liqbase/liqcell_prop.h>
 #include <liqbase/liqcell_easyrun.h>
 #include <liqbase/liqcell_easyhandler.h>
-		
+
 		
 //#####################################################################
 //#####################################################################
@@ -48,8 +49,20 @@ static int sheepdrawing_configure_filter(liqcell *self,liqcellfiltereventargs *a
 /**	
  * sheepdrawing_configure widget refresh, all params set, present yourself to the user.
  */	
-static int sheepdrawing_configure_refresh(liqcell *self,liqcelleventargs *args, liqcell *context)
+static int sheepdrawing_configure_refresh(liqcell *self,liqcelleventargs *args, liqcell *sheepdrawing_configure)
 {
+	liqcell *txtpassword = liqcell_child_lookup(sheepdrawing_configure, "txtpassword");
+	liqcell *txtusername = liqcell_child_lookup(sheepdrawing_configure, "txtusername");
+	liqcell *txtthread   = liqcell_child_lookup(sheepdrawing_configure, "txtthread");
+    
+    
+
+	liqcell_setcaption(txtusername,       liqapp_pref_getvalue_def("sheepdrawing_username",  "") );
+	liqcell_setcaption(txtpassword,       liqapp_pref_getvalue_def("sheepdrawing_password",  "") );
+	liqcell_setcaption(txtthread,         liqapp_pref_getvalue_def("sheepdrawing_thread",  "") );
+
+    
+
 	return 0;
 }
 /**	
@@ -57,6 +70,7 @@ static int sheepdrawing_configure_refresh(liqcell *self,liqcelleventargs *args, 
  */	
 static int sheepdrawing_configure_dialog_open(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
+	 liqcell_handlerrun(self,"refresh",NULL);
 	 return 0;
 }
 /**	
@@ -64,6 +78,7 @@ static int sheepdrawing_configure_dialog_open(liqcell *self,liqcelleventargs *ar
  */	
 static int sheepdrawing_configure_dialog_close(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
+	 liqcell_handlerrun(self,"refresh",NULL);
 	 return 0;
 }
 /**	
@@ -71,6 +86,7 @@ static int sheepdrawing_configure_dialog_close(liqcell *self,liqcelleventargs *a
  */	
 static int sheepdrawing_configure_shown(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
+	liqcell_handlerrun(self,"refresh",NULL);
 	return 0;
 }
 /**	
@@ -101,6 +117,27 @@ static int sheepdrawing_configure_keyrelease(liqcell *self, liqcellkeyeventargs 
 {
 	return 0;
 }
+
+/**	
+ * sheepdrawing_configure.cmdaccept clicked
+ */	
+static int cmdaccept_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdrawing_configure)
+{
+    
+	liqcell *txtpassword = liqcell_child_lookup(sheepdrawing_configure, "txtpassword");
+	liqcell *txtusername = liqcell_child_lookup(sheepdrawing_configure, "txtusername");
+	liqcell *txtthread   = liqcell_child_lookup(sheepdrawing_configure, "txtthread");
+    
+	liqapp_pref_setvalue("sheepdrawing_username",liqcell_getcaption(txtusername) );
+	liqapp_pref_setvalue("sheepdrawing_password",liqcell_getcaption(txtpassword) );
+	liqapp_pref_setvalue("sheepdrawing_thread",  liqcell_getcaption(txtthread) );
+ 
+	liqapp_prefs_save();
+
+    liqcell_propseti(sheepdrawing_configure,"dialog_running",0);
+	return 0;
+}
+
 /**	
  * sheepdrawing_configure paint - being rendered.  use the vgraph held in args to do custom drawing at scale
  */	
@@ -118,7 +155,7 @@ static int sheepdrawing_configure_resize(liqcell *self,liqcelleventargs *args, l
 	float sy=((float)self->h)/((float)self->innerh);
 	
 	liqcell *label3 = liqcell_child_lookup(self, "label3");
-	liqcell *title = liqcell_child_lookup(self, "title");
+	liqcell *head = liqcell_child_lookup(self, "head");
 	liqcell *author = liqcell_child_lookup(self, "author");
 	liqcell *slidetext3 = liqcell_child_lookup(self, "slidetext3");
 	liqcell *slidetext2 = liqcell_child_lookup(self, "slidetext2");
@@ -127,7 +164,7 @@ static int sheepdrawing_configure_resize(liqcell *self,liqcelleventargs *args, l
 	liqcell *txtpassword = liqcell_child_lookup(self, "txtpassword");
 	liqcell *txtthread = liqcell_child_lookup(self, "txtthread");
 	liqcell_setrect_autoscale( label3, 14,446, 764,30, sx,sy);
-	liqcell_setrect_autoscale( title, 18,0, 780,80, sx,sy);
+	liqcell_setrect_autoscale( head, 18,0, 780,80, sx,sy);
 	liqcell_setrect_autoscale( author, 24,84, 696,48, sx,sy);
 	liqcell_setrect_autoscale( slidetext3, 32,352, 250,30, sx,sy);
 	liqcell_setrect_autoscale( slidetext2, 26,266, 256,30, sx,sy);
@@ -145,7 +182,7 @@ static int sheepdrawing_configure_resize(liqcell *self,liqcelleventargs *args, l
 static void sheepdrawing_configure_child_test_seek(liqcell *sheepdrawing_configure)
 {	  
 	liqcell *label3 = liqcell_child_lookup(sheepdrawing_configure, "label3");
-	liqcell *title = liqcell_child_lookup(sheepdrawing_configure, "title");
+	liqcell *head = liqcell_child_lookup(sheepdrawing_configure, "head");
 	liqcell *author = liqcell_child_lookup(sheepdrawing_configure, "author");
 	liqcell *slidetext3 = liqcell_child_lookup(sheepdrawing_configure, "slidetext3");
 	liqcell *slidetext2 = liqcell_child_lookup(sheepdrawing_configure, "slidetext2");
@@ -153,6 +190,7 @@ static void sheepdrawing_configure_child_test_seek(liqcell *sheepdrawing_configu
 	liqcell *txtusername = liqcell_child_lookup(sheepdrawing_configure, "txtusername");
 	liqcell *txtpassword = liqcell_child_lookup(sheepdrawing_configure, "txtpassword");
 	liqcell *txtthread = liqcell_child_lookup(sheepdrawing_configure, "txtthread");
+	liqcell *cmdaccept = liqcell_child_lookup(sheepdrawing_configure, "cmdaccept");
 }	  
 /**	
  * create a new sheepdrawing_configure widget
@@ -167,6 +205,8 @@ liqcell *sheepdrawing_configure_create()
 	// Optimization:  Minimal layers and complexity
 	// Optimization:  defaults: background, prefer nothing, will be shown through if there is a wallpaper
 	// Optimization:  defaults: text, white, very fast rendering
+
+/*
 	//############################# label3:label
 	liqcell *label3 = liqcell_quickcreatevis("label3", "label", 14, 446, 764, 30);
 	liqcell_setfont(	label3, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (19), 0) );
@@ -176,15 +216,17 @@ liqcell *sheepdrawing_configure_create()
 	liqcell_propseti(  label3, "textalign", 2 );
 	liqcell_propseti(  label3, "textaligny", 2 );
 	liqcell_child_append(  self, label3);
-	//############################# title:label
-	liqcell *title = liqcell_quickcreatevis("title", "label", 18, 0, 780, 80);
-	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (58), 0) );
-	liqcell_setcaption(title, "sheepdrawing configure" );
-	liqcell_propsets(  title, "textcolor", "rgb(255,255,0)" );
-	liqcell_propsets(  title, "backcolor", "xrgb(0,0,0)" );
-	liqcell_propseti(  title, "textalign", 0 );
-	liqcell_propseti(  title, "textaligny", 0 );
-	liqcell_child_append(  self, title);
+ */
+
+	//############################# head:label
+	liqcell *head = liqcell_quickcreatevis("head", "label", 18, 0, 780, 80);
+	liqcell_setfont(	head, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (58), 0) );
+	liqcell_setcaption(head, "sheepdrawing configure" );
+	liqcell_propsets(  head, "textcolor", "rgb(255,255,0)" );
+	liqcell_propsets(  head, "backcolor", "rgb(0,0,0)" );
+	liqcell_propseti(  head, "textalign", 0 );
+	liqcell_propseti(  head, "textaligny", 0 );
+	liqcell_child_append(  self, head);
 	//############################# author:label
 	liqcell *author = liqcell_quickcreatevis("author", "label", 24, 84, 696, 48);
 	liqcell_setfont(	author, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (33), 0) );
@@ -240,6 +282,7 @@ liqcell *sheepdrawing_configure_create()
 	liqcell_propsets(  txtpassword, "bordercolor", "rgb(255,255,255)" );
 	liqcell_propseti(  txtpassword, "textalign", 0 );
 	liqcell_propseti(  txtpassword, "textaligny", 0 );
+    liqcell_propseti(  txtpassword, "textispassword",1);
 	liqcell_child_append(  self, txtpassword);
 	//############################# txtthread:textbox
 	liqcell *txtthread = liqcell_quickcreatevis("txtthread", "textbox", 308, 346, 466, 52);
@@ -251,6 +294,21 @@ liqcell *sheepdrawing_configure_create()
 	liqcell_propseti(  txtthread, "textalign", 0 );
 	liqcell_propseti(  txtthread, "textaligny", 0 );
 	liqcell_child_append(  self, txtthread);
+	//############################# cmdaccept:label
+	liqcell *cmdaccept = liqcell_quickcreatevis("cmdaccept", "label", 594, 420, 206, 60);
+	liqcell_setfont(	cmdaccept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+	liqcell_setcaption(cmdaccept, "Save" );
+	liqcell_propsets(  cmdaccept, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  cmdaccept, "backcolor", "xrgb(0,64,0)" );
+	liqcell_propsets(  cmdaccept, "bordercolor", "rgb(255,255,255)" );
+	liqcell_propseti(  cmdaccept, "textalign", 2 );
+	liqcell_propseti(  cmdaccept, "textaligny", 2 );
+	liqcell_handleradd_withcontext(cmdaccept, "click", cmdaccept_click, self );
+	liqcell_child_append(  self, cmdaccept);	
+	
+	
+	
+	
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	//liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/sheepdrawing/media/sheepdrawing_configure_back.png",0,0,0) );
 	liqcell_handleradd_withcontext(self, "filter", sheepdrawing_configure_filter ,self);

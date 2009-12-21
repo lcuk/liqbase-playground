@@ -9,7 +9,7 @@ OPT_FLAGS = -O3
 CFLAGS		= 
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic
 RM			 = /bin/rm -f
-OBJSCORE	 = sheepdrawing_configure.o sheepdrawing_cover.o sheepdrawing_run.o
+OBJSCORE	 = colorcube.o colorpicker.o greycube.o sheepdrawing_configure.o sheepdrawing_cover.o sheepdrawing_run.o sheepdrawing_editor.o sheepdrawing_pictureselect.o sheepdrawing_picturegrid.o
 OBJS		  = $(OBJSCORE) $(PROG).o
 
 .PHONY:	  clean distclean
@@ -41,7 +41,7 @@ install:
 			 install -m 0755 sheepdrawing.so		  $(PREFIX)/share/liqbase/sheepdrawing
 			 
 			 cp -r media/*							 $(PREFIX)/share/liqbase/sheepdrawing/media
-			 
+			 install -m 0755 sheepdrawing-upload.sh				          				   $(PREFIX)/bin			 
 			 install -m 0755 base_fs/usr/bin/sheepdrawing-run.sh										 $(PREFIX)/bin
 			 install -m 0755 base_fs/usr/share/applications/hildon/sheepdrawing.desktop		  $(PREFIX)/share/applications/hildon
 			 install -m 0755 base_fs/usr/share/dbus-1/services/org.maemo.sheepdrawing.service  $(PREFIX)/share/dbus-1/services

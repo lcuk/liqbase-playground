@@ -150,11 +150,6 @@ static int cmdoptions_click(liqcell *self,liqcellclickeventargs *args, liqcell *
  */	
 static int cmdplay_click(liqcell *self,liqcellclickeventargs *args, liqcell *sheepdog_cover)
 {
-
-		liqcell *dayview = liqcell_quickcreatevis("flow", "sheepdog.sheepdog_flow", 0,0,-1,-1);
-		liqcell_easyrun(dayview);
-		liqcell_release(dayview);
-
 	return 0;
 }
 /**	

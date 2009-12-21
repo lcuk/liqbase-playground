@@ -8,5 +8,5 @@ Standards-Version: 3.7.2
 Package: sheepdrawing
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1
-Description: short description
- longer description
+Description: draw a sheep (or anything else) and send to talk.maemo.org
+ draw a sheep picture, or anything else you can think of and upload to talk.maemo.org

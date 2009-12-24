@@ -425,7 +425,7 @@ liqcell *sheepdrawing_run_create()
 	//############################# title:label
 	liqcell *title = liqcell_quickcreatevis("title", "label", 0, 0, 800, 56);
 	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-	liqcell_setcaption(title, "Draw your sheep - todo, finish upload script sheepdog-upload.sh" );
+	liqcell_setcaption(title, "Draw your sheep" );
 	liqcell_propsets(  title, "textcolor", "rgb(255,255,255)" );
 	liqcell_propsets(  title, "backcolor", "xrgb(128,128,128)" );
 	liqcell_propseti(  title, "textalign", 0 );

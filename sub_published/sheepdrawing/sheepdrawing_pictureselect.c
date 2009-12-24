@@ -181,9 +181,9 @@ static int cmdselect_click(liqcell *self,liqcelleventargs *args, liqcell *sheepd
     liqcell *sheepdrawing_picturegrid = liqcell_child_lookup(sheepdrawing_pictureselect, "sheepdrawing_picturegrid");
     
            //########## major sideways hack.  classes need declarations and header files.
-            int liqrecentphotoselect_getselectedphoto_filename(liqcell *self,char *buffer,int bufferlen);
+            int sheepdrawing_picturegrid_getselectedphoto_filename(liqcell *self,char *buffer,int bufferlen);
             char selfn[FILENAME_MAX]={0};
-            liqrecentphotoselect_getselectedphoto_filename(sheepdrawing_picturegrid,selfn,sizeof(selfn) );
+            sheepdrawing_picturegrid_getselectedphoto_filename(sheepdrawing_picturegrid,selfn,sizeof(selfn) );
 
             //liqapp_log("selimg a %s",selfn);
             
@@ -301,7 +301,7 @@ liqcell *sheepdrawing_pictureselect_create()
 	//############################# title:label
 	liqcell *title = liqcell_quickcreatevis("title", "label", 0, 0, 800, 56);
 	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
-	liqcell_setcaption(title, "select image   - todo: use hildon thumbs. hey albanc.." );
+	liqcell_setcaption(title, "select image" );
 	liqcell_propsets(  title, "textcolor", "rgb(255,255,255)" );
 	liqcell_propsets(  title, "backcolor", "xrgb(0,0,0)" );
 	liqcell_propseti(  title, "textalign", 0 );

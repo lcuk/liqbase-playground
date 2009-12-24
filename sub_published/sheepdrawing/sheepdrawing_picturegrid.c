@@ -8,7 +8,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <dirent.h>
-
+#include <liqbase/md5.h>
 #include <liqbase/liqbase.h>
 #include <liqbase/liqapp_prefs.h>
 #include <liqbase/liqcell.h>
@@ -33,6 +33,7 @@
 // use gobject and hildon to obtain a thumbnail filename...
 // requires 5 dlsym functions
 
+static void  (*g_type_init)()              = NULL;
 static char* (*g_filename_to_uri)()        = NULL;
 static char* (*g_filename_from_uri)()      = NULL; 
 static void  (*g_free)(void *)             = NULL;
@@ -40,83 +41,51 @@ static char* (*hildon_thumbnail_get_uri)() = NULL;
 static char* (*hildon_thumbnail_factory_get_instance) ()=NULL;
 
 
-int liqimage_find_thumbnail_for(char *resultbuffer,char *resultsize,char *bigimagefilename)
+int liqimage_find_thumbnail_for(char *resultbuffer,int resultsize,char *bigimagefilename)
 {
 	// turbo mode!
 	// no thumbnailing :o
-	snprintf(resultbuffer,resultsize,"%s", bigimagefilename);
-	return 0;
+	//snprintf(resultbuffer,resultsize,"%s", bigimagefilename);
+	//return 0;
 
 
-// todo - make this work.  albanc just went through this exact code with his amazing albanart patch
+	char imageuri[FILENAME_MAX+10];
+	
+	snprintf(imageuri,sizeof(imageuri),"file://%s",bigimagefilename);
+	
+	char  imageuri_md5[32+1]={0};
 
-	int result=-1;
-	if(!g_filename_to_uri || !g_filename_from_uri || !g_free || !hildon_thumbnail_get_uri)
-	{
-		liqapp_log("thumb dlloading");
-		// add them via dlsym
-		// evilness!
-		void *handle;
-		handle = dlopen ("/usr/lib/libglib-2.0.so.0", RTLD_LAZY);
-		if(handle)
+		struct cvs_MD5Context context;
+		unsigned char checksum[16];
+		cvs_MD5Init (&context);
+		cvs_MD5Update (&context, (unsigned char *)imageuri, strlen (imageuri));
+		cvs_MD5Final (checksum, &context);
+		int i;
+		for (i = 0; i < 16; i++)
 		{
-			liqapp_log("thumb getting glib");
-			g_filename_to_uri =   dlsym(handle, "g_filename_to_uri");
-			g_filename_from_uri = dlsym(handle, "g_filename_from_uri");
-			g_free =              dlsym(handle, "g_free");
-			dlclose(handle);
+			snprintf (&imageuri_md5[i*2],3, "%02x", (unsigned int) checksum[i]);
+			//printf ("%02x  %i", (unsigned int) checksum[i],i);
 		}
-		else
-			liqapp_log("thumb glib error %s",dlerror());
+		imageuri_md5[32]=0;
 		
-		handle = dlopen ("/usr/lib/libhildonthumbnail.so.0", RTLD_LAZY);
-		if(handle)
-		{
-			liqapp_log("thumb getting hildon");
-			hildon_thumbnail_get_uri = dlsym(handle, "hildon_thumbnail_get_uri");
-			hildon_thumbnail_factory_get_instance = dlsym(handle, "hildon_thumbnail_factory_get_instance");
-			if(hildon_thumbnail_factory_get_instance)
-			{
-				// just run this once to initialize
-				// it will likely land me on my butt in future!
-				hildon_thumbnail_factory_get_instance();
-			}
-
-			dlclose(handle);
-		}		
-		else
-			liqapp_log("thumb hildon error %s",dlerror());
-	}
-	if(g_filename_to_uri && g_filename_from_uri && g_free && hildon_thumbnail_get_uri)
+	//liqapp_log("liqimage_find_thumbnail_for: checking for '%s' %s",imageuri_md5,imageuri);
+	
+	char thumbpath[ FILENAME_MAX ];
+	
+	snprintf(thumbpath,sizeof(thumbpath),"%s/.thumbnails/cropped/%s.jpeg",app.homepath,imageuri_md5);
+	
+	
+	if(liqapp_fileexists(thumbpath))
 	{
+		// thumb exists
+		snprintf(resultbuffer,resultsize,"%s", thumbpath);
+		return 0;
 		
-		liqapp_log("thumb lookup 1 big.fil='%s'",bigimagefilename);
-		
-		char *bigimage_uri =   g_filename_to_uri(        bigimagefilename, NULL, NULL);
-
-		liqapp_log("thumb lookup 1 big.uri='%s'",bigimage_uri);
-
-		char *thumbnail_uri =  hildon_thumbnail_get_uri( bigimage_uri, 160, 96, TRUE);
-
-		liqapp_log("thumb lookup 1 thu.uri='%s'",thumbnail_uri);
-
-		char *thumbnail_file = g_filename_from_uri(      thumbnail_uri, NULL, NULL);
-
-		liqapp_log("thumb lookup 1 thu.fil='%s'",thumbnail_file);
-
-
-		if(thumbnail_file)
-		{
-			liqapp_log("thumb got");
-		    snprintf(resultbuffer,resultsize,"%s", thumbnail_file);
-		    result=0;
-		}
-		
-		g_free((void*)thumbnail_file);
-		g_free((void*)thumbnail_uri);
-		g_free((void*)bigimage_uri);
 	}
-	return result;
+	// thumb does not exist
+	// lets not waste time (argggg)
+	//snprintf(resultbuffer,resultsize,"%s", bigimagefilename);
+	return -1;
 
 }
 
@@ -318,7 +287,7 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 					// ignore it if not
 					char imagethumb[ FILENAME_MAX ];
 					
-					int liqimage_find_thumbnail_for(char *resultbuffer,char *resultsize,char *bigimagefilename);
+					//int liqimage_find_thumbnail_for(char *resultbuffer,int resultsize,char *bigimagefilename);
 					
 					if( liqimage_find_thumbnail_for(imagethumb,sizeof(imagethumb),fn) == 0 )
 					{
@@ -342,6 +311,7 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 						liqcell *c = liqcell_quickcreatevis(pickey,   "picture",   1,1,1,1    );
 						liqcell_propseti(c,"lockaspect",1);
 						liqcell_propsets(c,"imagefilename",imagethumb);
+						//liqcell_propsets(c,"imagelargefilename",fn);
 						liqcell_setcaption(c,fn);
 						
 						liqcell_handleradd(c,    "click",         sheepdrawing_picturegrid_item_click);
@@ -464,8 +434,9 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 			}
 			c=liqcell_getlinknext_visual(c);
 		}
-		liqcell_setrect(body,   0,0,self->w,self->h);
-		liqcell_child_arrange_makegrid(body,3,3);
+		liqcell_handlerrun(self,"layout",NULL);
+		//liqcell_setrect(body,   0,0,self->w,self->h);
+		//liqcell_child_arrange_makegrid(body,4,4);
 
 		return 1;
 		
@@ -497,7 +468,8 @@ static int sheepdrawing_picturegrid_layout(liqcell *self,liqcelleventargs *args,
 	
 		// make a normal grid
 		liqcell_setrect( body, 0, 0, liqcell_getw(self),liqcell_geth(self) );
-		liqcell_child_arrange_makegrid(body,3,3);
+		
+		liqcell_child_arrange_makegrid(body,6,4);
 
 	return 0;
 }

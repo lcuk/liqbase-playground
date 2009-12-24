@@ -7,6 +7,28 @@
 #include <liqbase/liqcell_easyrun.h>
 #include <liqbase/liqcell_easyhandler.h>
 
+
+
+static liqimage *buttonback = NULL;
+
+/**	
+ * button paint - being rendered.  use the vgraph held in args to do custom drawing at scale
+ */	
+static int button_paint(liqcell *self, liqcellpainteventargs *args,liqcell *context)
+{
+	// big heavy event, use sparingly
+	if(!buttonback) buttonback = liqimage_cache_getfile("/usr/share/liqbase/sheepdrawing/media/greybox.png");
+	if(buttonback)
+	{
+		// ok, we have the image
+		// we must do 9 blits (gulp!)
+		// the old method uses 1 blit
+		
+		
+	}
+	return 0;
+}
+
 		
 //#####################################################################
 //#####################################################################

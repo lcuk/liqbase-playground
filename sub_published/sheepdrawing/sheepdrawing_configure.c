@@ -17,8 +17,8 @@ static liqimage *buttonback = NULL;
 static int button_paint(liqcell *self, liqcellpainteventargs *args,liqcell *context)
 {
 	// big heavy event, use sparingly
-	if(!buttonback) buttonback = liqimage_cache_getfile("/usr/share/liqbase/sheepdrawing/media/greybox.png");
-	if(buttonback)
+	//if(!buttonback) buttonback = liqimage_cache_getfile("/usr/share/liqbase/sheepdrawing/media/greybox.png",0,0,0);
+	//if(buttonback)
 	{
 		// ok, we have the image
 		// we must do 9 blits (gulp!)

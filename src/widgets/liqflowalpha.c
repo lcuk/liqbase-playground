@@ -403,7 +403,7 @@ moo:
 		
 		if(starsketch)
         {
-            size = 40;// 5 + (20*r);
+            size = 20;// 5 + (20*r);
             int hsize = size >> 1;
             
             liqstroke *s = starsketch->strokefirst;
@@ -765,6 +765,13 @@ liqcell *liqflowalpha_create()
 		//############################# timer1:liqtimer
 		liqcell *starx=liqcell_quickcreatevis("starx",   "sketch",   0,0,   0,0 );
         //liqcell_setsketch(starx,liqsketch_newfromfile("/usr/share/liqbase/media/star.sketch"));
+		
+		liqcell_setsketch(starx,liqsketch_newfromfile("/home/user/.liqbase/sketches/liq.20091224_191547.user.page"));
+		
+		//liqcell_setsketch(starx,liqsketch_newfromfile("/home/user/.liqbase/sketches/liq.20091224_191620.user.page"));
+		
+		//
+		
         liqcell_setimage( starx,liqimage_cache_getfile( "/usr/share/liqbase/media/blob.png",0,0,1));
        liqcell_setvisible(starx,0);
     liqcell_child_append(  self, starx);

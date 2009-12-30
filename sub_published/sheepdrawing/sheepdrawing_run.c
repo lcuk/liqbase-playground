@@ -332,8 +332,13 @@ static int cmdselect_click(liqcell *self,liqcellclickeventargs *args, liqcell *s
 	liqcell *cmdcolor = liqcell_child_lookup(sheepdrawing_run, "cmdcolor");
 
 
+liqcell_setvisible(backplane,0);
+
 	 liqcell *dialog = liqcell_quickcreatevis("sheepdrawing_run", "sheepdrawing.sheepdrawing_pictureselect", 0,0, -1,-1);
 	 liqcell_easyrun(dialog);
+	 
+	 
+
 
 
             // process dialog results      
@@ -351,7 +356,12 @@ static int cmdselect_click(liqcell *self,liqcellclickeventargs *args, liqcell *s
             }
  
 
+
 	 liqcell_release(dialog);
+
+
+liqcell_setvisible(backplane,1);
+
 	return 0;
 }
 /**	

@@ -469,8 +469,17 @@ static int sheepdrawing_picturegrid_layout(liqcell *self,liqcelleventargs *args,
 		// make a normal grid
 		liqcell_setrect( body, 0, 0, liqcell_getw(self),liqcell_geth(self) );
 		
-		liqcell_child_arrange_makegrid(body,6,4);
+		liqcell_child_arrange_makegrid(body,5,3);
 
+	return 0;
+}
+
+/**	
+ * sheepdrawing_picturegrid dynamic resizing
+ */	
+static int sheepdrawing_picturegrid_resize(liqcell *self,liqcelleventargs *args, liqcell *context)
+{
+	liqcell_handlerrun(self,"layout",NULL);
 	return 0;
 }
 
@@ -513,6 +522,9 @@ liqcell *sheepdrawing_picturegrid_create()
 		
 		
 		liqcell_handlerrun(self,"layout",NULL);
+		
+		
+		liqcell_handleradd_withcontext(self, "resize", sheepdrawing_picturegrid_resize ,self);
 		
 
 		int cnt=0;

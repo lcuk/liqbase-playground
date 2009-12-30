@@ -196,7 +196,8 @@ static int cmdselect_click(liqcell *self,liqcelleventargs *args, liqcell *sheepd
             }           
 
     
-    liqcell_setvisible(sheepdrawing_pictureselect,0);
+   // liqcell_setvisible(sheepdrawing_pictureselect,0);
+	liqcell_propseti(sheepdrawing_pictureselect,"dialog_running",0);
 	return 0;
 }
 /**	

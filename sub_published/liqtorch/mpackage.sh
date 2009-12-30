@@ -5,6 +5,9 @@
 find . -print0 | xargs -r0 touch
 chmod +x debian/rules
 fakeroot dpkg-buildpackage -i -I.git
-# for updating from 810
-# scp gary@10.0.0.10:/scratchbox/users/gary/home/gary/svn/liqtorch_0.1.0_armel.deb ~
-# dpkg -i liqtorch_0.1.0_armel.deb
+
+
+# for updating from scratchbox to my personal device
+scp ../liqtorch_0.1.6_armel.deb root@10.0.0.8:/root/liqtorch_0.1.6_armel.deb
+ssh root@10.0.0.8 "dpkg -i liqtorch_0.1.6_armel.deb"
+

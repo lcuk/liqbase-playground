@@ -36,6 +36,22 @@ install:
 			 
 			 mkdir -p									$(PREFIX)/share/liqbase
 			 mkdir -p									$(PREFIX)/share/liqbase/liqflow/media
+
+	mkdir -p															$(PREFIX)
+	mkdir -p															$(PREFIX)/share
+	mkdir -p															$(PREFIX)/share/icons
+	mkdir -p															$(PREFIX)/share/icons/hicolor
+	mkdir -p															$(PREFIX)/share/icons/hicolor/scalable
+	mkdir -p															$(PREFIX)/share/icons/hicolor/scalable/apps
+	mkdir -p															$(PREFIX)/share/icons/hicolor/26x26
+	mkdir -p															$(PREFIX)/share/icons/hicolor/26x26/apps
+	mkdir -p															$(PREFIX)/share/icons/hicolor/48x48
+	mkdir -p															$(PREFIX)/share/icons/hicolor/48x48/apps
+
+	install -m 0755  base_fs/usr/share/icons/hicolor/26x26/apps/liqflow.png 				$(PREFIX)/share/icons/hicolor/26x26/apps/liqflow.png
+	install -m 0755  base_fs/usr/share/icons/hicolor/48x48/apps/liqflow.png 				$(PREFIX)/share/icons/hicolor/48x48/apps/liqflow.png
+	install -m 0755  base_fs/usr/share/icons/hicolor/scalable/apps/liqflow.png 				$(PREFIX)/share/icons/hicolor/scalable/apps/liqflow.png
+
 			 
 			 install -m 0755 liqflow			  $(PREFIX)/share/liqbase/liqflow
 			 install -m 0755 liqflow.so		  $(PREFIX)/share/liqbase/liqflow

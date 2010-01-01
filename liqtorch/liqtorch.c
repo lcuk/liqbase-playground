@@ -210,6 +210,8 @@ int main (int argc, char* argv[])
 		  { return liqapp_errorandfail(-1,"liqtorch liqapp_init failed"); }
 	 }
 	 liqcell *self = liqtorch_create();
+     // remove tools button :)
+     liqcell_propseti(self,"easyrun_hidetools",1);
 	 liqcell_easyrun_internal(self);
 	 liqcell_release(self);
 	 liqapp_close();

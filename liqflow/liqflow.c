@@ -31,6 +31,8 @@ int main (int argc, char* argv[])
 		  { return liqapp_errorandfail(-1,"liqflow liqapp_init failed"); }
 	 }
 	 liqcell *self = liqcell_quickcreatevis("liqflow_cover1", "liqflow_cover", 0,0, -1,-1);
+     // remove tools button :)
+     liqcell_propseti(self,"easyrun_hidetools",1);
 	 liqcell_easyrun_internal(self);
 	 liqcell_release(self);
 	 liqapp_close();

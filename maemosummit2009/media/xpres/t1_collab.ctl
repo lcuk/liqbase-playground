@@ -17,6 +17,26 @@ Begin VB.UserControl t1_collab
    ForeColor       =   &H00808080&
    ScaleHeight     =   5760
    ScaleWidth      =   12015
+   Begin VB.Label Label2 
+      BackColor       =   &H00000000&
+      Caption         =   "http://code.google.com/p/onedotzero-ident/"
+      BeginProperty Font 
+         Name            =   "Trebuchet MS"
+         Size            =   15.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   465
+      Left            =   510
+      TabIndex        =   6
+      Top             =   4410
+      UseMnemonic     =   0   'False
+      Width           =   6975
+   End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackColor       =   &H00000000&
@@ -48,7 +68,7 @@ Begin VB.UserControl t1_collab
    End
    Begin VB.Label slidetext3 
       BackColor       =   &H00000000&
-      Caption         =   "Wieden and Kennedy & Karsten Shmidt"
+      Caption         =   "Wieden+Kennedy & Karsten Schmidt"
       BeginProperty Font 
          Name            =   "Trebuchet MS"
          Size            =   15.75
@@ -62,7 +82,7 @@ Begin VB.UserControl t1_collab
       Height          =   465
       Left            =   510
       TabIndex        =   3
-      Top             =   4080
+      Top             =   3630
       UseMnemonic     =   0   'False
       Width           =   6975
    End
@@ -82,7 +102,7 @@ Begin VB.UserControl t1_collab
       Height          =   465
       Left            =   510
       TabIndex        =   2
-      Top             =   3180
+      Top             =   2880
       Width           =   6975
    End
    Begin VB.Label slidetext1 
@@ -99,9 +119,9 @@ Begin VB.UserControl t1_collab
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   465
-      Left            =   480
+      Left            =   510
       TabIndex        =   1
-      Top             =   2280
+      Top             =   2130
       Width           =   6975
    End
    Begin VB.Label slidetitle 

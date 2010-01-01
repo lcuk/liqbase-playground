@@ -58,7 +58,7 @@ Begin VB.UserControl s3
    End
    Begin VB.Label Label4 
       BackColor       =   &H00000000&
-      Caption         =   "Innovative performance hack - hyperspace"
+      Caption         =   "Innovative performance hack"
       BeginProperty Font 
          Name            =   "Trebuchet MS"
          Size            =   15.75
@@ -77,7 +77,7 @@ Begin VB.UserControl s3
    End
    Begin VB.Label Label2 
       BackColor       =   &H00000000&
-      Caption         =   "Built from the ground up"
+      Caption         =   "Built from the ground up in the community"
       BeginProperty Font 
          Name            =   "Trebuchet MS"
          Size            =   15.75

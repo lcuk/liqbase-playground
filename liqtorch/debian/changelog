@@ -1,3 +1,9 @@
+liqtorch (0.1.6) unstable; urgency=low
+
+  * removed rocket
+
+ -- Gary Birkett <liquid@gmail.com>  31 October 2009 10:05:41 +0000
+
 liqtorch (0.1.5) unstable; urgency=low
 
   * bug fix for click event

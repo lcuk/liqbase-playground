@@ -17,7 +17,11 @@
 #include <liqbase/liqcell_easyhandler.h>
 
 
-
+					//char imagethumb[ FILENAME_MAX ];
+					//if( liqimage_find_thumbnail_for(imagethumb,sizeof(imagethumb),fn) == 0 )
+					//{
+						// w00t!   (hello btw)
+					//}
 
 static int monitor_run(liqcell *context);
 
@@ -25,56 +29,35 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 {
 	// using the magical autothumb function, create a thumbnail from the filename
 	
-	char tmp[FILENAME_MAX]={0};
+	//char tmp[FILENAME_MAX]={0};
 	
-	strncpy(tmp,bigfilename,sizeof(tmp));
-	liqapp_ensurecleanusername(tmp);
+	//strncpy(tmp,bigfilename,sizeof(tmp));
+	//liqapp_ensurecleanusername(tmp);
 	
 	char thumbfn[FILENAME_MAX]={0};
 	
-	snprintf(thumbfn,sizeof(thumbfn),"%s/thumbs/%s",app.userdatapath,tmp);
+	//snprintf(thumbfn,sizeof(thumbfn),"%s/thumbs/%s",app.userdatapath,tmp);
+	
+	if( liqimage_find_thumbnail_for_2(thumbfn,sizeof(thumbfn),bigfilename) == 0 )
+	{
+		// got one!
+	}
+	else
+	{
+		thumbfn[0] = 0;
+	}
 	
 	liqapp_log("autothumb '%s'",thumbfn);
-	if(!liqapp_fileexists(thumbfn))
+	if(thumbfn[0] && !liqapp_fileexists(thumbfn))
 	{
-		//liqapp_log("autothumb '%s' no thumb yet",thumbfn);
-		// must create a thumb
-			//################################## load in a thumbnail of the image
-			liqimage *imgfull = liqcell_getimage(self);   //bigimagepreloaded;//liqimage_newfromfile(bigfilename,0,0,1);
-			if(imgfull)
-			{
-				//liqapp_log("autothumb '%s' has big image, thumbnailing",thumbfn);
-				liqimage *imgthumb = liqimage_getthumbnail(imgfull,128,64);
-				if(imgthumb)
-				{
-					//liqapp_log("autothumb '%s' made a thumb!",thumbfn);
-					//################################## save it 
-					
-					if(liqimage_pagesavepng(imgthumb,thumbfn))
-					{
-						liqapp_log("autothumb_getthumb: could not store thumb buffer as: '%s'",thumbfn);
-						liqimage_release(imgthumb);
-						return NULL;
-					}
-					
-					//liqapp_log("autothumb '%s' setting thumb",thumbfn);
-					
-					liqcell_propsets(self,"imagefilenamebig",bigfilename);
-					
-					liqcell_setimage(self,imgthumb);
-					return 0;
-					
-					//return imgthumb;
-					//liqimage_release(imgthumb);
-				}
-				//liqimage_release(imgfull);
-			}
-			else
+		liqapp_log("autothumb '%s' no thumb yet",thumbfn);
+
 			{
 				// no thumbnail available, and nothing to work from, lets just wait
 				return -1;
 			}
 	}
+	
 	
 	liqapp_log("autothumb '%s' loading",thumbfn);
 	
@@ -477,23 +460,32 @@ static int liqrecentmedia_additem(liqcell *self,char *path)
 				  )
 				{
  
-
-					liqcell *c = liqcell_quickcreatevis(pickey,   "picture",   1,1,1,1    );
-					liqcell_propseti(c,"lockaspect",1);
-					liqcell_propsets(c,"imagefilename",fn);
-					//liqcell_handleradd(c,    "mouse",   widget_mouse);
-					liqcell_handleradd(c,    "click",   widget_click);
-					liqcell_handleradd(c,    "shown",   liqrecentmedia_item_shown);
-					liqcell_handleradd(c,    "imageloaded",   liqrecentmedia_item_imageloaded);
-
-					liqcell_handleradd_withcontext(c, "dialog_open", liqrecentmedia_item_dialog_open ,self);
-					liqcell_handleradd_withcontext(c, "dialog_close", liqrecentmedia_item_dialog_close ,self);
-
-
-
-					liqcell_child_insertsortedbyname( body, c,0);
-
-
+ 
+					char thumbfn[FILENAME_MAX]={0};
+					
+					//snprintf(thumbfn,sizeof(thumbfn),"%s/thumbs/%s",app.userdatapath,tmp);
+					
+					if( liqimage_find_thumbnail_for_2(thumbfn,sizeof(thumbfn),fn) == 0 )
+					{
+						// got one!
+	
+	
+						liqcell *c = liqcell_quickcreatevis(pickey,   "picture",   1,1,1,1    );
+						liqcell_propseti(c,"lockaspect",1);
+						liqcell_propsets(c,"imagefilename",fn);
+						//liqcell_handleradd(c,    "mouse",   widget_mouse);
+						liqcell_handleradd(c,    "click",   widget_click);
+						liqcell_handleradd(c,    "shown",   liqrecentmedia_item_shown);
+						liqcell_handleradd(c,    "imageloaded",   liqrecentmedia_item_imageloaded);
+	
+						liqcell_handleradd_withcontext(c, "dialog_open", liqrecentmedia_item_dialog_open ,self);
+						liqcell_handleradd_withcontext(c, "dialog_close", liqrecentmedia_item_dialog_close ,self);
+	
+	
+	
+						liqcell_child_insertsortedbyname( body, c,0);
+				
+					}
 
 
 				}
@@ -633,18 +625,20 @@ liqcell *liqrecentmedia_create()
 
 
 			char buf[FILENAME_MAX];		
-			//							snprintf(buf,sizeof(buf),"%s/MyDocs/.images",app.homepath);
-			//liqcell_scan_folder_for_images(self,buf);
+										snprintf(buf,sizeof(buf),"%s/MyDocs/.images",app.homepath);
+			liqcell_scan_folder_for_images(self,buf);
 	
 			//							snprintf(buf,sizeof(buf),"%s/MyDocs/.camera",app.homepath);
 			//liqcell_scan_folder_for_images(self,buf);
 	
-			//							snprintf(buf,sizeof(buf),"%s/MyDocs/DCIM",app.homepath);
-			//liqcell_scan_folder_for_images(self,buf);
-            
-	
-										snprintf(buf,sizeof(buf),"%s/MyDocs",app.homepath);
+										snprintf(buf,sizeof(buf),"%s/MyDocs/DCIM",app.homepath);
 			liqcell_scan_folder_for_images(self,buf);
+            
+										snprintf(buf,sizeof(buf),"%s/MyDocs/sheepdrawing",app.homepath);
+			liqcell_scan_folder_for_images(self,buf);
+	
+			//							snprintf(buf,sizeof(buf),"%s/MyDocs",app.homepath);
+			//liqcell_scan_folder_for_images(self,buf);
                         
                                         snprintf(buf,sizeof(buf),"%s/sketches",app.userdatapath);
             liqcell_scan_folder_for_images(self,buf);

@@ -69,7 +69,7 @@ static int monitor_run(liqcell *context);
 		
 		liqcell_setsketch(top, mysketch );
 		
-		liqcell_propseti(top,"autorotate",1);
+		//liqcell_propseti(top,"autorotate",1);
 		
 		
 		args->newdialogtoopen = top;
@@ -415,7 +415,7 @@ liqcell *liqrecentsketches_create()
 	{
 	//	liqcell_propsets(  self, "backcolor", "rgb(255,255,255)" );
 
-		liqcell_propseti(self,"autorotate",1);
+		//liqcell_propseti(self,"autorotate",1);
 
 
 		char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/sketches",app.userdatapath);

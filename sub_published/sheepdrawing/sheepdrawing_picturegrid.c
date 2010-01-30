@@ -25,20 +25,6 @@
 #define TRUE -1
 
 //#####################################################################
-//##################################################################### use glib and hildon to find correct thumbnail
-//##################################################################### perhaps the most evil way to get these functions possible!
-//##################################################################### breaks lots i know...
-//#####################################################################
-
-// use gobject and hildon to obtain a thumbnail filename...
-// requires 5 dlsym functions
-
-static void  (*g_type_init)()              = NULL;
-static char* (*g_filename_to_uri)()        = NULL;
-static char* (*g_filename_from_uri)()      = NULL; 
-static void  (*g_free)(void *)             = NULL;
-static char* (*hildon_thumbnail_get_uri)() = NULL;
-static char* (*hildon_thumbnail_factory_get_instance) ()=NULL;
 
 
 int liqimage_find_thumbnail_for(char *resultbuffer,int resultsize,char *bigimagefilename)
@@ -199,6 +185,7 @@ int liqimage_find_thumbnail_for(char *resultbuffer,int resultsize,char *bigimage
 	static int sheepdrawing_picturegrid_item_click(liqcell *self, liqcellclickeventargs *args, void *context)
 	{
         liqcell *p=liqcell_getlinkparent(self);
+		// unselect existing
         liqcell *c=liqcell_getlinkchild_visual(p);
         while(c)
         {

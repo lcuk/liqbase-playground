@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.maemo.liqmic
+Exec=/usr/bin/liqmic-run.sh

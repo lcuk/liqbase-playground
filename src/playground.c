@@ -15,7 +15,48 @@
 #include <liqbase/liqcell_easyhandler.h>
 
 
-int playground_editable=0;
+extern int liqcell_easyrun_fingerpressed;
+
+int playground_editable=1;
+
+int liqcell_child_arrange_addgravity(liqcell *self,liqcell *currentselection)
+{
+	int aax=0;
+	int aay=0;
+	int aaz=0;
+	
+	liqaccel_read(&aax,&aay,&aaz);
+	
+	#define ff 0.008
+	#define dt 0.2
+	float fax=ff * (float)aax;
+	float fay=ff * (float)aay;
+	float faz=ff * (float)aaz;
+	
+	
+	liqcell *c=liqcell_getlinkchild(self);
+	while(c)
+	{
+		if(liqcell_getvisible(c))
+		{
+			if(c != currentselection)
+			{
+				c->x -= fax;
+				c->y -= fay;
+				liqcell_forceinboundparent(c);
+			}
+		}
+		c=liqcell_getlinknext(c);
+	}
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -471,7 +512,11 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
 		int liqcell_child_arrange_nooverlap(liqcell *self,liqcell *currentselection);
 		int liqcell_child_arrange_gapfill(liqcell *self,liqcell *currentselection);
 
+
+		//liqcell_child_arrange_addgravity( liqcell_getlinkparent(self) ,self );
+
 		liqcell_child_arrange_nooverlap( liqcell_getlinkparent(self), self );
+		//liqcell_child_arrange_gapfill( liqcell_getlinkparent(self), self );
 
     
 		return 1;
@@ -566,7 +611,23 @@ int liqcell_filter_run(liqcell *c,char *searchterm)
 					//liqcell_propseti(self,"arrangecomplete",1);
                 }
 		}
-    */	
+    */
+	
+		if(! liqcell_easyrun_fingerpressed )
+		{
+			liqcell *body = liqcell_child_lookup(self,"body");
+			if(!playground_editable) return 1;
+
+
+
+			//liqcell_child_arrange_addgravity( body ,NULL);
+			liqcell_child_arrange_nooverlap( body, NULL );
+			
+			liqcell_setdirty(self,1);
+
+		}
+
+
 		return 0;
 	}
 
@@ -680,8 +741,8 @@ liqcell *playground_create()
 
 
 
-        liqcell_propseti(body,"liqcell_child_arrange_nooverlap_minimumw",80);
-        liqcell_propseti(body,"liqcell_child_arrange_nooverlap_minimumh",48);
+        liqcell_propseti(body,"liqcell_child_arrange_nooverlap_minimumw",self->w / 8);
+        liqcell_propseti(body,"liqcell_child_arrange_nooverlap_minimumh",self->h / 5);
 
 
 

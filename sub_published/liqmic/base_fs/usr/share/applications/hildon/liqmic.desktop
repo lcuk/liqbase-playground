@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqmic
+Exec=/usr/bin/liqmic-run.sh
+Type=Application
+Icon = liqmic
+x-Window-Icon = liqmic
+x-Window-Icon-Dimmed = liqmic
+StartupWMClass=liqmic
+X-Osso-Service=org.maemo.liqmic
+X-Osso-Type=application/x-executable
+StartupNotify=false

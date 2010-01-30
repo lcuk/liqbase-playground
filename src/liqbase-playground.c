@@ -314,6 +314,7 @@ int main (int argc, char* argv[])
 	{
 		//if(args->mez>0) return;
 		// we only want mouseup
+		liqapp_log("argkat_m");
 
 		//liqcell_easyrun( liqcell_getlinkancestor( self ) );
 
@@ -479,7 +480,8 @@ liqcell *widgetrecent=NULL;
 				}
 
 				//! Add the handlers
-				//liqcell_handleradd(e,    "mouse",   widget_mouse);
+				liqapp_log("argkat1");
+				liqcell_handleradd(e,    "mouse",   widget_mouse);
 				liqcell_handleradd(e,    "click",   widget_click);
 				
 				liqcell_child_insert( mirror,  e);

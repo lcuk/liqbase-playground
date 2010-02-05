@@ -159,11 +159,11 @@ liqcell *liqflow_cover_create()
 	// Optimization:  defaults: background, prefer nothing, will be shown through if there is a wallpaper
 	// Optimization:  defaults: text, white, very fast rendering
 	//############################# slidepreview:label
-	liqcell *slidepreview = liqcell_quickcreatevis("slidepreview", "label", 492, 204, 240, 204);
-	liqcell_setfont(	slidepreview, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
-	liqcell_setcaption(slidepreview, "" );
-	liqcell_propsets(  slidepreview, "textcolor", "rgb(0,0,0)" );
-	liqcell_propsets(  slidepreview, "backcolor", "rgb(64,64,64)" );
+	liqcell *slidepreview = liqcell_quickcreatevis("slidepreview", "label", 492, 204, 240, 100);
+	//liqcell_setfont(	slidepreview, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+	//liqcell_setcaption(slidepreview, "" );
+	//liqcell_propsets(  slidepreview, "textcolor", "rgb(0,0,0)" );
+	liqcell_propsets(  slidepreview, "backcolor", "rgb(32,64,64)" );
 	liqcell_propseti(  slidepreview, "textalign", 0 );
 	liqcell_propseti(  slidepreview, "textaligny", 0 );
 	
@@ -173,8 +173,28 @@ liqcell *liqflow_cover_create()
 		 liqcell_propseti(slidepreview,"lockaspect",1);
 		 liqcell_handleradd_withcontext(slidepreview, "click", liqcell_easyhandler_content_zoom_click, self );
 	}
-	
 	liqcell_child_append(  self, slidepreview);
+	
+	
+	//############################# slideconfig:label
+	liqcell *slideconfig = liqcell_quickcreatevis("slideconfig", "label", 492, 304, 240, 100);
+	//liqcell_setfont(	slideconfig, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+	//liqcell_setcaption(slideconfig, "" );
+	//liqcell_propsets(  slideconfig, "textcolor", "rgb(0,0,0)" );
+	liqcell_propsets(  slideconfig, "backcolor", "rgb(64,64,64)" );
+	liqcell_propseti(  slideconfig, "textalign", 0 );
+	liqcell_propseti(  slideconfig, "textaligny", 0 );
+	
+	{
+		 liqcell *x = liqcell_quickcreatevis("liqflow_run1", "liqflow_config", 0,0,-1,-1);
+		 liqcell_setcontent(slideconfig,x);
+		 liqcell_propseti(slideconfig,"lockaspect",1);
+		 liqcell_handleradd_withcontext(slideconfig, "click", liqcell_easyhandler_content_zoom_click, self );
+	}
+	liqcell_child_append(  self, slideconfig);
+	
+	
+
 	//############################# slidetext1:label
 	liqcell *slidetext1 = liqcell_quickcreatevis("slidetext1", "label", 42, 234, 442, 30);
 	liqcell_setfont(	slidetext1, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (19), 0) );

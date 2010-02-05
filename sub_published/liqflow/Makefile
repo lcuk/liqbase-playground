@@ -9,7 +9,7 @@ OPT_FLAGS = -O3
 CFLAGS		= 
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic
 RM			 = /bin/rm -f
-OBJSCORE	 = liqflow_cover.o liqflow_run.o
+OBJSCORE	 = liqflow_cover.o liqflow_run.o liqflow_config.o
 OBJS		  = $(OBJSCORE) $(PROG).o
 
 .PHONY:	  clean distclean

@@ -17,6 +17,8 @@
 #include <liqbase/liqcell_easyhandler.h>
 
 
+
+
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <dlfcn.h>
@@ -26,54 +28,6 @@
 
 //#####################################################################
 
-
-int liqimage_find_thumbnail_for(char *resultbuffer,int resultsize,char *bigimagefilename)
-{
-	// turbo mode!
-	// no thumbnailing :o
-	//snprintf(resultbuffer,resultsize,"%s", bigimagefilename);
-	//return 0;
-
-
-	char imageuri[FILENAME_MAX+10];
-	
-	snprintf(imageuri,sizeof(imageuri),"file://%s",bigimagefilename);
-	
-	char  imageuri_md5[32+1]={0};
-
-		struct cvs_MD5Context context;
-		unsigned char checksum[16];
-		cvs_MD5Init (&context);
-		cvs_MD5Update (&context, (unsigned char *)imageuri, strlen (imageuri));
-		cvs_MD5Final (checksum, &context);
-		int i;
-		for (i = 0; i < 16; i++)
-		{
-			snprintf (&imageuri_md5[i*2],3, "%02x", (unsigned int) checksum[i]);
-			//printf ("%02x  %i", (unsigned int) checksum[i],i);
-		}
-		imageuri_md5[32]=0;
-		
-	//liqapp_log("liqimage_find_thumbnail_for: checking for '%s' %s",imageuri_md5,imageuri);
-	
-	char thumbpath[ FILENAME_MAX ];
-	
-	snprintf(thumbpath,sizeof(thumbpath),"%s/.thumbnails/cropped/%s.jpeg",app.homepath,imageuri_md5);
-	
-	
-	if(liqapp_fileexists(thumbpath))
-	{
-		// thumb exists
-		snprintf(resultbuffer,resultsize,"%s", thumbpath);
-		return 0;
-		
-	}
-	// thumb does not exist
-	// lets not waste time (argggg)
-	//snprintf(resultbuffer,resultsize,"%s", bigimagefilename);
-	return -1;
-
-}
 
 
 //#####################################################################
@@ -273,8 +227,6 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 					// what i need to know is if this image has a thumbnail
 					// ignore it if not
 					char imagethumb[ FILENAME_MAX ];
-					
-					//int liqimage_find_thumbnail_for(char *resultbuffer,int resultsize,char *bigimagefilename);
 					
 					if( liqimage_find_thumbnail_for(imagethumb,sizeof(imagethumb),fn) == 0 )
 					{

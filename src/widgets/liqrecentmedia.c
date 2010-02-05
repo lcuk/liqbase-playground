@@ -38,7 +38,7 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 	
 	//snprintf(thumbfn,sizeof(thumbfn),"%s/thumbs/%s",app.userdatapath,tmp);
 	
-	if( liqimage_find_thumbnail_for_2(thumbfn,sizeof(thumbfn),bigfilename) == 0 )
+	if( liqimage_find_thumbnail_for(thumbfn,sizeof(thumbfn),bigfilename) == 0 )
 	{
 		// got one!
 	}
@@ -465,7 +465,7 @@ static int liqrecentmedia_additem(liqcell *self,char *path)
 					
 					//snprintf(thumbfn,sizeof(thumbfn),"%s/thumbs/%s",app.userdatapath,tmp);
 					
-					if( liqimage_find_thumbnail_for_2(thumbfn,sizeof(thumbfn),fn) == 0 )
+					if( liqimage_find_thumbnail_for(thumbfn,sizeof(thumbfn),fn) == 0 )
 					{
 						// got one!
 	

@@ -270,7 +270,7 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 					// different!  reload mighty image
 					liqcell_propsets(self,"imagefilename",myimgnamebig);
 					//liqcell_propremoves(self,"imagefilenamebig");
-					liqcell_threadloadimage(self,myimgnamebig);
+					liqcell_threadloadimage(self);
 				}				
 			}
 		}
@@ -472,14 +472,21 @@ static int liqrecentmedia_additem(liqcell *self,char *path)
 	
 						liqcell *c = liqcell_quickcreatevis(pickey,   "picture",   1,1,1,1    );
 						liqcell_propseti(c,"lockaspect",1);
-						liqcell_propsets(c,"imagefilename",fn);
+						
+						
+
+						liqcell_propsets(c,"imagefilenamebig",fn);
+						liqcell_propsets(c,"imagefilename",thumbfn);
+					
+						
+						//liqcell_propsets(c,"imagefilename",fn);
 						//liqcell_handleradd(c,    "mouse",   widget_mouse);
 						liqcell_handleradd(c,    "click",   widget_click);
-						liqcell_handleradd(c,    "shown",   liqrecentmedia_item_shown);
-						liqcell_handleradd(c,    "imageloaded",   liqrecentmedia_item_imageloaded);
+						//liqcell_handleradd(c,    "shown",   liqrecentmedia_item_shown);
+						//liqcell_handleradd(c,    "imageloaded",   liqrecentmedia_item_imageloaded);
 	
-						liqcell_handleradd_withcontext(c, "dialog_open", liqrecentmedia_item_dialog_open ,self);
-						liqcell_handleradd_withcontext(c, "dialog_close", liqrecentmedia_item_dialog_close ,self);
+						//liqcell_handleradd_withcontext(c, "dialog_open", liqrecentmedia_item_dialog_open ,self);
+						//liqcell_handleradd_withcontext(c, "dialog_close", liqrecentmedia_item_dialog_close ,self);
 	
 	
 	

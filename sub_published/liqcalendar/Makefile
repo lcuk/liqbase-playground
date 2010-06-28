@@ -9,7 +9,7 @@ OPT_FLAGS = -O3
 CFLAGS		= 
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic
 RM			 = /bin/rm -f
-OBJSCORE	 = liqcalendar_dayview.o liqui_toolbar.o liqcalendar_dayedit.o
+OBJSCORE	 = liqcalendar_dayview.o liqui_toolbar.o
 OBJS		  = $(OBJSCORE) $(PROG).o
 
 .PHONY:	  clean distclean

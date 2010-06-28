@@ -94,12 +94,12 @@ static int liqcalendar_dayview_dialog_close(liqcell *self,liqcelleventargs *args
 				liqsketch_filesave( sketch, fn );
 
 
-			//liqcell *notes = liqcell_child_lookup(editor,"notes");
-			//char *key = liqcell_getcaption(notes);
+			liqcell *notes = liqcell_child_lookup(editor,"notes");
+			char *key = liqcell_getcaption(notes);
 
 				
 				// hijack this from liqtop
-				//post_to_liqbase_net(fn,key,0);
+				post_to_liqbase_net(fn,key,0);
 			}
 			
 		}
@@ -138,8 +138,7 @@ liqcell *liqcalendar_dayview_create()
 	liqcell_child_append(  self, titlebox);
 	
 	//############################# editor:liqtop
-	//liqcell *editor = liqcell_quickcreatevis("editor", "liqsketchedit", 0, 46, 800, 434);
-	liqcell *editor = liqcell_quickcreatevis("editor", "liqcalendar_dayedit", 0, 46, 800, 434);
+	liqcell *editor = liqcell_quickcreatevis("editor", "liqsketchedit", 0, 46, 800, 434);
 	//liqcell_propsets(  editor, "bordercolor", "rgb(200,100,100)" );
 	//liqcell_setfont(	label6, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (10), 0) );
 	//liqcell_setcaption(label6, "appointments list" );

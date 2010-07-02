@@ -651,7 +651,8 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 			c=liqcell_getlinknext_visual(c);
 		}
 		liqcell_setrect(body,   0,0,self->w,self->h);
-		liqcell_child_arrange_makegrid(body,3,3);
+		//liqcell_child_arrange_makegrid(body,3,3);
+		liqcell_handlerrun(self,"layout",NULL);
 		//liqcell_propseti(self,"arrangecomplete",0);
 		//liqcell_propseti(body,"easytileflyisfinished",0);
 
@@ -685,7 +686,7 @@ static int liqrecentphotos_layout(liqcell *self,liqcelleventargs *args, liqcell 
 	
 		// make a normal grid
 		liqcell_setrect( body, 0, 0, liqcell_getw(self),liqcell_geth(self) );
-		liqcell_child_arrange_makegrid(body,3,3);
+		liqcell_child_arrange_makegrid(body,5,3);
 		
 //### use only if title in use
 		

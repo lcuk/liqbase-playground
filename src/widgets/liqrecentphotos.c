@@ -34,6 +34,11 @@ static int monitor_run(liqcell *context);
 
 
 
+/*
+ // completely remove this autothumb business for now
+ // we have a decent thumbnailerd (some of the time at least)
+ // using the system thumbs improves first time ux drastically :)
+
 int autothumb_getthumb(liqcell *self,char *bigfilename)
 {
 	// using the magical autothumb function, create a thumbnail from the filename
@@ -99,6 +104,7 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 	//return liqimage_newfromfile(thumbfn,0,0,1);
 }
 
+*/
 	
 //#####################################################################
 //#####################################################################
@@ -159,6 +165,12 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 	*/	
 	static int liqrecentphotos_item_dialog_open(liqcell *self,liqcelleventargs *args, liqcell *context)
 	{
+		/*
+		 // this will need to return in working form soon
+		 // though it will be replaced by opening liqmap on the filename :)
+		 // which will be uber cool
+		 // perhaps have liqmap come up on the original style footer menus
+		 
 		char *myimgnamebig = liqcell_propgets(self,"imagefilenamebig",NULL);
 		if(myimgnamebig && *myimgnamebig)
 		{
@@ -181,6 +193,7 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 				}				
 			}
 		}
+		*/
 				
 	   return 0;
 	}
@@ -190,6 +203,7 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 	*/	
 	static int liqrecentphotos_item_dialog_close(liqcell *self,liqcelleventargs *args, liqcell *context)
 	{
+		/*
 		char *myimgnamebig = liqcell_propgets(self,"imagefilenamebig",NULL);
 		if(myimgnamebig && *myimgnamebig)
 		{
@@ -209,6 +223,7 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 				}				
 			}
 		}
+		*/
 	   return 0;
 	}
 
@@ -233,42 +248,8 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 	
 	static int liqrecentphotos_item_imageloaded(liqcell *self, liqcelleventargs *args, void *context)
 	{
-		// this occurs when the laxy loader has finished loading the image for this item
-		liqapp_log("item loaded");
-		liqimage *myimg = liqcell_getimage(self);
-		if(myimg && liqcell_propgets(self,"imagefilenamebig",NULL)==NULL)
-		{
-			
-			
-			
-			
-			liqapp_log("item loaded, we loaded the full image, but we want the thumbnail");
-			// the image assigned should be the BIG image
-			// shall we throw it away and replace it with a thumb?
-			// seems awfully wasted
-			char *myimgname = liqcell_propgets(self,"imagefilename",NULL);
-			if(myimgname && *myimgname)
-			{
-				liqapp_log("item loaded, got its filename");
-			
-				if(liqcell_propgeti(self,"imageisthumb",0) ==0)
-				{
-					liqapp_log("item loaded, its not a thumb yet");
-					// this is not a thumbnail
-					autothumb_getthumb(self,myimgname);
-					/*
-					if(thumb)
-					{
-						liqapp_log("item loaded, we got a thumb!");
-						// replace the large image with a thumb :)
-						liqcell_setimage(self,thumb);
-						liqcell_propseti(self,"imageisthumb",1);
-					}
-					*/
-				}
-
-			}
-		}
+		// this occurs when the lazy loader has finished loading the image for this item
+		return 0;
 	}
 
 	//##########################################################################
@@ -278,26 +259,7 @@ int autothumb_getthumb(liqcell *self,char *bigfilename)
 	static int liqrecentphotos_item_shown(liqcell *self, liqcelleventargs *args, void *context)
 	{
 		liqapp_log("item shown");
-		liqimage *myimg = liqcell_getimage(self);
-		if(!myimg)
-		{
-			liqapp_log("item shown, no img yet");
-			char *myimgname = liqcell_propgets(self,"imagefilename",NULL);
-			if(myimgname && *myimgname)
-			{
-				liqapp_log("item shown got filename though");
-				autothumb_getthumb(self,myimgname);
-				/*
-				if(thumb)
-				{
-					liqapp_log("item shown, got a thumb!");
-					// take a short cut!
-					liqcell_setimage(self,thumb);
-					liqcell_propseti(self,"imageisthumb",1);
-				}
-				*/
-			}
-		}
+		return 0;
 	}
 
 
@@ -526,6 +488,21 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 				
 				{
 					
+					
+					
+					// what i need to know is if this image has a thumbnail
+					// ignore it if not
+					char imagethumb[ FILENAME_MAX ];
+					
+					//int liqimage_find_thumbnail_for(char *resultbuffer,int resultsize,char *bigimagefilename);
+					
+					if( liqimage_find_thumbnail_for(imagethumb,sizeof(imagethumb),fn) == 0 )
+					{
+						// w00t!   (hello btw)
+					
+					
+					
+										
 						struct tm     *pictm;
 						pictm = localtime(&statbuf.st_mtime);
 						char   picdate[64];
@@ -538,18 +515,18 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 
 						liqcell *c = liqcell_quickcreatevis(pickey,   "picture",   1,1,1,1    );
 						liqcell_propseti(c,"lockaspect",1);
-						liqcell_propsets(c,"imagefilename",fn);
+						liqcell_propsets(c,"imagefilename",imagethumb);
 						//liqcell_handleradd(c,    "mouse",   widget_mouse);
 						liqcell_handleradd(c,    "shown",         liqrecentphotos_item_shown);
 						liqcell_handleradd(c,    "click",         liqrecentphotos_item_click);
-						liqcell_handleradd(c,    "imageloaded",   liqrecentphotos_item_imageloaded);
+					//	liqcell_handleradd(c,    "imageloaded",   liqrecentphotos_item_imageloaded);
 						liqcell_handleradd_withcontext(c, "dialog_open", liqrecentphotos_item_dialog_open ,self);
 						liqcell_handleradd_withcontext(c, "dialog_close", liqrecentphotos_item_dialog_close ,self);
 
 
 						liqcell_child_insertsortedbyname( body, c, 0 );
 
-
+					}
 
 
 				}

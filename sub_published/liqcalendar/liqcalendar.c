@@ -413,13 +413,6 @@ liqcell *liqcalendar_create()
 	if(self)
 	{
 
-		liqcell *meta = mkmeta_group(
-							mkmeta_title(        "liqcalendar"),
-							mkmeta_description(  "a dynamic hand drawn wall calander"),
-							mkmeta_author(       "liquid@gmail.com"),
-							mkmeta_version(      "1.0"),
-							NULL);
-
 
 		//! create toolbar
 		liqcell *tbar = uitoolcol_create("tools","tools",

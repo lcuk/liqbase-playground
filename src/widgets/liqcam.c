@@ -178,6 +178,23 @@ liqcell *liqsketchedit_create(char *name,int l,int t,int w,int h)
 		liqcell *c = (liqcell *)CAMtag;
 		liqcell_setdirty(c,1);
 	}
+	
+/**	
+ * liqcam.destroy
+ */	
+static int liqcam_destroy(liqcell *self,liqcellclickeventargs *args, liqcell *liqcam)
+{
+	// we must stop the camera!
+	// technically we could change this to:
+	// we should decrement the counter of users of this camera source
+	// that way, multiple apps can see the same data
+	liqapp_log("liqcam_destroy hmm1");
+	liqcamera_stop();
+	liqapp_log("liqcam_destroy hmm2");
+	return 0;
+}
+	
+
 
 
 liqcell *liqcam_create()
@@ -222,7 +239,8 @@ liqcell *liqcam_create()
 		
 		liqcell_child_insert( self, r );
 
-		
+		liqcell_handleradd_withcontext(self, "destroy", liqcam_destroy ,self);
+			
 
 		
 	}

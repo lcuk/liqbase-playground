@@ -207,23 +207,26 @@ static int cmdpicchoose_click(liqcell *self,liqcelleventargs *args, liqcell *liq
 
             //int liqrecentphotos_setselectedphoto_filename(liqcell *self,char *buffer,int bufferlen);
 
-            liqcell_setimage( picfront,NULL );
             
+			
+		
 			liqcell_easyrun(oneedit);
-            
-            
-
-   
-     
+			//liqapp_log("eep?");
             
             char *selfn=liqcell_propgets(  oneedit, "imagefilenameselected",NULL );
             
+			
+			//liqapp_log("hmm %s",selfn);
             if( selfn && *selfn )
-            {     
+            {
+	            liqcell_setimage( picfront,NULL );
+				//liqapp_log("hmm2 %s",selfn);
                 liqcell_propsets(  picfront, "imagefilename", selfn  );               
             }           
                 
 			liqcell_release(oneedit);
+			
+			liqcell_setdirty(self,1);
 		}
         
         
@@ -507,15 +510,15 @@ liqcell *liqpostcard_create()
     
     
     //########## major sideways hack.  classes need declarations and header files.
-    int liqrecentphotoselect_getfirstphoto(liqcell *self,char *buffer,int bufferlen);
+    int dialog_selectimage_getfirstphoto_filename(liqcell *self,char *buffer,int bufferlen);
     char selfn[FILENAME_MAX]={0};
-    liqcell *liqrecentphotoselect = liqcell_quickcreatevis("liqrecentphotoselect1", "liqpostcard.liqrecentphotoselect", 0, 0, -1,-1);
-    liqrecentphotoselect_getfirstphoto_filename(liqrecentphotoselect,selfn,sizeof(selfn) );
+    liqcell *dialog_selectimage = liqcell_quickcreatevis("liqpostcard.choose","dialog_selectimage",0,0,-1,-1);
+    dialog_selectimage_getfirstphoto_filename(dialog_selectimage,selfn,sizeof(selfn) );
     if(selfn && *selfn)
     {
         liqcell_propsets(  picfront, "imagefilename", selfn  );
     }
-    liqcell_release(liqrecentphotoselect);
+    liqcell_release(dialog_selectimage);
     
     
     

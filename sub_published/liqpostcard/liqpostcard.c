@@ -430,6 +430,7 @@ liqcell *liqpostcard_create()
 	liqcell_propsets(  cmdmessagedraw, "backcolor", "xrgb(0,0,64)" );
 	liqcell_propsets(  cmdmessagedraw, "bordercolor", "rgb(255,255,255)" );
 	liqcell_propseti(  cmdmessagedraw, "textalign", 2 );
+	liqcell_propseti(  cmdmessagedraw, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdmessagedraw, "click", cmdmessagedraw_click, self );
 	liqcell_child_append(  self, cmdmessagedraw);
     
@@ -441,6 +442,7 @@ liqcell *liqpostcard_create()
 	liqcell_propsets(  cmdpicchoose, "backcolor", "xrgb(0,0,64)" );
 	liqcell_propsets(  cmdpicchoose, "bordercolor", "rgb(255,255,255)" );
 	liqcell_propseti(  cmdpicchoose, "textalign", 2 );
+	liqcell_propseti(  cmdpicchoose, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdpicchoose, "click", cmdpicchoose_click, self );
 	liqcell_child_append(  self, cmdpicchoose);
     
@@ -452,6 +454,7 @@ liqcell *liqpostcard_create()
 	liqcell_propsets(  cmdsend, "backcolor", "xrgb(0,64,0)" );
 	liqcell_propsets(  cmdsend, "bordercolor", "rgb(255,255,255)" );
 	liqcell_propseti(  cmdsend, "textalign", 2 );
+	liqcell_propseti(  cmdsend, "textaligny", 2 );
     liqcell_setenabled(  cmdsend, 0 );
 	liqcell_handleradd_withcontext(cmdsend, "click", cmdsend_click, self );
 	liqcell_child_append(  self, cmdsend);
@@ -504,6 +507,7 @@ liqcell *liqpostcard_create()
 	liqcell_propsets(  cmdconfigure, "backcolor", "xrgb(0,64,0)" );
 	liqcell_propsets(  cmdconfigure, "bordercolor", "rgb(255,255,255)" );
 	liqcell_propseti(  cmdconfigure, "textalign", 2 );
+	liqcell_propseti(  cmdconfigure, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdconfigure, "click", cmdconfigure_click, self );
 	liqcell_child_append(  self, cmdconfigure);
 

@@ -316,6 +316,7 @@ liqcell *liqpostcard_config_create()
 	liqcell_propsets(  cmdsend, "backcolor", "xrgb(0,64,0)" );
 	liqcell_propsets(  cmdsend, "bordercolor", "rgb(255,255,255)" );
 	liqcell_propseti(  cmdsend, "textalign", 2 );
+	liqcell_propseti(  cmdsend, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdsend, "click", cmdsend_click, self );
 	liqcell_child_append(  self, cmdsend);
 

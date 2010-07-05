@@ -22,7 +22,7 @@
 
 #include <liqbase/liqapp_prefs.h>
 
-
+#include <liqbase/liqaccel.h>
 
 typedef struct
 {
@@ -60,53 +60,6 @@ typedef struct
 //#########################################################################################
 //######################################################################################### touch
 //#########################################################################################
-	static int ocnt=0;
-	static int oax=0;
-	static int oay=0;
-	static int oaz=0;
-	
-	static int accel_fat=0;
-
-
-static const char *accel_filename = "/sys/class/i2c-adapter/i2c-3/3-001d/coord";
-static int accel_read(int *ax,int *ay,int *az)
-{
-	FILE *fd;
-	int rs;
-	fd = fopen(accel_filename, "r");
-	if(fd==NULL){ liqapp_log("accel, cannot open for reading"); return -1;}	
-	rs=fscanf((FILE*) fd,"%i %i %i",ax,ay,az);	
-	//rc=fgets(result, resultmaxlength, (FILE*) fd);
-	fclose(fd);	
-	if(rs != 3){ liqapp_log("accel, cannot read information"); return -2;}
-
-
-
-	
-	
-	if(ocnt>0)
-	{
-		int dx = *ax-oax;
-		int dy = *ay-oay;
-		int dz = *az-oaz;
-		int fat = ABS(dx)+ABS(dy)+ABS(dz);
-		if(accel_fat>0)
-		{
-			accel_fat = accel_fat * 0.8;
-		}
-		if(accel_fat<0)accel_fat=0;
-		accel_fat += fat;
-	}
-	oax=*ax;
-	oay=*ay;
-	oaz=*az;
-	ocnt++;
-	
-	
-	
-	return 0;
-}
-
 
 
 
@@ -165,7 +118,7 @@ static void star_calc(STAR *stars,vgraph *graph,liqsketch *sketch, int drawwidth
 	int aay=0;
 	int aaz=0;
 	
-	accel_read(&aax,&aay,&aaz);
+	liqaccel_read(&aax,&aay,&aaz);
 	
 	#define ff 0.08
 	float fax=ff * (float)aax;
@@ -176,6 +129,7 @@ static void star_calc(STAR *stars,vgraph *graph,liqsketch *sketch, int drawwidth
 	// 10000 == vigerous shake
     //     0 == still
     
+	int accel_fat=liqaccel_getfat();
 	float r=   0.01 * ((float)accel_fat);
 	//liqapp_log("af %5i %3.2f",accel_fat,r);
 

@@ -49,7 +49,7 @@ liqcell *liqflow_config_create()
 			liqcell *body = liqcell_quickcreatewidget("body","frame", 800,480);
 			
 			liqcell_child_append( body,  uititlebar_create(   "config", "liqflow config", "Make a customised liqflow" ) );	
-			liqcell_child_append( body,  uiinfobar_create(    "Fill in the required details") );
+			liqcell_child_append( body,  uiinfobar_create(    "info", "Fill in the required details") );
 
 			liqcell_child_append( body,  uitextbox_create(    "title", "Fluid motion" ) );
 			//liqcell_child_append( body,  uitextbox_create(    "nickname", "lcuk" ) );

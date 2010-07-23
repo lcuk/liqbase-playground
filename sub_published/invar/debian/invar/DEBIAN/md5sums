@@ -1,0 +1,11 @@
+1ad32d85098dd8c63fe412621abd64df  usr/share/dbus-1/services/org.maemo.invar.service
+b21ca0cb55548a24514b8b8566d8b9cc  usr/share/doc/invar/changelog.gz
+7d825ce1ac857c19fa14d38b99db2177  usr/share/doc/invar/copyright
+e99c4a225f5fbb6f76e9d4f5816ecea0  usr/share/icons/hicolor/scalable/apps/invar.png
+a7df3b2e9afa5e21428fb207b772a059  usr/share/applications/hildon/invar.desktop
+7d7ee4efe0f5dbf236fe9bd6a03627c4  usr/share/liqbase/invar/invar
+e99c4a225f5fbb6f76e9d4f5816ecea0  usr/share/liqbase/invar/media/invar.png
+a14b4b1d34a977187cebc9238f98b8b9  usr/share/liqbase/invar/media/readme
+1107049a324b3883f32a8374faccd6c2  usr/share/liqbase/invar/media/invar_config.imgsurface.png
+4b76e777f9921493c01e30c504d38c58  usr/share/liqbase/invar/invar.so
+46b0fe3b396c40ec894dc8debbe9dfee  usr/bin/invar-run.sh

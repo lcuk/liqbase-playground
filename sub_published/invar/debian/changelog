@@ -1,0 +1,6 @@
+invar (0.1.0) unstable; urgency=low
+
+  * invar Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Gary Birkett <liquid@gmail.com>  Thu, 22 Jul 2010 23:34:12 +0000
+

@@ -170,12 +170,12 @@ int liqmapzoom_changeimagefilename(liqcell *liqmapzoom,char *imagefilename)
 				
 				if(p1 && p2 && p1->x==p2->x && p1->y==p2->y)
 				{
-					// now replease p2 with the previous one again
+					// now replase p2 with the previous one again
 						p2 = p2->linkprev;
 				}
 				if(p1 && p2 && p1->x==p2->x && p1->y==p2->y)
 				{
-					// now replease p2 with the previous one again
+					// now replase p2 with the previous one again
 						p2 = p2->linkprev;
 				}
 				

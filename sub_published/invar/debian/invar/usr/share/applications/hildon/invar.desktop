@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=invar
+Exec=/usr/bin/invar-run.sh
+Type=Application
+Icon = invar
+x-Window-Icon = invar
+x-Window-Icon-Dimmed = invar
+StartupWMClass=invar
+X-Osso-Service=org.maemo.invar
+X-Osso-Type=application/x-executable
+StartupNotify=false

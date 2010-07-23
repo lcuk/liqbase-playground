@@ -48,7 +48,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/liqbase
-	$(MAKE) DESTDIR=$(CURDIR)/debian/liqmap install
+	$(MAKE) DESTDIR=$(CURDIR)/debian/invar install
 
 
 # Build architecture-independent files here.

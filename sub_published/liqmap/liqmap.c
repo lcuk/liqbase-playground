@@ -225,8 +225,7 @@ static int cmdchange_click(liqcell *self,liqcellclickeventargs *args, liqcell *l
                 int liqmapzoom_changeimagefilename(liqcell *liqmapzoom,char *imagefilename);
                 
                 liqmapzoom_changeimagefilename(liqmapzoom1,selfn);
-                
-                
+
                 liqcell_setcaption(title, liqapp_filename_walkoverpath( selfn ) );
             }
             

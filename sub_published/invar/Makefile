@@ -1,4 +1,4 @@
-PROG = liqmap
+PROG = invar
 
 VERS		  = 0.1.0
 ETCDIR		= $(DESTDIR)/etc
@@ -9,7 +9,7 @@ OPT_FLAGS = -O3
 CFLAGS		= 
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic
 RM			 = /bin/rm -f
-OBJSCORE	 = liqmapzoom.o
+OBJSCORE	 = invar_calibrate.o invar_config.o invar_rawview.o invar_run.o
 OBJS		  = $(OBJSCORE) $(PROG).o
 
 .PHONY:	  clean distclean
@@ -31,35 +31,32 @@ install:
 			 install -d								 $(PREFIX)/share/applications/hildon
 			 install -d								 $(PREFIX)/share/dbus-1/services
 			 install -d								 $(PREFIX)/share/liqbase
-			 install -d								 $(PREFIX)/share/liqbase/liqmap
-			 install -d								 $(PREFIX)/share/liqbase/liqmap/media
+			 install -d								 $(PREFIX)/share/liqbase/invar
+			 install -d								 $(PREFIX)/share/liqbase/invar/media
 			 
 			 mkdir -p									$(PREFIX)/share/liqbase
-			 mkdir -p									$(PREFIX)/share/liqbase/liqmap/media
+			 mkdir -p									$(PREFIX)/share/liqbase/invar/media
 			 
-			 install -m 0755 liqmap			  $(PREFIX)/share/liqbase/liqmap
-			 install -m 0755 liqmap.so		  $(PREFIX)/share/liqbase/liqmap
+			 install -m 0755 invar			  $(PREFIX)/share/liqbase/invar
+			 install -m 0755 invar.so		  $(PREFIX)/share/liqbase/invar
 			 
-			 cp -r media/*							 $(PREFIX)/share/liqbase/liqmap/media
+			 cp -r media/*							 $(PREFIX)/share/liqbase/invar/media
 			 
-			 install -m 0755 base_fs/usr/bin/liqmap-run.sh										 $(PREFIX)/bin
-			 install -m 0755 base_fs/usr/share/applications/hildon/liqmap.desktop		  $(PREFIX)/share/applications/hildon
-			 install -m 0755 base_fs/usr/share/dbus-1/services/org.maemo.liqmap.service  $(PREFIX)/share/dbus-1/services
-			 install -m 0755 base_fs/etc/osso-backup/applications/liqmap.conf				$(ETCDIR)/osso-backup/applications
+			 install -m 0755 base_fs/usr/bin/invar-run.sh										 $(PREFIX)/bin
+			 install -m 0755 base_fs/usr/share/applications/hildon/invar.desktop		  $(PREFIX)/share/applications/hildon
+			 install -m 0755 base_fs/usr/share/dbus-1/services/org.maemo.invar.service  $(PREFIX)/share/dbus-1/services
+			 install -m 0755 base_fs/etc/osso-backup/applications/invar.conf				$(ETCDIR)/osso-backup/applications
 			 mkdir -p																				$(PREFIX)
 			 mkdir -p																				$(PREFIX)/share
 			 mkdir -p																				$(PREFIX)/share/icons
 			 mkdir -p																				$(PREFIX)/share/icons/hicolor
 			 mkdir -p																				$(PREFIX)/share/icons/hicolor/scalable
 			 mkdir -p																				$(PREFIX)/share/icons/hicolor/scalable/apps
-			 install -m 0755  liqmap.png													$(PREFIX)/share/icons/hicolor/scalable/apps/liqmap.png
+			 install -m 0755  invar.png													$(PREFIX)/share/icons/hicolor/scalable/apps/invar.png
 			 
 			 
 			 
 			 
-			 
-			 
-					 
 			 
 			 
 			 

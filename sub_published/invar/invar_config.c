@@ -58,6 +58,8 @@ static int invar_config_refresh(liqcell *self,liqcelleventargs *args, liqcell *c
 		liqcell_propsets(  imgsurface, "imagefilename", NULL );
 	liqcell_setimage(imgsurface,NULL);
 	
+	liqcell_setdirty(self,1);
+	
 	return 0;
 }
 /**	
@@ -191,6 +193,9 @@ static int cmdsurfaceselect_click(liqcell *self,liqcellclickeventargs *args, liq
  */	
 static int cmdsurfacereset_click(liqcell *self,liqcellclickeventargs *args, liqcell *invar_config)
 {
+	liqapp_pref_setvalue("invar_surface", "/usr/share/liqbase/invar/media/invar_config.imgsurface.png" );
+	liqapp_prefs_save();
+	liqcell_handlerrun(invar_config,"refresh",NULL);
 	return 0;
 }
 /**	
@@ -268,6 +273,7 @@ liqcell *invar_config_create()
 	liqcell_propsets(  cmdcalibrate, "bordercolor", "rgb(255,255,255)" );
 	liqcell_propseti(  cmdcalibrate, "textalign", 2 );
 	liqcell_propseti(  cmdcalibrate, "textaligny", 2 );
+	liqcell_setenabled(cmdcalibrate, 0);
 	liqcell_handleradd_withcontext(cmdcalibrate, "click", (void*)cmdcalibrate_click, self );
 	liqcell_child_append(  self, cmdcalibrate);
 	//############################# imgsurface:image

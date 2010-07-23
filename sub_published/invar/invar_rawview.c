@@ -62,11 +62,14 @@ static void cam_picturetaken(void *CAMtag)
 		
 		float x = -((270.0 - (float)hotspot_hitx) / 140.0 * 1600.0);
 		float y = -((170.0 - (float)hotspot_hity) / 120.0 * 960.0);
-		//float w = (float)(liqimage_getwidth(datamap)) * (float)hotspot_hitsize / 20.0;
-		//float h = (float)(liqimage_getheight(datamap)) * (float)hotspot_hitsize / 20.0;
+		float w = (float)(liqcell_getw(self)*3) * (float)hotspot_hitsize / 40.0;
+		float h = (float)(liqcell_geth(self)*3) * (float)hotspot_hitsize / 40.0;
+		
+		//liqapp_log()
 		
 		
 		liqcell_setpos(datamap,(int)x,(int)y);
+		//liqcell_setrect(datamap,(int)(x-w/2),(int)(y-h/2),(int)w,(int)h);
 	}
 
 
@@ -85,7 +88,25 @@ static void cam_picturetaken(void *CAMtag)
 }
 
 
+/**	
+ * invar.refresh
+ */	
+static int invar_refresh(liqcell *self,liqcellclickeventargs *args, liqcell *liqcam)
+{
+	liqcell *datamap = liqcell_child_lookup(self, "datamap");
+	
+			char *t =  liqapp_pref_getvalue_def("invar_surface", "/usr/share/liqbase/invar/media/invar_config.imgsurface.png");
+			if(t && *t)
+				liqcell_propsets(  datamap, "imagefilename", t );
+	liqcell_setimage(datamap,NULL);
+	
+	liqcell_setdirty(self,1);				
 
+			
+	//
+	return 0;
+}
+	
 
 /**	
  * invar.destroy
@@ -150,6 +171,7 @@ liqcell *invar_rawview_create()
 			liqcameraface_start(CAM_W,CAM_H,25,cam2,cam_picturetaken,self);
 
 			liqcell_handleradd_withcontext(self, "destroy", invar_destroy ,self);
+			liqcell_handleradd_withcontext(self, "refresh", invar_refresh ,self);
 		
 	}
 	return self;

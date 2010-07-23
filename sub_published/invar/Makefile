@@ -9,7 +9,7 @@ OPT_FLAGS = -O3
 CFLAGS		= 
 LDFLAGS	  = -lm -lliqbase -Wl,-export-dynamic
 RM			 = /bin/rm -f
-OBJSCORE	 = invar_calibrate.o invar_config.o invar_rawview.o invar_run.o
+OBJSCORE	 = invar_calibrate.o invar_config.o invar_host.o invar_rawview.o invar_run.o liqbase_about.o
 OBJS		  = $(OBJSCORE) $(PROG).o
 
 .PHONY:	  clean distclean

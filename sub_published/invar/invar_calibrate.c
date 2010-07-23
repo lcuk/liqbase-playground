@@ -223,16 +223,7 @@ liqcell *invar_calibrate_create()
 	liqcell_propseti(  label3, "textalign", 2 );
 	liqcell_propseti(  label3, "textaligny", 2 );
 	liqcell_child_append(  self, label3);
-	//############################# cmdbottomleft:label
-	liqcell *cmdbottomleft = liqcell_quickcreatevis("cmdbottomleft", "label", 102, 334, 144, 64);
-	liqcell_setfont(	cmdbottomleft, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
-	liqcell_setcaption(cmdbottomleft, "bottom left" );
-	liqcell_propsets(  cmdbottomleft, "textcolor", "rgb(255,255,255)" );
-	liqcell_propsets(  cmdbottomleft, "backcolor", "xrgb(64,0,0)" );
-	liqcell_propseti(  cmdbottomleft, "textalign", 2 );
-	liqcell_propseti(  cmdbottomleft, "textaligny", 2 );
-	liqcell_handleradd_withcontext(cmdbottomleft, "click", (void*)cmdbottomleft_click, self );
-	liqcell_child_append(  self, cmdbottomleft);
+
 	//############################# cmdsave:label
 	liqcell *cmdsave = liqcell_quickcreatevis("cmdsave", "label", 574, 418, 226, 62);
 	liqcell_setfont(	cmdsave, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
@@ -254,6 +245,18 @@ liqcell *invar_calibrate_create()
 	liqcell_propseti(  title, "textalign", 0 );
 	liqcell_propseti(  title, "textaligny", 0 );
 	liqcell_child_append(  self, title);
+	
+	
+	
+	//############################# lblbackground:label
+	liqcell *lblbackground = liqcell_quickcreatevis("lblbackground", "label", 98, 130, 586, 272);
+	liqcell_setfont(	lblbackground, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
+	liqcell_setcaption(lblbackground, "Label4" );
+	liqcell_propsets(  lblbackground, "textcolor", "rgb(0,0,0)" );
+	liqcell_propsets(  lblbackground, "backcolor", "rgb(235,233,237)" );
+	liqcell_propseti(  lblbackground, "textalign", 0 );
+	liqcell_propseti(  lblbackground, "textaligny", 0 );
+	liqcell_child_append(  self, lblbackground);
 	//############################# cmdbottomright:label
 	liqcell *cmdbottomright = liqcell_quickcreatevis("cmdbottomright", "label", 536, 334, 144, 64);
 	liqcell_setfont(	cmdbottomright, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
@@ -284,6 +287,18 @@ liqcell *invar_calibrate_create()
 	liqcell_propseti(  cmdtopright, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdtopright, "click", (void*)cmdtopright_click, self );
 	liqcell_child_append(  self, cmdtopright);
+	//############################# cmdbottomleft:label
+	liqcell *cmdbottomleft = liqcell_quickcreatevis("cmdbottomleft", "label", 102, 334, 144, 64);
+	liqcell_setfont(	cmdbottomleft, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (22), 0) );
+	liqcell_setcaption(cmdbottomleft, "bottom left" );
+	liqcell_propsets(  cmdbottomleft, "textcolor", "rgb(255,255,255)" );
+	liqcell_propsets(  cmdbottomleft, "backcolor", "xrgb(64,0,0)" );
+	liqcell_propseti(  cmdbottomleft, "textalign", 2 );
+	liqcell_propseti(  cmdbottomleft, "textaligny", 2 );
+	liqcell_handleradd_withcontext(cmdbottomleft, "click", (void*)cmdbottomleft_click, self );
+	liqcell_child_append(  self, cmdbottomleft);
+	
+	
 	//############################# label2:label
 	liqcell *label2 = liqcell_quickcreatevis("label2", "label", 0, 56, 800, 30);
 	liqcell_setfont(	label2, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (19), 0) );
@@ -293,15 +308,7 @@ liqcell *invar_calibrate_create()
 	liqcell_propseti(  label2, "textalign", 2 );
 	liqcell_propseti(  label2, "textaligny", 2 );
 	liqcell_child_append(  self, label2);
-	//############################# lblbackground:label
-	liqcell *lblbackground = liqcell_quickcreatevis("lblbackground", "label", 98, 130, 586, 272);
-	liqcell_setfont(	lblbackground, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (12), 0) );
-	liqcell_setcaption(lblbackground, "Label4" );
-	liqcell_propsets(  lblbackground, "textcolor", "rgb(0,0,0)" );
-	liqcell_propsets(  lblbackground, "backcolor", "rgb(235,233,237)" );
-	liqcell_propseti(  lblbackground, "textalign", 0 );
-	liqcell_propseti(  lblbackground, "textaligny", 0 );
-	liqcell_child_append(  self, lblbackground);
+
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	//liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/invar/media/invar_calibrate_back.png",0,0,0) );
 	liqcell_handleradd_withcontext(self, "filter",		 (void*)invar_calibrate_filter ,self);

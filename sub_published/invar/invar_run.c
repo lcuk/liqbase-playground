@@ -57,6 +57,8 @@ static int invar_run_refresh(liqcell *self,liqcelleventargs *args, liqcell *cont
  */	
 static int invar_run_dialog_open(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
+	liqcell *body = liqcell_child_lookup(self, "body");
+	liqcell_handlerrun(body,"refresh",NULL); 
 	 return 0;
 }
 /**	

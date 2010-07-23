@@ -41,18 +41,19 @@ liqcell *invar_create()
 	liqcell *self = liqcell_quickcreatewidget("invar", "form", 800,480);
 	if(!self) {liqapp_log("liqcell error not create 'invar'"); return NULL;  } 
 	
+
 	{
-		 liqcell *ctrl = liqcell_quickcreatevis("ctrlinvar_calibrate1", "invar.invar_calibrate", 0,0,0,0);
-		 liqcell *item = liqcell_quickcreatevis("iteminvar_calibrate1", NULL, 0,0,1,1);
+		 liqcell *ctrl = liqcell_quickcreatevis("ctrlinvar_config1", "invar.invar_config", 0,0,0,0);
+		 liqcell *item = liqcell_quickcreatevis("iteminvar_config1", NULL, 0,0,1,1);
 		 liqcell_propseti(item,"lockaspect",1);
 		 liqcell_setcontent(item,	 ctrl);
 		 widget_addclosebutton(item);
 		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
 		 liqcell_child_append( self, item );
 	}
-	{
-		 liqcell *ctrl = liqcell_quickcreatevis("ctrlinvar_config1", "invar.invar_config", 0,0,0,0);
-		 liqcell *item = liqcell_quickcreatevis("iteminvar_config1", NULL, 0,0,1,1);
+/*	{
+		 liqcell *ctrl = liqcell_quickcreatevis("ctrlinvar_calibrate1", "invar.invar_calibrate", 0,0,0,0);
+		 liqcell *item = liqcell_quickcreatevis("iteminvar_calibrate1", NULL, 0,0,1,1);
 		 liqcell_propseti(item,"lockaspect",1);
 		 liqcell_setcontent(item,	 ctrl);
 		 widget_addclosebutton(item);
@@ -68,6 +69,27 @@ liqcell *invar_create()
 		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
 		 liqcell_child_append( self, item );
 	}
+ */
+	{
+		 liqcell *ctrl = liqcell_quickcreatevis("ctrlliqbase_about1", "invar.liqbase_about", 0,0,0,0);
+		 liqcell *item = liqcell_quickcreatevis("itemliqbase_about1", NULL, 0,0,1,1);
+		 liqcell_propseti(item,"lockaspect",1);
+		 liqcell_setcontent(item,	 ctrl);
+		 widget_addclosebutton(item);
+		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
+		 liqcell_child_append( self, item );
+	}
+
+	{
+		 liqcell *ctrl = liqcell_quickcreatevis("ctrlinvar_host1", "invar.invar_host", 0,0,0,0);
+		 liqcell *item = liqcell_quickcreatevis("iteminvar_host1", NULL, 0,0,1,1);
+		 liqcell_propseti(item,"lockaspect",1);
+		 liqcell_setcontent(item,	 ctrl);
+		 widget_addclosebutton(item);
+		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
+		 liqcell_child_append( self, item );
+	}
+ 
 	{
 		 liqcell *ctrl = liqcell_quickcreatevis("ctrlinvar_run1", "invar.invar_run", 0,0,0,0);
 		 liqcell *item = liqcell_quickcreatevis("iteminvar_run1", NULL, 0,0,1,1);

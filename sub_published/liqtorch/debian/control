@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: liqtorch
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.45)
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61)
 Description: a simple bright light to lead the way.
  a simple bright light to lead the way in the dark.

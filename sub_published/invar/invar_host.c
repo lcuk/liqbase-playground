@@ -7,6 +7,10 @@
 #include <liqbase/liqcell_easyhandler.h>
 		
 		
+extern int hotspot_matchu ;
+extern int hotspot_matchv ;
+extern int hotspot_matchrange ;
+		
 //#####################################################################
 //#####################################################################
 //##################################################################### invar_host :: by gary birkett
@@ -78,6 +82,23 @@ static int invar_host_shown(liqcell *self,liqcelleventargs *args, liqcell *conte
  */	
 static int invar_host_mouse(liqcell *self, liqcellmouseeventargs *args,liqcell *context)
 {
+	float px = (float)args->mex / (float)liqcell_getw(self);
+	float py = (float)args->mey / (float)liqcell_geth(self);
+	liqcell *imatridots = liqcell_child_lookup(self, "imatridots");
+	liqimage *img = liqcell_getimage(imatridots);
+	if(img)
+	{
+		xsurface_drawrectwash_uv(img,0,0,liqimage_getwidth(img),liqimage_getheight(img), (unsigned char)(255.0*px),(unsigned char)(255.0*py) );
+	}
+
+		
+
+	
+//	hotspot_matchu = (unsigned char)(255.0*px);
+//	hotspot_matchv = (unsigned char)(255.0*py);
+	
+//	liqapp_log("hotspot match %d,%d",hotspot_matchu,hotspot_matchv);
+		
 	return 0;
 }
 /**	
@@ -144,9 +165,16 @@ liqcell *invar_host_create()
 	// Optimization:  defaults: background, prefer nothing, will be shown through if there is a wallpaper
 	// Optimization:  defaults: text, white, very fast rendering
 	//############################# imatridots:image
+	
+	liqimage *img = liqimage_cache_getfile("/usr/share/liqbase/invar/media/invar_host.imatridots.png",0,0,1);
+	if(img) xsurface_drawrectwash_uv(img,0,0,liqimage_getwidth(img),liqimage_getheight(img),1,1);// hotspot_matchu,hotspot_matchv );
+		
 	liqcell *imatridots = liqcell_quickcreatevis("imatridots", "image", 0, 0, 800, 480);
-	liqcell_propsets(  imatridots, "imagefilename", "/usr/share/liqbase/invar/media/invar_host.imatridots.png" );
+	liqcell_setimage(  imatridots, img );
 	liqcell_child_append(  self, imatridots);
+	
+	
+
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	//liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/invar/media/invar_host_back.png",0,0,0) );
 	liqcell_handleradd_withcontext(self, "filter",		 (void*)invar_host_filter ,self);
@@ -155,7 +183,7 @@ liqcell *invar_host_create()
 	//liqcell_handleradd_withcontext(self, "resize",	  (void*)invar_host_resize ,self);
 	//liqcell_handleradd_withcontext(self, "keypress",	(void*)invar_host_keypress,self );
 	//liqcell_handleradd_withcontext(self, "keyrelease", (void*)invar_host_keyrelease ,self);
-	//liqcell_handleradd_withcontext(self, "mouse",		(void*)invar_host_mouse,self );
+	liqcell_handleradd_withcontext(self, "mouse",		(void*)invar_host_mouse,self );
 	//liqcell_handleradd_withcontext(self, "click",		(void*)invar_host_click ,self);
 	//liqcell_handleradd_withcontext(self, "paint",		(void*)invar_host_paint ,self); // use only if required, heavyweight
 	liqcell_handleradd_withcontext(self, "dialog_open",  (void*)invar_host_dialog_open ,self);

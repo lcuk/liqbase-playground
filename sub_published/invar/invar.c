@@ -33,6 +33,11 @@
 		 args->newdialogtoopen = liqcell_getcontent( self );
 		 return 1;
 	}
+	static int widget_dirty(liqcell *self, liqcelleventargs *args, void *context)
+	{
+		liqcell_setdirty(context,1);
+		return 0;
+	}
 /**	
  * create a new invar widget
  */	
@@ -49,6 +54,7 @@ liqcell *invar_create()
 		 liqcell_setcontent(item,	 ctrl);
 		 widget_addclosebutton(item);
 		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
+		 liqcell_handleradd_withcontext(ctrl,	 "dirty",  (void*) widget_dirty,self);
 		 liqcell_child_append( self, item );
 	}
 /*	{
@@ -58,6 +64,7 @@ liqcell *invar_create()
 		 liqcell_setcontent(item,	 ctrl);
 		 widget_addclosebutton(item);
 		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
+		liqcell_handleradd_withcontext(ctrl,	 "dirty",  (void*) widget_dirty,self);
 		 liqcell_child_append( self, item );
 	}
 	{
@@ -67,6 +74,7 @@ liqcell *invar_create()
 		 liqcell_setcontent(item,	 ctrl);
 		 widget_addclosebutton(item);
 		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
+		 liqcell_handleradd_withcontext(ctrl,	 "dirty",  (void*) widget_dirty,self);
 		 liqcell_child_append( self, item );
 	}
  */
@@ -77,6 +85,7 @@ liqcell *invar_create()
 		 liqcell_setcontent(item,	 ctrl);
 		 widget_addclosebutton(item);
 		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
+		 liqcell_handleradd_withcontext(ctrl,	 "dirty",  (void*) widget_dirty,self);
 		 liqcell_child_append( self, item );
 	}
 
@@ -87,9 +96,11 @@ liqcell *invar_create()
 		 liqcell_setcontent(item,	 ctrl);
 		 widget_addclosebutton(item);
 		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
+		 liqcell_handleradd_withcontext(ctrl,	 "dirty",  (void*) widget_dirty,self);
 		 liqcell_child_append( self, item );
 	}
- 
+	
+
 	{
 		 liqcell *ctrl = liqcell_quickcreatevis("ctrlinvar_run1", "invar.invar_run", 0,0,0,0);
 		 liqcell *item = liqcell_quickcreatevis("iteminvar_run1", NULL, 0,0,1,1);
@@ -97,8 +108,10 @@ liqcell *invar_create()
 		 liqcell_setcontent(item,	 ctrl);
 		 widget_addclosebutton(item);
 		 liqcell_handleradd(item,	 "click",  (void*) widget_click);
+		 liqcell_handleradd_withcontext(ctrl,	 "dirty",  (void*) widget_dirty,self);
 		 liqcell_child_append( self, item );
 	}
+
 	liqcell_child_arrange_easytile(self);
 	return self;
 }
@@ -113,7 +126,7 @@ liqcell *invar_create()
 // this is only used when invar is compiled as a standalone binary
 // otherwise it can be constructed as a widget and exist with exactly the same lifespan
 
-static void liqcell_easyrun_internal(liqcell *dialog)
+static int liqcell_easyrun_internal(liqcell *dialog)
 {
 	 if(0!=liqcanvas_init( 800,480, 1))
 	 {
@@ -123,6 +136,7 @@ static void liqcell_easyrun_internal(liqcell *dialog)
 	 }
 	 liqcell_easyrun( dialog );
 	 liqcanvas_close();
+	 return 0;
 }
 
 int main (int argc, char* argv[])

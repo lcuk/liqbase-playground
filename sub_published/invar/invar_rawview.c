@@ -26,6 +26,9 @@
 
 
 
+extern int hotspot_matchu ;
+extern int hotspot_matchv ;
+extern int hotspot_matchrange ;
 
 extern int hotspot_hitx ;
 extern int hotspot_hity ;
@@ -54,24 +57,51 @@ static void cam_picturetaken(void *CAMtag)
 
 //	liqimage_find_shapes(cam2);	// hold breath
 
-	liqimagescan_hotspot_detect(cam);
+	liqimagescan_hotspot_detect(cam2);
 
 	if(hotspot_hitsize>0)
 	{
 		liqcell *datamap = liqcell_child_lookup(self, "datamap");
 		
+		liqsketch *infosketch = liqcell_getsketch(datamap);
+		
+		
+		float w = (float)(liqcell_getw(self)*3) * (float)hotspot_hitsize / 70.0;
+		float h = (float)(liqcell_geth(self)*3) * (float)hotspot_hitsize / 70.0;
+		
 		float x = -((270.0 - (float)hotspot_hitx) / 140.0 * 1600.0);
 		float y = -((170.0 - (float)hotspot_hity) / 120.0 * 960.0);
-		float w = (float)(liqcell_getw(self)*3) * (float)hotspot_hitsize / 40.0;
-		float h = (float)(liqcell_geth(self)*3) * (float)hotspot_hitsize / 40.0;
 		
 		//liqapp_log()
 		
 		
 		liqcell_setpos(datamap,(int)x,(int)y);
 		//liqcell_setrect(datamap,(int)(x-w/2),(int)(y-h/2),(int)w,(int)h);
+		
+		
+		if(infosketch) infosketch->angle = ((float)hotspot_hitangledeg) *  3.141592654 / 180.0;
+
 	}
 
+		liqcliprect_drawimagecolor(cr, cam2,  0,0,cam2->width,cam2->height,0);
+		
+		if(0)
+		{
+			int gx=0,gy=0;
+			for(gx=0;gx<=1600;gx+=100)
+			{
+				int px=gx;//+x;
+				liqcliprect_drawlinecolor(cr, px,0,  0,1440,  255,128,128);
+			}
+			
+			for(gy=0;gy<=1440;gy+=100)
+			{
+				int py=gy;//+y;
+				liqcliprect_drawlinecolor(cr, 0,py,  2400,0,  255,128,128);
+				
+			}
+
+		}
 
 
 
@@ -80,7 +110,11 @@ static void cam_picturetaken(void *CAMtag)
 
 
 
-	liqcliprect_drawimagecolor(cr, cam2,  0,0,cam2->width,cam2->height,0);
+
+
+
+
+	
 	
 	liqcliprect_release(cr);
 	
@@ -120,6 +154,22 @@ static int invar_destroy(liqcell *self,liqcellclickeventargs *args, liqcell *liq
 	liqapp_log("invar_destroy hmm1");
 	liqcameraface_stop();
 	liqapp_log("invar_destroy hmm2");
+	return 0;
+}
+
+/**	
+ * invar mouse - occurs all the time as you stroke the screen
+ */	
+static int invar_mouse(liqcell *self, liqcellmouseeventargs *args,liqcell *context)
+{
+	float px = (float)args->mex / (float)liqcell_getw(self);
+	float py = (float)args->mey / (float)liqcell_geth(self);
+	
+//	hotspot_matchu = (unsigned char)(255.0*px);
+//	hotspot_matchv = (unsigned char)(255.0*py);
+	
+//	liqapp_log("hotspot match %d,%d",hotspot_matchu,hotspot_matchv);
+	
 	return 0;
 }
 	
@@ -164,7 +214,13 @@ liqcell *invar_rawview_create()
 			liqcell_child_append( self, datamap );
 			char *t =  liqapp_pref_getvalue_def("invar_surface", "/usr/share/liqbase/invar/media/invar_config.imgsurface.png");
 			if(t && *t)
-				liqcell_propsets(  datamap, "imagefilename", t );
+		  	liqcell_propsets(  datamap, "imagefilename", t );
+				
+			liqcell_setvisible(datamap,0);
+		
+		//	liqsketch *infosketch = liqsketch_newfromfile("/usr/share/liqbase/media/flowx.sketch");
+		//	liqcell_setsketch(datamap,infosketch);
+			
 
 			
 			
@@ -172,6 +228,7 @@ liqcell *invar_rawview_create()
 
 			liqcell_handleradd_withcontext(self, "destroy", invar_destroy ,self);
 			liqcell_handleradd_withcontext(self, "refresh", invar_refresh ,self);
+			liqcell_handleradd_withcontext(self, "mouse", invar_mouse,self);
 		
 	}
 	return self;

@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: liqcalendar
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.45)
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61)
 Description: handdrawn calendar like on your kitchen wall
  handdrawn calendar just like he one on your kitchen wall

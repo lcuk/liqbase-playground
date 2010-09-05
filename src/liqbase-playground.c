@@ -228,7 +228,7 @@ int main (int argc, char* argv[])
 
 	//########################################################## open the screen
 
-    int fullscreenflag = atoi(liqapp_pref_getvalue_def("fullscreen","0"));
+    int fullscreenflag = atoi(liqapp_pref_getvalue_def("fullscreen","1"));
     liqapp_log("fs=%i",fullscreenflag);
 
 #ifdef USE_MAEMO

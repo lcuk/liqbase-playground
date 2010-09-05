@@ -30,9 +30,21 @@ int main (int argc, char* argv[])
 	 {
 		  { return liqapp_errorandfail(-1,"liqflow liqapp_init failed"); }
 	 }
-	 liqcell *self = liqcell_quickcreatevis("liqflow_cover1", "liqflow_cover", 0,0, -1,-1);
+	 
+	char *startclass;
+	if(liqapp_getopt_exist("livewp"))
+		startclass = "liqflow_run";
+	else
+		startclass = "liqflow_cover";
+	 
+	 liqcell *self = liqcell_quickcreatevis("liqflow_cover1", startclass, 0,0, -1,-1);
      // remove tools button :)
      liqcell_propseti(self,"easyrun_hidetools",1);
+
+	// hide close button from livewp
+	if(liqapp_getopt_exist("livewp"))
+		liqcell_propseti(self,"easyrun_hideclose",1);
+		
 	 liqcell_easyrun_internal(self);
 	 liqcell_release(self);
 	 liqapp_close();

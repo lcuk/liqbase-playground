@@ -1,0 +1,8 @@
+<theme>
+<name>Liqflow</name>
+ <exec_path>/usr/share/liqbase/liqflow/liqflow --livewp</exec_path>
+ <window_name>liqflow</window_name>
+ <category>Unknown</category>
+ <icon_on>/usr/share/livewp/external_icons/xscreensaver.png</icon_on>
+ <icon_off>/usr/share/livewp/external_icons/xscreensaverd.png</icon_off>
+</theme>

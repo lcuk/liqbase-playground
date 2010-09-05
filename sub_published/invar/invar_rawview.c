@@ -216,7 +216,7 @@ liqcell *invar_rawview_create()
 			if(t && *t)
 		  	liqcell_propsets(  datamap, "imagefilename", t );
 				
-			liqcell_setvisible(datamap,0);
+		//	liqcell_setvisible(datamap,0);
 		
 		//	liqsketch *infosketch = liqsketch_newfromfile("/usr/share/liqbase/media/flowx.sketch");
 		//	liqcell_setsketch(datamap,infosketch);

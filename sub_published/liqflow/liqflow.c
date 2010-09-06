@@ -36,6 +36,8 @@ int main (int argc, char* argv[])
 		startclass = "liqflow_run";
 	else
 		startclass = "liqflow_cover";
+		
+	liqapp_log("liqflow_main startclass='%s'",startclass);
 	 
 	 liqcell *self = liqcell_quickcreatevis("liqflow_cover1", startclass, 0,0, -1,-1);
      // remove tools button :)
@@ -43,7 +45,7 @@ int main (int argc, char* argv[])
 
 	// hide close button from livewp
 	if(liqapp_getopt_exist("livewp"))
-		liqcell_propseti(self,"easyrun_hideclose",1);
+		liqcell_propseti(self,"easyrun_hideback",1);
 		
 	 liqcell_easyrun_internal(self);
 	 liqcell_release(self);

@@ -24,6 +24,8 @@
 
 #include <liqbase/liqaccel.h>
 
+#include <dbus/dbus.h>
+
 typedef struct
 {
 	float x;
@@ -56,10 +58,62 @@ typedef struct
 
 
 
+static int 		livewp_view = 1;
+static int 		livewp_pause_in_view = 0;
+DBusConnection* livewp_dbus_conn_session = NULL;
+
+
+void
+livewp_initialize_dbus(void){
+    char       *filter_string;
+    DBusError   error;
+	
+	livewp_view = liqapp_getopt_int("livewp",0);
+	liqapp_log("livewp_initialize_dbus livewp_view=%d",livewp_view);
+
+    dbus_error_init (&error);
+    /* Add D-BUS signal handler for 'status_changed' */
+    livewp_dbus_conn_session = dbus_bus_get(DBUS_BUS_SESSION, &error);
+    if (livewp_dbus_conn_session)
+	{
+		//##################
+        filter_string =                                                                                                                         
+               g_strdup_printf("interface='org.maemo.livewp', member='pause_livebg_on_view%i'", livewp_view);
+			   
+        dbus_bus_add_match(livewp_dbus_conn_session, filter_string, &error);
+        if (dbus_error_is_set(&error)){
+             fprintf(stderr,"dbus_bus_add_match failed: %s", error.message);
+             dbus_error_free(&error);
+        }
+        g_free(filter_string);
+		
+		//##################
+        filter_string =
+            g_strdup_printf("interface='org.maemo.livewp', member='play_livebg_on_view%i'", livewp_view);
+        dbus_bus_add_match(livewp_dbus_conn_session, filter_string, &error);
+        if (dbus_error_is_set(&error)){
+             fprintf(stderr,"dbus_bus_add_match failed: %s", error.message);
+             dbus_error_free(&error);
+        }
+        g_free(filter_string);
+    }
+}
+
+
+void
+livewp_terminate_dbus(void){
+	if(livewp_dbus_conn_session)
+	{
+		// hmm there is no destructor?
+		// http://dbus.freedesktop.org/doc/api/html/group__DBusBus.html#ga433105a7480c3647fe912748e54b58c
+		livewp_dbus_conn_session=NULL;
+	}
+}
 
 //#########################################################################################
 //######################################################################################### touch
 //#########################################################################################
+
 
 
 
@@ -479,9 +533,45 @@ moo:
 		}
 		
 		
-		//liqapp_log("drawing done");
-		return 1;
-	}
+			if(liqapp_getopt_exist("livewp"))
+			{
+				// livewp test first attempt
+				// patch from Vlad Vasilyev and Tanya
+				// this is the wrong place and livewp really should act before this in an event handler
+				// and should shutdown/restart the screen
+				// checking initially though :)
+				
+				DBusMessage* msg;
+				
+				if (livewp_pause_in_view == 0)
+					/* non blocking read of the next available message */
+					dbus_connection_read_write(livewp_dbus_conn_session, 0);
+				else
+					/* blocking read of the next available message */
+					dbus_connection_read_write(livewp_dbus_conn_session, 20000);
+					
+				
+
+				msg = dbus_connection_pop_message(livewp_dbus_conn_session);
+	
+				if (NULL != msg)
+				{  
+					if ( dbus_message_get_member (msg) &&
+					   !strncmp( "play_livebg_on_view", dbus_message_get_member (msg),19)){
+						   livewp_pause_in_view = 0; 
+					}
+					if ( dbus_message_get_member (msg) &&
+						!strncmp( "pause_livebg_on_view", dbus_message_get_member (msg),19)){
+						   livewp_pause_in_view = 1;
+					}
+				}
+				
+				liqapp_log("widget_paint livewp_view=%d",livewp_view,livewp_pause_in_view);
+			}
+		
+			//liqapp_log("drawing done");
+			return 1;
+		}
 	
 
 
@@ -507,20 +597,6 @@ static int cmdclear_click(liqcell *self,liqcelleventargs *args, liqcell *liqflow
 
 
 
-/*
-	static int widget_dialog_open(liqcell *self, liqcelleventargs *args,liqcell *context)
-	{
-		liqsketch *sketch = liqcell_getsketch(self);
-		if(sketch)
-		{
-			//liqsketch_clear(sketch);
-		}
-		
-		star_init_all( (STAR *)self->tag  );
-		return 1;
-	}
-
- */
 
 /**	
  * widget dialog_open - the user zoomed into the dialog
@@ -560,11 +636,25 @@ static int widget_dialog_close(liqcell *self,liqcelleventargs *args, liqcell *co
 
 
 
+
+/**	
+ * liqflow.destroy
+ */	
+static int liqflow_destroy(liqcell *self,liqcellclickeventargs *args, liqcell *liqcam)
+{
+	// we must stop the dbus!!
+	if(liqapp_getopt_exist("livewp")) livewp_terminate_dbus();
+	return 0;
+}
+	
+
 		
 liqcell *liqflow_run_create()
 {
 	liqcell *self = liqcell_quickcreatewidget("liqflow_run","form", 800,480);
 
+    if(liqapp_getopt_exist("livewp")) livewp_initialize_dbus();
+	
 	if(self)
 	{
 		STAR *stars = (STAR *)malloc(sizeof(STAR) * (starcount+1));
@@ -649,6 +739,9 @@ liqcell *liqflow_run_create()
 		
 		
 		liqcell_handlerrun(self,"dialog_close",NULL);
+		
+		
+		liqcell_handleradd_withcontext(self, "destroy", liqflow_destroy ,self);
 		
 	}
 	return self;

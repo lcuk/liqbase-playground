@@ -19,10 +19,12 @@
 #include <liqbase/liqimage.h>
 #include <liqbase/liqsketch.h>
 #include <liqbase/liq_xsurface.h>
-
 #include <liqbase/liqapp_prefs.h>
-
 #include <liqbase/liqaccel.h>
+
+#include <liqbase/liqcanvas.h>
+#include <liqbase/liqx11info.h>
+#include <liqbase/liqx11overlay.h>
 
 #include <dbus/dbus.h>
 
@@ -559,10 +561,29 @@ moo:
 					if ( dbus_message_get_member (msg) &&
 					   !strncmp( "play_livebg_on_view", dbus_message_get_member (msg),19)){
 						   livewp_pause_in_view = 0; 
+
+						    liqx11info    *x11info = (liqx11info*)(canvas.x11info);
+						    if(x11info)
+						    {
+								liqx11overlay *x11overlay = x11info->myoverlay;
+								if(x11overlay)
+									liqx11overlay_show(x11overlay);
+							}
 					}
 					if ( dbus_message_get_member (msg) &&
 						!strncmp( "pause_livebg_on_view", dbus_message_get_member (msg),19)){
 						   livewp_pause_in_view = 1;
+						   
+						   
+						    liqx11info    *x11info = (liqx11info*)(canvas.x11info);
+						    if(x11info)
+						    {
+								liqx11overlay *x11overlay = x11info->myoverlay;
+								if(x11overlay)
+									liqx11overlay_hide(x11overlay);
+							}
+						   
+						
 					}
 				}
 				

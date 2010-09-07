@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: liqflow
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61)
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61) , libdbus-glib-1-2 (>= 0.78)
 Description: Graphics Demo: touchscreen fluid dynamics
  Graphics Demo: touchscreen fluid dynamics with accelerometer assist

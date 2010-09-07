@@ -1,3 +1,9 @@
+liqflow (0.1.6) unstable; urgency=low
+
+  * build tweaks x3 sigh
+
+ -- Gary Birkett <liquid@gmail.com>  Tue, 07 Sept 2010 21:10:38 +0000
+
 liqflow (0.1.5) unstable; urgency=low
 
   * build tweaks x2

@@ -8,5 +8,8 @@ Standards-Version: 3.7.2
 Package: invar
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61)
-Description: short description
- longer description
+XSBC-Bugtracker: http://github.com/lcuk/liqbase-playground/issues
+Description: Inverted AR realworld positioning system picture viewer.
+ Inverted AR realworld positioning system picture viewer.
+ allows the N900 to use a virtual 2400*1440 screen.
+ requires 2xN900 devices to work.

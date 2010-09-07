@@ -22,10 +22,16 @@
 #include <liqbase/liqapp_prefs.h>
 #include <liqbase/liqaccel.h>
 
+//#define LIVEWP_HACK_OVERLAY
+// leave this out for now, autobuilder doesn't like the deps
+// and it exposes a leaky abstraction
+// (should never need all the x11 low level details on this side of the lib)
+
+#ifdef LIVEWP_HACK_OVERLAY
 #include <liqbase/liqcanvas.h>
 #include <liqbase/liqx11info.h>
 #include <liqbase/liqx11overlay.h>
-
+#endif
 #include <dbus/dbus.h>
 
 typedef struct
@@ -561,7 +567,7 @@ moo:
 					if ( dbus_message_get_member (msg) &&
 					   !strncmp( "play_livebg_on_view", dbus_message_get_member (msg),19)){
 						   livewp_pause_in_view = 0; 
-
+#ifdef LIVEWP_HACK_OVERLAY
 						    liqx11info    *x11info = (liqx11info*)(canvas.x11info);
 						    if(x11info)
 						    {
@@ -569,12 +575,13 @@ moo:
 								if(x11overlay)
 									liqx11overlay_show(x11overlay);
 							}
+#endif
 					}
 					if ( dbus_message_get_member (msg) &&
 						!strncmp( "pause_livebg_on_view", dbus_message_get_member (msg),19)){
 						   livewp_pause_in_view = 1;
 						   
-						   
+#ifdef LIVEWP_HACK_OVERLAY						   
 						    liqx11info    *x11info = (liqx11info*)(canvas.x11info);
 						    if(x11info)
 						    {
@@ -582,7 +589,7 @@ moo:
 								if(x11overlay)
 									liqx11overlay_hide(x11overlay);
 							}
-						   
+#endif						   
 						
 					}
 				}

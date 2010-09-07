@@ -185,6 +185,8 @@ liqcell *liqflow_cover_create()
 	liqcell_propseti(  slideconfig, "textalign", 0 );
 	liqcell_propseti(  slideconfig, "textaligny", 0 );
 	
+	
+/*	
 	{
 		 liqcell *x = liqcell_quickcreatevis("liqflow_run1", "liqflow_config", 0,0,-1,-1);
 		 liqcell_setcontent(slideconfig,x);
@@ -192,7 +194,7 @@ liqcell *liqflow_cover_create()
 		 liqcell_handleradd_withcontext(slideconfig, "click", liqcell_easyhandler_content_zoom_click, self );
 	}
 	liqcell_child_append(  self, slideconfig);
-	
+ */	
 	
 
 	//############################# slidetext1:label

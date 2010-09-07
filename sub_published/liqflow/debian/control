@@ -2,7 +2,7 @@ Source: liqflow
 Section: user/multimedia
 Priority: extra
 Maintainer: Gary Birkett <liquid@gmail.com>
-Build-Depends: debhelper (>= 5) , libliqbase-dev (>= 0.3.45), libdbus-glib-1-2-dev (>= 0.78)
+Build-Depends: debhelper (>= 5) , libliqbase-dev (>= 0.3.45), libdbus-glib-1-dev (>= 0.78)
 Standards-Version: 3.7.2
 
 Package: liqflow

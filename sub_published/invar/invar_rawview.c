@@ -165,10 +165,10 @@ static int invar_mouse(liqcell *self, liqcellmouseeventargs *args,liqcell *conte
 	float px = (float)args->mex / (float)liqcell_getw(self);
 	float py = (float)args->mey / (float)liqcell_geth(self);
 	
-//	hotspot_matchu = (unsigned char)(255.0*px);
-//	hotspot_matchv = (unsigned char)(255.0*py);
+	hotspot_matchu = (unsigned char)(255.0*px);
+	hotspot_matchv = (unsigned char)(255.0*py);
 	
-//	liqapp_log("hotspot match %d,%d",hotspot_matchu,hotspot_matchv);
+	liqapp_log("hotspot match %d,%d",hotspot_matchu,hotspot_matchv);
 	
 	return 0;
 }
@@ -216,7 +216,9 @@ liqcell *invar_rawview_create()
 			if(t && *t)
 		  	liqcell_propsets(  datamap, "imagefilename", t );
 				
-		//	liqcell_setvisible(datamap,0);
+				
+			if( atoi(liqapp_pref_getvalue_def("invarhidepicture","0")) == 1 )
+				liqcell_setvisible(datamap,0);
 		
 		//	liqsketch *infosketch = liqsketch_newfromfile("/usr/share/liqbase/media/flowx.sketch");
 		//	liqcell_setsketch(datamap,infosketch);

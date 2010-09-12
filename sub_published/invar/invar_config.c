@@ -237,6 +237,7 @@ liqcell *invar_config_create()
 	liqcell_propseti(  cmdsave, "textaligny", 2 );
 	liqcell_handleradd_withcontext(cmdsave, "click", (void*)cmdsave_click, self );
 	liqcell_child_append(  self, cmdsave);
+	liqcell_setvisible(cmdsave,0);
 	//############################# title:label
 	liqcell *title = liqcell_quickcreatevis("title", "label", 0, 0, 800, 56);
 	liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );

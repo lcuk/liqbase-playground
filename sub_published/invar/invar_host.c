@@ -88,7 +88,7 @@ static int invar_host_mouse(liqcell *self, liqcellmouseeventargs *args,liqcell *
 	liqimage *img = liqcell_getimage(imatridots);
 	if(img)
 	{
-		xsurface_drawrectwash_uv(img,0,0,liqimage_getwidth(img),liqimage_getheight(img), (unsigned char)(255.0*px),(unsigned char)(255.0*py) );
+	//	xsurface_drawrectwash_uv(img,0,0,liqimage_getwidth(img),liqimage_getheight(img), (unsigned char)(255.0*px),(unsigned char)(255.0*py) );
 	}
 
 		

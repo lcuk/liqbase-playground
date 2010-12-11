@@ -1,3 +1,9 @@
+liqflow (0.1.8) unstable; urgency=low
+
+  * update due to changes in library
+
+ -- Gary Birkett <liquid@gmail.com>  Sat, 11 Dec 2010 00:09:10 +0000
+ 
 liqflow (0.1.7) unstable; urgency=low
 
   * added bugtracker link for extras testing

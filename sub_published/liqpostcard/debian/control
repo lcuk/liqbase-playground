@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: liqpostcard
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.62)
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.63)
 Description: send a postcard upto liqbase.net
  send a postcard upto liqbase.net, include a picture and a sketch

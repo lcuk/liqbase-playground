@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: liqmap
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.62)
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.63)
 Description: use your own photographs as a backup map
  use a photograph you have just taken with your device as a quick backup map

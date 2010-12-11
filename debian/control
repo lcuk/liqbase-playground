@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: liqbase-playground
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} ,libliqbase1 (>= 0.3.62), liqtorch, liqcontrolpanel, liqpostcard, onedotzero
+Depends: ${shlibs:Depends}, ${misc:Depends} ,libliqbase1 (>= 0.3.63), liqtorch, liqcontrolpanel, liqpostcard, onedotzero
 Description: graphical ideas playground for liqbase toys
  graphical ideas playground for all of the liqbase toys

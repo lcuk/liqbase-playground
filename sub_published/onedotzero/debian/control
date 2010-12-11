@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: onedotzero
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61), liblo0ldbl
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.62), liblo0ldbl
 Description: onedotzero interactive remote control
  onedotzero interactive remote control

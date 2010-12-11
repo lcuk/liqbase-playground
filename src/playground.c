@@ -17,7 +17,7 @@
 
 extern int liqcell_easyrun_fingerpressed;
 
-int playground_editable=1;
+int playground_editable=0;
 
 int liqcell_child_arrange_addgravity(liqcell *self,liqcell *currentselection)
 {

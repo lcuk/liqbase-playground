@@ -182,7 +182,7 @@ static void star_calc(STAR *stars,vgraph *graph,liqsketch *sketch, int drawwidth
 	
 	liqaccel_read(&aax,&aay,&aaz);
 	
-	#define ff 0.08
+	#define ff 0.28
 	float fax=ff * (float)aax;
 	float fay=ff * (float)aay;
 	float faz=ff * (float)aaz;
@@ -709,6 +709,17 @@ liqcell *liqflow_run_create()
 		//liqcell_propseti(  cmdclear, "textalign", 2 );
 		liqcell_handleradd_withcontext(cmdclear, "click", cmdclear_click, self );
 		liqcell_child_append(  self, cmdclear);
+
+		//############################# txtchecking:label
+		liqcell *txtchecking = liqcell_quickcreatevis("txtchecking", "textbox", 0,400, 720,80);
+		liqcell_setfont(	txtchecking, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
+		liqcell_setcaption(txtchecking, "abc" );
+		liqcell_propsets(  txtchecking, "textcolor", "rgb(255,255,255)" );
+		liqcell_propsets(  txtchecking, "backcolor", "rgb(64,0,0)" );
+		liqcell_propsets(  txtchecking, "bordercolor", "rgb(200,100,100)" );
+		//liqcell_propseti(  txtchecking, "textalign", 2 );
+		//liqcell_handleradd_withcontext(txtchecking, "click", txtchecking_click, self );
+		liqcell_child_append(  self, txtchecking);
 		
 		
 	liqcell_propsets(  cmdclear, "textcolor", "rgb(0,0,0)" );

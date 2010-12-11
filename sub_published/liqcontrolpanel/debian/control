@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: liqcontrolpanel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61)
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.62)
 Description: short description
  longer description

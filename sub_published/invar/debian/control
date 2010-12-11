@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: invar
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61)
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.62)
 XSBC-Bugtracker: http://github.com/lcuk/liqbase-playground/issues
 Description: Inverted AR realworld positioning system picture viewer.
  Inverted AR realworld positioning system picture viewer.

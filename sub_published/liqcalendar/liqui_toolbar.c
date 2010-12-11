@@ -5,7 +5,7 @@
 #include <liqbase/liqcell_prop.h>
 #include <liqbase/liqcell_easyrun.h>
 #include <liqbase/liqcell_easypaint.h>
-#include <liqbase/liqcell_mk_star.h>
+//#include <liqbase/liqcell_mk_star.h>
 #include <liqbase/liqcell_easyhandler.h>
 
 

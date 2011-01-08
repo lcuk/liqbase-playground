@@ -194,6 +194,7 @@ liqcell *liqflow_cover_create()
 		 liqcell_handleradd_withcontext(slideconfig, "click", liqcell_easyhandler_content_zoom_click, self );
 	}
 	liqcell_child_append(  self, slideconfig);
+	liqcell_setvisible(slideconfig,0);
  
 	
 

@@ -9,7 +9,10 @@ if [ ` grep "cpuboost=0" /home/user/.liqbase/liqbase.prefs 2>/dev/null` ];
 then 
 	echo "liqbase-no_cpuboost"
 else
-	sudo /usr/bin/liqbase-playground-cpu-performance
+	if [ -e "/usr/bin/liqbase-playground-cpu-performance" ]
+	then
+	    sudo /usr/bin/liqbase-playground-cpu-performance
+	fi
 fi
 
 
@@ -24,5 +27,8 @@ if [ ` grep "cpuboost=0" /home/user/.liqbase/liqbase.prefs 2>/dev/null` ];
 then 
 	echo "liqbase-no_cpuboost"; 
 else
-	sudo /usr/bin/liqbase-playground-cpu-ondemand
+	if [ -e "/usr/bin/liqbase-playground-cpu-ondemand" ]
+	then
+	    sudo /usr/bin/liqbase-playground-cpu-ondemand
+	fi
 fi

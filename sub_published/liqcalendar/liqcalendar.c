@@ -414,6 +414,7 @@ liqcell *liqcalendar_create()
 	{
 
 
+
 		//! create toolbar
 		liqcell *tbar = uitoolcol_create("tools","tools",
 				uitoolitem_create( "reset",     "reset",         "/usr/share/liqbase/liqcalendar/media/quickicons/stock_refresh.png",    toolitem_click,self),

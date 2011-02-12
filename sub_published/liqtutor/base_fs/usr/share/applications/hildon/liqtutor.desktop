@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=liqtutor
+Exec=/usr/bin/liqtutor-run.sh
+Type=Application
+Icon = liqtutor
+x-Window-Icon = liqtutor
+x-Window-Icon-Dimmed = liqtutor
+StartupWMClass=liqtutor
+X-Osso-Service=org.maemo.liqtutor
+X-Osso-Type=application/x-executable
+StartupNotify=false

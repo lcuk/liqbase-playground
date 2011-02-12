@@ -7,6 +7,6 @@ Standards-Version: 3.7.2
 
 Package: liqmic
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.63)
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.61)
 Description: short description
  longer description

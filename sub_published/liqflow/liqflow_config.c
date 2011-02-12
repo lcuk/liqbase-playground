@@ -104,6 +104,57 @@ liqcell *liqflow_config_create()
 		liqcell_handleradd_withcontext(cmdaccept, "click", liqflow_config_cmdaccept_click, self );
 		liqcell_child_append(  self, cmdaccept);
 		
+		liqapp_log("test\t Starting");
+	
+		liqcell *c = liqcell_getlinkchild_visual(body);
+		while(c)
+		{
+			//liqapp_log("test\t A %s",c->name);
+			//liqapp_log("test\t B %s:%s",c->name,c->classname);
+			
+			liqcell *data = liqcell_child_lookup(c,"data");
+			
+			//liqapp_log("test\t X '%s:%s'  (data==NULL)==%d",c->name,c->classname,    (data==NULL) );
+			
+			
+			if(strcmp(c->classname,"uitextbox")==0)
+			{
+				// the data member is a textbox, reading its caption will return the data
+				// c->data->caption (string)
+				char *cap = NULL;
+				if (data==NULL){ cap= "*ERROR:NO_data*"; }else{ cap = liqcell_getcaption(data); }
+				liqapp_log("test\t STR '%s:%s' '%s'",c->name,c->classname,                   cap );
+			}
+			else
+	/*		if(strcmp(c->classname,"uienumbox")==0)
+			{
+				// theres a list of items and one has its ->selected property set
+				// c->data->items[]
+
+			}
+			else
+			if(strcmp(c->classname,"uipicturebox")==0)
+			{
+				// the data holds a picture, it has an imagefilename property
+				// c->data->"imagefilename"  (string)			
+			}
+			else
+			if(strcmp(c->classname,"uicolorbox")==0)
+			{
+				// the data holds a simple cell it has a backcolor property, which is either yuv or rgb
+				//
+				// c->data->backcolor (string)
+			}
+			else
+	*/
+			{
+				liqapp_log("test\t UNK '%s:%s'  (data==NULL)==%d",c->name,c->classname,    (data==NULL) );
+			}
+			c=liqcell_getlinknext_visual(c);
+		}
+
+		
+
 		
 	}
 

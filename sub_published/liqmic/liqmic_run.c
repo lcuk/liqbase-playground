@@ -173,7 +173,7 @@ liqcell *liqmic_run_create()
 		//liqcell_propsets(  canvas, "backcolor", "rgb(64,64,64)" );
 		//liqcell_propseti(  canvas, "textalign", 2 );
         liqcell_propseti( canvas ,  "lockaspect", 0 );
-        liqcell_propseti(canvas,"sketchediting",1);
+        //liqcell_propseti(canvas,"sketchediting",1);
 		liqcell_child_append(  backplane, canvas);
 		liqcell_handleradd_withcontext(canvas, "mouse", liqcell_easyhandler_kinetic_mouse ,self);
 		

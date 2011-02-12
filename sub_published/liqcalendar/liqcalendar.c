@@ -362,6 +362,9 @@ static liqcell *calweek_create(time_t *weekptr, int totw,int toth)
 		int         dayday  = dayts->tm_wday;
 		
 		
+		//strftime(buff, 64, "%d/%m/%y  %H:%M:%S %B %e", dayts);
+		//liqapp_log("val: %08u  %s",day, buff);
+		
 		liqcell *body = calday_create(&day,       dayw*d,0,       dayw,dayh);
 		liqcell_child_append( self, body );
 	}

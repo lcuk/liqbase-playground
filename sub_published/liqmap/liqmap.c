@@ -298,7 +298,7 @@ liqcell *liqmap_create()
 
 	//liqcell_propsets(  self, "backcolor", "rgb(0,0,0)" );
 	//liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/liqmap/media/liqmap_back.png",0,0,0) );
-	liqcell_handleradd_withcontext(self, "filter", liqmap_filter ,self);
+//	liqcell_handleradd_withcontext(self, "filter", liqmap_filter ,self);
 	liqcell_handleradd_withcontext(self, "refresh", liqmap_refresh ,self);
 	liqcell_handleradd_withcontext(self, "shown", liqmap_shown ,self);
 	//liqcell_handleradd_withcontext(self, "resize", liqmap_resize ,self);

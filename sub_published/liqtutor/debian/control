@@ -1,0 +1,12 @@
+Source: liqtutor
+Section: user/multimedia
+Priority: extra
+Maintainer: Gary Birkett <liquid@gmail.com>
+Build-Depends: debhelper (>= 5) , libliqbase-dev
+Standards-Version: 3.7.2
+
+Package: liqtutor
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends} , libliqbase1 (>= 0.3.67)
+Description: handwriting entry
+ enter your handwriting to use around liqbase

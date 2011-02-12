@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.maemo.liqtutor
+Exec=/usr/bin/liqtutor-run.sh

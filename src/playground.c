@@ -837,7 +837,7 @@ liqcell *playground_create()
         }
         else
         {
-            liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/media/liqbase_back2.jpg",0,0,0) );
+            liqcell_setimage(  self ,  liqimage_cache_getfile( "/usr/share/liqbase/media/20100604_006_dark_fade.png",0,0,0) );
         }
         liqcell_propseti(  self ,  "lockaspect",0 );
         

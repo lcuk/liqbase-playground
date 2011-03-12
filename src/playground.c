@@ -333,6 +333,33 @@ int liqbase_playground_refresh_desktop_contents()
     
     liqcell_child_arrange_easytile( body );
 
+		{
+			liqcell *c = liqcell_getcontent(body);
+			if(c)
+			{
+				liqcell_setcontent(body,NULL);
+				//liqcell_release(c);
+			}
+		}
+
+        char *liveback = liqapp_pref_getvalue("liveback");
+        if(liveback  && *liveback)
+        {
+			
+
+			
+			liqapp_log("liveback start '%s'", liveback);
+			liqcell *item = liqcell_quickcreatevis("liveback",liveback,0,0,liqbase_playground_root->w,liqbase_playground_root->h);
+			//liqcell_propseti(  item,    "lockaspect",1);
+			
+			liqcell_handleradd_withcontext(item,    "dirty",   playground_item_dirty, liqbase_playground_root );
+			
+			liqcell_setcontent( body, item);
+
+        } 
+
+
+
     
 }
 

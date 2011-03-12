@@ -113,20 +113,23 @@ liqcell *tagcloud_insert(liqcell *tagcloud,char *tagname, int tagpopularity)
 					
 					
 					liqfont *font = liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (tagpopularity * 2), 0);
+					liqfont_setview(font,1,1);
 					int ttw = liqfont_textwidth(font,tagname);
 					int tth = liqfont_textheight(font);
 					
 					
 					
-					liqcell *c = liqcell_quickcreatevis(tagname,   "tagitem",   0,0,ttw*1.2,tth    );
+					liqcell *c = liqcell_quickcreatevis(tagname,   "tagitem",   0,0,ttw*1.2,tth*1.4    );
 					liqcell_setfont(	c, font );
 					
-					liqcell_propseti(c,"autosize",1);
-					liqcell_propseti(c,"textalign",2);
+				//	liqcell_propseti(c,"autosize",1);
+					liqcell_propseti(c,"textaligny",1);
 					//liqcell_propseti(c,"lockaspect",1);
 					//liqcell_propsets(c,"imagefilename",fn);
 					//liqcell_handleradd(c,    "mouse",   widget_mouse);
 					liqcell_handleradd(c,    "click",   tagitem_click);
+					
+				//	liqcell_propsets(  c, "bordercolor", "rgb(0,150,50)" );
 
 
 					liqcell_child_insertsorted( tagcloud, c );
@@ -306,7 +309,7 @@ void tagcloud_fillup_test(liqcell *tagcloud)
 		char *searchterm = liqcell_getcaption(self);
 		if(!searchterm || !*searchterm) return 1;
 		//liqcell *body = liqcell_child_lookup(tagcloud,"body");
-	    tagcloud_insert(body,searchterm, 45);
+	    tagcloud_insert(body,searchterm, 26);
 		
 		liqcell_setcaption(self,"");
 		return 1;
@@ -351,6 +354,7 @@ void tagcloud_fillup_test(liqcell *tagcloud)
 		{
 			// bit of magic here..
 			liqcell_setvisible(self,0);
+			
 		}
 		
 		return 1;
@@ -359,12 +363,12 @@ void tagcloud_fillup_test(liqcell *tagcloud)
 	static int tagcloud_resize(liqcell *self, liqcelleventargs *args, void *context)
 	{
 		liqcell *search = liqcell_child_lookup(self,"search");		
-		liqcell_setrect(search, self->w*0.2 ,self->h-40,   self->w*0.4, 40);
+		liqcell_setrect(search, self->w*0.2 ,self->h-56,   self->w*0.4, 56);
 		//liqcell_setrect(search, self->w*0.2 ,0,   self->w*0.4, 40);
 		
 		
 		liqcell *body = liqcell_child_lookup(self,"body");
-		liqcell_setrect(body,   0,40,self->w,self->h-40);
+		liqcell_setrect(body,   0,56,self->w,self->h-56);
 		//liqcell_setsize(body,   self->w,self->h);
 		liqcell_child_arrange_autoflow( body );
 		
@@ -379,6 +383,7 @@ void tagcloud_fillup_test(liqcell *tagcloud)
 		// it should be the search button
 		liqcell *search = liqcell_child_lookup(tagcloud,"search");
 		liqcell_setvisible(search,1);
+		liqcell_zorder_totop(search);
 		return liqcell_handlerrun(search,"keypress",args);
 	}
 	static int tagcloud_keyrelease(liqcell *self, liqcellkeyeventargs *args,liqcell *tagcloud)
@@ -398,16 +403,16 @@ liqcell *tagcloud_create()
 	if(self)
 	{
 		//############################# title:label
-		liqcell *title = liqcell_quickcreatevis("title", "label", 0,0, 400, 40);
+		liqcell *title = liqcell_quickcreatevis("title", "label", 0,0, 800, 56);
 		liqcell_setfont(	title, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (29), 0) );
 		liqcell_setcaption(title, "Select tags:" );
 		liqcell_propsets(  title, "textcolor", "rgb(255,0,0)" );
-		liqcell_propsets(  title, "backcolor", "rgb(0,0,60)" );
+		//liqcell_propsets(  title, "backcolor", "xrgb(0,0,60)" );
 		liqcell_propseti(  title, "textalign", 0 );
 		liqcell_child_append(  self, title);
 	 
 		//############################# accept:label
-		liqcell *accept = liqcell_quickcreatevis("accept", "label", 600, 440, 200, 40);
+		liqcell *accept = liqcell_quickcreatevis("accept", "label", 600, 440, 200, 56);
 		liqcell_setfont(	accept, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (35), 0) );
 		liqcell_setcaption(accept, "save" );
 		liqcell_propsets(  accept, "textcolor",   "rgb(0,255,0)" );
@@ -444,6 +449,8 @@ liqcell *tagcloud_create()
 		liqcell *search = liqcell_quickcreatevis("search","textbox",self->w*0.2 ,self->h-40,   self->w*0.4, 40);
 		liqcell_setfont(   search,  liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (24), 0) );
 		liqcell_setcaption(search, "" );
+		
+		liqcell_propsets(  search, "textcolor",   "rgb(255,255,100)" );
 		liqcell_handleradd_withcontext( search,    "click",           search_click,  self );
 		liqcell_handleradd_withcontext( search,    "captionchange",   search_change, self );
 		liqcell_setvisible(search,0);		// watch this!

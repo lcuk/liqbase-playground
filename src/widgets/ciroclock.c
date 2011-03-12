@@ -42,7 +42,7 @@ liqcell *ciroclock_create()
 		liqcell_child_insert( self, liqcell_quickcreatevis("clock",   "time",   0,0,   400,100 )    );
 
 		liqcell_propsets(     liqcell_child_lookup( self,"clock"),"timeformat","%H:%M:%S");
-		liqcell_propseti(     liqcell_child_lookup( self,"clock"),"textalign",1);
+		liqcell_propseti(     liqcell_child_lookup( self,"clock"),"textalign",2);
 		liqcell_propsets(     liqcell_child_lookup( self,"clock"),"fontname", "/usr/share/fonts/nokia/nosnb.ttf" );
 		liqcell_propseti(     liqcell_child_lookup( self,"clock"),"fontsize", 72 );
 

@@ -17,12 +17,96 @@
     int liqbase_playground_refresh_desktop_contents();
     
     
-    
+int desktopmanage_live_untickall(liqcell *desktopmanage)
+{
+    liqapp_log("desktopmanage: updating ticks");
+
+
+	liqcell *list1 = liqcell_child_lookup( desktopmanage,"list1");
+		//############################# backplane:picturebox
+		liqcell *backplane =liqcell_child_lookup( list1,"backplane");
+			//############################# listitem:picturebox
+			liqcell *listitem = liqcell_getlinkchild_visual(backplane);
+			while(listitem)
+			{
+				//if(liqcell_getflagvisual(listitem))
+				{
+                   char *key=listitem->name;
+                    liqcell *listitemlive = liqcell_child_lookup( listitem,"listitemlive");
+                    liqcell_setcaption(listitemlive,"N");
+                    liqcell_propsets(  listitemlive, "textcolor", "rgb(255,0,0)" );
+				}
+				listitem=liqcell_getlinknext_visual(listitem);
+
+			}
+}
+int desktopmanage_live_gettick(liqcell *desktopmanage,char *namebuf,int namelen)
+{
+    liqapp_log("desktopmanage: updating ticks");
+
+	snprintf(namebuf,namelen,"");
+
+	liqcell *list1 = liqcell_child_lookup( desktopmanage,"list1");
+		//############################# backplane:picturebox
+		liqcell *backplane =liqcell_child_lookup( list1,"backplane");
+			//############################# listitem:picturebox
+			liqcell *listitem = liqcell_getlinkchild_visual(backplane);
+			while(listitem)
+			{
+				//if(liqcell_getflagvisual(listitem))
+				{
+                   char *key=listitem->name;
+                    liqcell *listitemlive = liqcell_child_lookup( listitem,"listitemlive");
+                    
+					char *cap = liqcell_getcaption(listitemlive);
+					
+					if( (strcasecmp(cap,"Y")==0) )
+					{
+						snprintf(namebuf,namelen,"%s",key);
+						return 0;
+					}
+				}
+				listitem=liqcell_getlinknext_visual(listitem);
+			}
+			return -1;
+}
+int desktopmanage_live_tickone(liqcell *desktopmanage,char *name)
+{
+    liqapp_log("desktopmanage: updating ticks");
+
+
+	liqcell *list1 = liqcell_child_lookup( desktopmanage,"list1");
+		//############################# backplane:picturebox
+		liqcell *backplane =liqcell_child_lookup( list1,"backplane");
+			//############################# listitem:picturebox
+			liqcell *listitem = liqcell_getlinkchild_visual(backplane);
+			while(listitem)
+			{
+				//if(liqcell_getflagvisual(listitem))
+				{
+                   char *key=listitem->name;
+                    liqcell *listitemlive = liqcell_child_lookup( listitem,"listitemlive");
+					if( (strcasecmp(key,name)==0) )
+					{
+						liqcell_setcaption(listitemlive,"Y");
+						liqcell_propsets(  listitemlive, "textcolor", "rgb(0,255,,0)" );
+					}
+				}
+				listitem=liqcell_getlinknext_visual(listitem);
+			}
+}
 
 int desktopmanage_updateticks(liqcell *desktopmanage)
 {
     liqapp_log("desktopmanage: updating ticks");
-
+	
+	desktopmanage_live_untickall(desktopmanage);
+	
+        char *liveback = liqapp_pref_getvalue("liveback");
+        if(liveback  && *liveback)
+        {
+			desktopmanage_live_tickone(desktopmanage,liveback);
+		}
 
 	liqcell *list1 = liqcell_child_lookup( desktopmanage,"list1");
 		//############################# backplane:picturebox
@@ -108,6 +192,17 @@ static int buttonaccept_click(liqcell *self,liqcellclickeventargs *args, liqcell
 			}
     liqapp_log("desktopmanage: saving '%s'",resultset);
 	liqapp_pref_setvalue( "liqbase_playground_contents", resultset );
+	
+	char live[128]="";
+	desktopmanage_live_gettick(desktopmanage,live,128);
+	if(live[0])
+	{
+		liqapp_pref_setvalue( "liveback", live );
+	}
+	else
+		liqapp_pref_setvalue( "liveback", "" );
+	
+	
 	liqapp_prefs_save();
     
     
@@ -190,6 +285,34 @@ static int listitemtick_click(liqcell *self,liqcellclickeventargs *args, void *c
 }
 
 
+/**   
+ * listitemlive was clicked
+ */   
+static int listitemlive_click(liqcell *self,liqcellclickeventargs *args, void *context)
+{
+	// code required
+	// 20090421_191821 lcuk : switch between yes and no, eventually make into icons
+	
+	char *cap = liqcell_getcaption(self);
+	
+	if( (strcasecmp(cap,"Y")==0) )
+	{
+		//liqcell_setcaption(self,"N");
+		//liqcell_propsets(  self, "textcolor", "rgb(255,0,0)" );
+		liqcell_setcaption(self,"N");
+		liqcell_propsets(  self, "textcolor", "rgb(255,0,0)" );
+		desktopmanage_live_untickall(context);
+	}
+	else
+	{
+		// disable all others then set this one.
+		desktopmanage_live_untickall(context);
+		liqcell_setcaption(self,"Y");
+		liqcell_propsets(  self, "textcolor", "rgb(0,255,0)" );
+	}
+
+	return 1;
+}
 
 
 
@@ -487,6 +610,19 @@ liqcell *desktopmanage_create()
 					liqcell_child_append(  listitem, listitemversion);
 
 					
+					//############################# listitemlive:label
+					liqcell *listitemlive = liqcell_quickcreatevis("listitemlive", "label", 750, 30,50,50);
+					liqcell_setfont(	listitemlive, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (18), 0) );
+					liqcell_setcaption(listitemlive, "N" );
+					liqcell_propsets(  listitemlive, "textcolor", "rgb(255,0,0)" );
+                    
+					liqcell_propsets(  listitemlive, "backcolor", "rgb(40,40,40)" );
+
+					//liqcell_propsets(  listitemlive, "textcolor", "rgb(255,255,255)" );
+					//liqcell_propsets(  listitemlive, "backcolor", "rgb(0,64,0)" );
+					liqcell_propseti(  listitemlive, "textalign", 1 );
+					liqcell_handleradd_withcontext(listitemlive, "click", listitemlive_click,self );
+					liqcell_child_append(  listitem, listitemlive);
 
 					
 

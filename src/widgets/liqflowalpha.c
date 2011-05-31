@@ -76,7 +76,9 @@ static int accel_read(int *ax,int *ay,int *az)
 	FILE *fd;
 	int rs;
 	fd = fopen(accel_filename, "r");
-	if(fd==NULL){ liqapp_log("accel, cannot open for reading"); return -1;}	
+	if(fd==NULL){ 
+		//liqapp_log("accel, cannot open for reading"); 
+		return -1;}	
 	rs=fscanf((FILE*) fd,"%i %i %i",ax,ay,az);	
 	//rc=fgets(result, resultmaxlength, (FILE*) fd);
 	fclose(fd);	

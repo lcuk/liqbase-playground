@@ -499,6 +499,13 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 					if( liqimage_find_thumbnail_for(imagethumb,sizeof(imagethumb),fn) == 0 )
 					{
 						// w00t!   (hello btw)
+					}
+					else
+					{
+						snprintf(imagethumb,"%s",fn);
+					}
+
+					{
 					
 					
 					
@@ -675,11 +682,11 @@ static int liqcell_scan_folder_for_images(liqcell *self,char *path)
 
 
 /**	
- * liqrecentphotos layout - make any adjustments to fill the content as are required
+ * liqrecentphotos layout2 - make any adjustments to fill the content as are required
  */	
-static int liqrecentphotos_layout(liqcell *self,liqcelleventargs *args, liqcell *context)
+static int liqrecentphotos_layout2(liqcell *self,liqcelleventargs *args, liqcell *context)
 {
-	
+	liqapp_log("hmm");
 	liqcell *title= liqcell_child_lookup(self, "title");
 	liqcell *body= liqcell_child_lookup(self, "body");
 		liqcell *headskip= liqcell_child_lookup(body, "__headskip");
@@ -687,6 +694,8 @@ static int liqrecentphotos_layout(liqcell *self,liqcelleventargs *args, liqcell 
 		// make a normal grid
 		liqcell_setrect( body, 0, 0, liqcell_getw(self),liqcell_geth(self) );
 		liqcell_child_arrange_makegrid(body,5,3);
+
+		//liqcell_child_arrange_easytile(body);
 		
 //### use only if title in use
 		
@@ -710,7 +719,7 @@ liqcell *liqrecentphotos_create()
 	//	liqcell_propseti(self,"idle_lazyrun_wanted",1);			 // :)
 	//	liqcell_propseti(self,"multitouch_test_range",5);
 	
-	liqcell_handleradd_withcontext(self, "layout", liqrecentphotos_layout ,self);
+	liqcell_handleradd_withcontext(self, "layout2", liqrecentphotos_layout2 ,self);
 
 /*
 		//############################# title:titlebar
@@ -781,6 +790,9 @@ liqcell *liqrecentphotos_create()
 										snprintf(buf,sizeof(buf),"%s/MyDocs/DCIM",app.homepath);
 			liqcell_scan_folder_for_images(self,buf);
 
+										snprintf(buf,sizeof(buf),"%s/.liqbase/sketches",app.homepath); 
+			liqcell_scan_folder_for_images(self,buf);
+
 			//							snprintf(buf,sizeof(buf),"/home/user/MyDocs/.camera");
 			//liqcell_scan_folder_for_images(self,buf);
 	
@@ -789,7 +801,7 @@ liqcell *liqrecentphotos_create()
 		
 		
 		
-		liqcell_handlerrun(self,"layout",NULL);
+		liqcell_handlerrun(self,"layout2",NULL);
 		
 		
 		

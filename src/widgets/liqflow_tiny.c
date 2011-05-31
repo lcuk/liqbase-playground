@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <netdb.h>
 #include <sys/types.h>
+#include <math.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <stdarg.h>
@@ -43,10 +44,11 @@ typedef struct
 	int scry;
 	
 	int fat;
+	float traveldist;
 	
 } STAR;
 #define starcount 2000
-//#define starcount 10000
+//#define starcount 2000
 #define starmaxz 20
 #define starmaxspeed 0.1
 //STAR stars[starcount];
@@ -74,7 +76,9 @@ static int accel_read(int *ax,int *ay,int *az)
 	FILE *fd;
 	int rs;
 	fd = fopen(accel_filename, "r");
-	if(fd==NULL){ liqapp_log("accel, cannot open for reading"); return -1;}	
+	if(fd==NULL){ 
+		//liqapp_log("accel, cannot open for reading"); 
+		return -1;}	
 	rs=fscanf((FILE*) fd,"%i %i %i",ax,ay,az);	
 	//rc=fgets(result, resultmaxlength, (FILE*) fd);
 	fclose(fd);	
@@ -137,6 +141,8 @@ STARPOINT dude;
 		sa->scrcol=0;
 		sa->scrx=0;
 		sa->scry=0;
+		
+		sa->traveldist=0;
 
 }
 static void star_init_all(STAR *stars)
@@ -177,11 +183,11 @@ static void star_calc(STAR *stars,vgraph *graph,liqsketch *sketch, int drawwidth
     //     0 == still
     
 	float r=   0.01 * ((float)accel_fat);
-	liqapp_log("af %5i %3.2f",accel_fat,r);
+//	liqapp_log("af %5i %3.2f",accel_fat,r);
 
-	int size = 4 + (accel_fat/(1000/8));
-	
-	if(size>24)size=24;
+	//int size = 4 + (accel_fat/(1000/8));
+
+
 	
 	
 	
@@ -329,11 +335,25 @@ static void star_calc(STAR *stars,vgraph *graph,liqsketch *sketch, int drawwidth
 		sa->v.x += dt * sa->a.x;
 		sa->v.y += dt * sa->a.y;
 		//sa->v.z += dt * sa->a.z;
-
-		sa->p.x += dt * sa->v.x;
-		sa->p.y += dt * sa->v.y;
+		float pdx = dt * sa->v.x;
+		float pdy = dt * sa->v.y;
+		float pdd = sqrt(pdx*pdx+pdy*pdy);	
+		sa->p.x += pdx;
+		sa->p.y += pdy;
 		//sa->p.z += dt * sa->v.z;		
+		sa->traveldist+= pdd;
 moo:
+
+
+
+		if(sa->traveldist>500) 
+		{
+			star_init_one(sa);
+			pdd=0;
+		}	
+
+		
+
 
 		if(sa->p.x<0)
 			sa->p.x+=800;
@@ -356,17 +376,15 @@ moo:
 		sa->scrcol= 255;
 		//sa->scrcol=255;//-(50 * (sa->p.z / starmaxz));
 		
-	/*	
+		
 		if(sa->scrx<0 || sa->scry<0 || sa->scrx>=800 || sa->scry>=480) 
 		{
 			star_init_one(sa);
+			pdd=0;
 			goto moo;
 		}
-	*/	
-		
 	
-		
-		
+
 		unsigned char lim(int x)
 		{
             //x=x*accel_fat/10000;
@@ -378,6 +396,12 @@ moo:
 		
 		int magmag=150;
 		
+
+	
+	int size = 1 + (int)(pdd*0.5);
+	
+	if(size>6)size=6;
+	if(size<1)size=1;
 		
 		
 		//int magmag = 50 + (float)( (float)sqrt( (float)((sa->v.x * sa->v.x) + (sa->v.y * sa->v.y)) ) * 10 );
@@ -391,12 +415,12 @@ moo:
 		//vgraph_drawpoint(  graph, sa->scrx,sa->scry+1);
 		//vgraph_drawpoint(  graph, sa->scrx+1,sa->scry+1);
 		
-		//vgraph_setbackcolor(graph, vcolor_YUV(magmag,  lim((int)sa->v.x),lim((int)sa->v.y)    ) );
-		//vgraph_drawrect(graph, sa->scrx,sa->scry,size,size);
+		vgraph_setbackcolor(graph, vcolor_YUV(magmag,  lim((int)sa->v.x),lim((int)sa->v.y)    ) );
+		vgraph_drawrect(graph, sa->scrx,sa->scry,size,size);
         
         
-        vgraph_setpencolor(graph, vcolor_YUV(magmag,  lim((int)sa->v.x),lim((int)sa->v.y)    ) );
-        vgraph_drawpoint(  graph, sa->scrx,sa->scry);
+      //  vgraph_setpencolor(graph, vcolor_YUV(magmag,  lim((int)sa->v.x),lim((int)sa->v.y)    ) );
+      // vgraph_drawpoint(  graph, sa->scrx,sa->scry);
 		
 	}
     

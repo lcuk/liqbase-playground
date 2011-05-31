@@ -4,6 +4,8 @@
 #include <liqbase/liqcell_easyrun.h>
 
 
+#include <liqbase/liqcell_easyhandler.h>
+#include <liqbase/liqcell_arrange.h>
 
 //#include <curl/curl.h>
 
@@ -29,6 +31,49 @@ static int liqcalendar_dayview_dialog_open(liqcell *self,liqcelleventargs *args,
 	if(!titlebox)return 0;
 	
 	
+	//########################################################################
+	//########################################################################
+	//########################################################################
+	//########################################################################
+	//########################################################################
+
+	liqcell *daybar = liqcell_child_lookup(self,"daybar");
+//	if(0)
+	{
+		liqcell *daystrips = liqcell_child_lookup(daybar,"daystrips");
+
+		liqcell_child_removeallvisual( daystrips );
+
+		int daynum;
+		for(daynum=1;daynum<=30;daynum++)
+		{		
+		
+					char filedate[256] = "201105";	
+					//liqapp_formatnow(filedate,sizeof(filedate),"yyyymmdd");
+					
+					char buf[FILENAME_MAX];    snprintf(buf,sizeof(buf),"%s/cal/day%s%02d.sketch",app.userdatapath,filedate,daynum);
+
+
+			liqcell *dayitem = liqcell_quickcreatevis(buf, "sketch", 0, daynum * 56, 80, 56);
+			
+			//liqapp_log("eep %s",buf);
+			liqcell_propsets(dayitem, "sketchfilename",buf);
+
+
+			liqcell_propsets(  dayitem, "backcolor", "rgb(0,60,0)" );
+			liqcell_propsets(  dayitem, "bordercolor", "rgb(255,255,255)" );
+			liqcell_child_append(  daystrips,dayitem);				
+		}
+		liqcell_child_arrange_easycol(daystrips);
+		
+		
+	}
+	
+	//########################################################################
+	//########################################################################
+	//########################################################################
+	//########################################################################
+	//########################################################################
 	
 	
 	
@@ -99,7 +144,7 @@ static int liqcalendar_dayview_dialog_close(liqcell *self,liqcelleventargs *args
 
 				
 				// hijack this from liqtop
-				post_to_liqbase_net(fn,key,0);
+				//post_to_liqbase_net(fn,key,0);
 			}
 			
 		}
@@ -138,8 +183,23 @@ liqcell *liqcalendar_dayview_create()
 	liqcell_setvisible(  titlebox,  0 );
 	liqcell_child_append(  self, titlebox);
 	
+	
+	//############################# daybar:label
+	liqcell *daybar = liqcell_quickcreatevis("daybar", "label", 0, 0, 80, 480);
+	liqcell_propsets(  daybar, "backcolor", "rgb(0,0,0)" );
+	liqcell_child_append(  self, daybar);	
+
+		liqcell *daystrips = liqcell_quickcreatevis("daystrips", "label", 0, 0, 80, 480);
+	    liqcell_propsets(  daystrips, "backcolor", "rgb(0,0,0)" );
+		liqcell_child_append(  daybar, daystrips);	
+		
+		
+	
+					liqcell_handleradd(daystrips,    "mouse",   liqcell_easyhandler_kinetic_mouse );
+
+	
 	//############################# editor:liqtop
-	liqcell *editor = liqcell_quickcreatevis("editor", "liqsketchedit", 0,0 , 800, 480); //0, 46, 800, 434);
+	liqcell *editor = liqcell_quickcreatevis("editor", "liqsketchedit", 80 ,0 , 720, 480); //0, 46, 800, 434);
 	//liqcell_propsets(  editor, "bordercolor", "rgb(200,100,100)" );
 	//liqcell_setfont(	label6, liqfont_cache_getttf("/usr/share/fonts/nokia/nosnb.ttf", (10), 0) );
 	//liqcell_setcaption(label6, "appointments list" );

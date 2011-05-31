@@ -271,11 +271,11 @@ int main (int argc, char* argv[])
     
     if(liqapp_fileexists(fnbuf))
     {
-		liqcell_setimage(  playground ,  liqimage_cache_getfile( fnbuf,0,0,0) );
+	//	liqcell_setimage(  playground ,  liqimage_cache_getfile( fnbuf,0,0,0) );
     }
     else
     {
- 		liqcell_setimage(  playground ,  liqimage_cache_getfile( "/usr/share/liqbase/media/liqbase_back2.jpg",0,0,0) );
+ 	//	liqcell_setimage(  playground ,  liqimage_cache_getfile( "/usr/share/liqbase/media/liqbase_back2.jpg",0,0,0) );
     }
     liqcell_propseti(  playground ,  "lockaspect",0 );
 
@@ -516,11 +516,11 @@ liqcell *widgetrecent=NULL;
     
     if(liqapp_fileexists(fnbuf))
     {
-		liqcell_setimage(  mirror ,  liqimage_cache_getfile( fnbuf,0,0,0) );
+	//	liqcell_setimage(  mirror ,  liqimage_cache_getfile( fnbuf,0,0,0) );
     }
     else
     {
- 		liqcell_setimage(  mirror ,  liqimage_cache_getfile( "/usr/share/liqbase/media/liqbase_back2.jpg",0,0,0) );
+ 	//	liqcell_setimage(  mirror ,  liqimage_cache_getfile( "/usr/share/liqbase/media/liqbase_back2.jpg",0,0,0) );
     }
     
 		liqcell_propseti(  mirror ,  "lockaspect",0 );
